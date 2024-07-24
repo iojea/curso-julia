@@ -62,7 +62,7 @@ c = sumar(1,2.1)
 
 En el primero tenemos dos enteros que se suman de manera directa por su representación en binario. En el segundo tenemos un entero y un flotante. El entero debe ser convertido a flotante y sumado al otro, mediante la suma de flotantes.
 
->[!NOTE](NOTA)
+>[!NOTE]
 >Todo lo anterior no es absolutamente estricto. Con el paso del tiempo los lenguajes de tipado estático han incorporado algunas flexibilidades, muchos lenguajes interpretados admiten la posibilidad de compilación, etc. 
 
 #### Memoria
@@ -75,7 +75,7 @@ Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo c
 
 Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos lenguajes_, que está muy presente especialmente en aplicaciones científicas. Un matemático, un físico o un químico típicamente no quieren ser programadores. Su tarea central no es programar. Por lo tanto, preferirían no tener que lidiar con todos los detalles de lenguajes compilados. De ahí la popularización de lenguajes como `Matlab`, `R` o `Python`. Son lenguajes mucho más sencillos en los que uno puede escribir y probar programas muchísimo más rápido. 
 
->[!NOTE](NOTA)
+>[!NOTE]
 >Además, `Matlab` y `R` fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. `Python` no tiene esta ventaja. 
 
 Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, aplicaciones a geometría, simulaciones numéricas de problemas físicos o químicos de gran tamaño, manejo de grandes volúmenes de datos, etc.) el tiempo de ejecución se torna un problema serio. Ahí es dondee estos lenguajes fallan y es necesario pasar a lenguajes compilados que son mucho más tediosos de programar, pero dan lugar a programas mucho más rápidos. 
@@ -111,10 +111,10 @@ y = sumar(1.2,3.4)
 ```
 `Julia` _volverá a compilar_ la función, esta vez en una versión para flotantes. 
 
->[!IMPORTANT](IMPORTANTE)
+>[!IMPORTANT]
 >Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
 
->[!NOTE](Nota)
+>[!NOTE]
 >La `JIT` no es una innovación de `Julia`. El primer sistema de `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. 
 
 ##### Una ventaja educativa
