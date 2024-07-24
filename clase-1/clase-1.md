@@ -16,7 +16,7 @@ Estas notas no pretenden ser técnicamente precisas, sino sólo dar una idea gen
 En la computadora los distintos tipos de datos se almacenan de manera diferente. Por ejemplo: un _entero_ se guarda esencialmente como su representación en binario. Pero hay distintas clases de enteros: en un entero común se reserva un bit para indicar el signo, mientras que en un _Unsigned Integer_ esto no es necesario. Un número decimal, en cambio, se almacena por su representación en punto flotante. Un caracter o más en general un `string` (cadena de caracteres) se codifica en binario según algún sistema de codificación (`ASCII`, `UTF-8`, etc.). Es decir que `1`, `1.0` y `'1'`son tres cosas diferentes. Cualquier operación que involucre varios datos, como _sumar_, requiere que estos datos estén representados de un mismo modo. Por lo tanto, si hacemos `1 + 1.0` aunque nosotros no nos enteremos por detrás hay un proceso de conversión (del `1` en `1.0`). 
 
 Lenguajes como `C`, `C++` o `Fortran` requieren que uno especifique el tipo de dato de cada variable y, de ser necesario, obligan al usuario a realizar la conversión explícitamente. El siguiente es un ejemplo de función en `C`:
-```
+```C
   int addNumbers(int a, int b)         // firma   
   {
     int result;
