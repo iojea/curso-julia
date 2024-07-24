@@ -15,3 +15,9 @@ function estimate_pi(n)
     end
     return 4*n_circle/n
 end
+
+function estimate_pi_vec(n)
+    xy = 2*rand(n,2) .- 1
+    n_circle = sum(sum(xy.^2,dims=2) .<= 1)
+    return 4*n_circle/n
+end
