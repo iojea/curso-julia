@@ -170,8 +170,7 @@ Probar las siguientes sentencias:
   julia> sizeof(y)
 ```
 
->[!NOTE](Pequeñas magias de la REPL, capítulo 1)
-
+>[!NOTE]
 >¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
 >Si tipeamos `?` la consola de `Julia` pasa a modo **help**. Allí podemos tipear el nombre de la función que nos interesa, en este caso `sizeof`, y obtener una descripción de lo que hace la función. 
  >`sizeof` nos devuelve el espacio en bytes que ocupa la variable. 
