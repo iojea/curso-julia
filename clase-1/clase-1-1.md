@@ -37,6 +37,33 @@ Allí podemos escribir código y ejecutarlo (apretando enter). Para salir de la 
   julia> exit()
 ```
 
+### Modos
+
+Además del prompt para ejecutar código, la consola tiene otros tres modos que resultan muy útiles y la convierten en un entorno muy práctico para usar y gestionar `Julia`. 
+
+- Tipeando `?` se accede al modo $$\textbf{\color{orange}help}$$. Si ahí escribimos el nombre de una función, por ejemplo `length`, vemos la documentación de la función. Este modo también permite buscar expresiones regulares. Por ejemplo si buscamos "length" nos devuelve una lista de todas las funciones en cuya documentación aparece la palabra "length".
+- Tipeando `;` se accede al modo $\textbf{\color{red}shell}$, es decir: se obtiene una terminal del sistema operativo. Allí se pueden hacer cualquier operación válida en una terminal: cambiar de directorio, crear archivos, editarlos (con algún editor de terminal), moverlos, etc. Al retornar, la consola de `Julia` queda en el directorio al que nos hayamos movido desde $\textbf{\color{red}shell}$. 
+- `Julia` viene con su propio gestor de paquetes. Se accede a él tipeando `]` (modo $\textbf{\color{blue}pkg}$). Para instalar paquetes hay que ponerse en modo $\textbf{\color{blue}pkg}$ y tipear:
+
+```julia
+  pkg> add NombreDePaquete
+```
+
+Para borrar un paquete:
+```julia
+  pkg> rm NombreDePaquete
+```
+
+Para actualizar los paquetes instalados: 
+```julia
+  pkg> update
+```
+
+Cada paquete (módulo) de `Julia` identifica mediante un archivo muy sencillo sus dependencias, de modo que el gestor de paquetes las instala automáticamente.
+
+- Para salir de cualquiera de los modos basta tipear `backspace` (borrar).
+
+
 ### Primeros pasos
 
 Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr las siguientes líneas y observar el resultado. 
@@ -51,72 +78,31 @@ Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr l
 
 ```julia
   julia> x = 2
-```
-```julia
-  julia> y = 5;  
-```
-
-```julia
+  julia> x^2
+  julia> y = 3(2x+5); 
+  julia> y 
   julia> x*y 
-```
-
-```julia
-  julia> texto = "esta es una palabra";
-```
-
-```julia
-  julia> println(texto[2])
-```
-
-```julia
-  julia> println(texto[3:8])
-```
-
-```julia
-  julia> println(texto[5:end])
-```
-
-```julia
-  julia> texto[4] = "o" 
-```
-
-```julia
   julia> z = y/x
-```
-
-```julia
   julia> typeof(x)
-```
-
-```julia
   julia> typeof(z)
 ```
 
 ```julia
+  julia> texto = "esta es una palabra";
+  julia> println(texto[2])
+  julia> println(texto[3:8])
+  julia> println(texto[5:end])
   julia> typeof(texto)
+  julia> texto[4] = "o" 
 ```
+
 
 ```julia
   julia> a = [1,2,3]
-```
-
-```julia
   julia>  typeof(a)
-```
-
-```julia
   julia> length(a)
-```
-
-```julia
   julia> size(a)
-```
-
-```julia
   julia> a[2] = 8
-```
-
-```julia
   julia> a
 ```
 
@@ -128,6 +114,7 @@ Hasta aquí todo muy sencillo, pero vale la pena remarcar algunos detalles.
 - Podemos ejecutar funciones matemáticas básicas y obtener el resultado. 
 - Notar que `2/2` da como resultado `1.0`. Es decir: la división `/` devuelve siempre un flotante, incluso si se trata de una división exacta entre enteros. 
 - El `;` sirve para que la consola no muestre el resultado de la operación. Esto es así sólo en la sesión interactiva. En los archivos `.jl` no es necesario utilizar `;`. 
+- En `Julia` la multiplicación por un escalar se escribe `*`, pero el símbolo puede omitirse cuando no haya peligro de ambigüedad (nice :smile:)
 - Las comillas dobles `"` permiten definir `Strings`.
 - Las `Strings` y los vectores (y muchas otras colecciones) son indexables, pero la indexación comienza en `1` (como en `Matlab` y `Fortran` y al contrario de `C` y `Python`, que empiezan en `0`).
 - Se puede indexar usando rangos: `3:8` devolverá todos los casilleros desde el tercero hasta el octavo _inclusive_. 
@@ -151,6 +138,11 @@ Probar las siguientes sentencias:
 
 
 ```julia
+  julia> c = 2+3im
+  julia> abs(c) 
+```
+
+```julia
   julia> 2÷2
   julia> 7÷3
   julia> 7%3
@@ -170,11 +162,146 @@ Probar las siguientes sentencias:
   julia> sizeof(y)
 ```
 
->[!NOTE] 
->**Pequeñas magias de la REPL, capítulo 1**
->¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
->Si tipeamos `?` la consola de `Julia` pasa a modo **help**. Allí podemos tipear el nombre de la función que nos interesa, en este caso `sizeof`, y obtener una descripción de lo que hace la función. 
- >`sizeof` nos devuelve el espacio en bytes que ocupa la variable. 
- >Para salir del modo **help** basta con teclear `backspace` (borrar). 
+```julia
+  julia> x = collect(x);
+  julia> push!(x,2.3)
+  julia> x
+  julia> typeof(x)
+  julia> valor = pop!(x)
+  julia> valor
+  julia> x
+```
+
+```julia
+  julia> t= (3,4,7);
+  julia> typeof(t)
+  julia> t[2]
+  julia> t[1:end-1]
+  julia> t[1] = 5
+```
+
+#### Pasando en limpio
+
+- `Julia` incorpora caracteres unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente del entorno, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
+- `Julia` tiene números racionales, mediante `//`.
+- Los números complejos se escriben indicando la unidad imaginaria como `im`.
+- `a:b` indica el _rango_ de enteros: `a,a+1,...,b`. Si se intercala otro número, es el paso: `inicio:paso:fin`. En este caso, los números pueden ser flotantes, por ejemplo: `0:0.1:1`. 
+- `collect()` convierte el _rango_ (y casi cualquier otra cosa) en un vector.
+- Los _rangos_ se almacenan de manera _lazy_: se guarda la instrucción para construir el rango, pero no los números que lo forman. Por eso ocupa mucho menos espacio que el vector correspondiente.
+- Las funciones `push!()` y `pop!()` permiten poner y sacar elementos de un vector (al final). También existen funciones `pushfirst!()` y `popfirst!()`. En este sentido, los vectores puede funcionar como las listas en `Python`. 
+
+>[!NOTE]
+> El `!` en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de `Julia`. Indica que la función modifica su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones.
+
+- Las tuplas se crean con paréntesis, son indexables e **inmutables**. El tipo de una tupla está determinado por los tipos de sus elementos. 
+
+### Terceros pasos 
+
+Probemos un poco más de código: 
 
 
+```julia
+  julia> f(x) = 2x^2+1
+  julia> z = f(2)
+  julia> typeof(z)
+  julia> w = f(1e-2)
+  julia> typeof(w)
+```
+
+```julia
+  julia> v = [1,2,3]
+  julia> f(v)  
+```
+
+Vemos que no se puede evaluar `f` en un vector. El problema es que `^` no está definida para vectores. `+ ` tampoco está definida entre vectores y escalares.
+
+Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estándar para gráficos (hay otros). Para ello corremos: 
+
+```
+  julia> using Plots
+```
+
+[!NOTE] Hay dos comandos para importar paquetes. Uno es `import`, que es similar al `import` de `Python`. Si uno usa `import` es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: `Plots.plot()`. El otro es `using` que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente `plot()`). En general en `Julia` se prefiere `using`. 
+
+El primer dibujo simplón se puede hacer simplemente con: 
+
+```
+  julia> plot(f)
+```
+
+Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente, necesitamos valores para $x$ sobre los que queremos evaluar la función:
+
+```
+  julia> plot(-1:0.1:1,f)
+```
+
+Notar que en general en otros lenguajes una función como `plot()` requiere dos secuencias de datos: una con valores de $x$ y otra con valores de $y$. Aquí les estamos pasando un _rango_ (una forma de vector, digamos) y una _**función**_. 
+
+También funciona en el formato usual. Para ello tendríamos que generar un vector de evaluaciones de $f$. En lugar de hacerlo con $f$, probemos con otra función. 
+
+```
+  julia> x = -1:0.1:1
+  julia> y = zeros(length(x))
+  julia> for i in 1:length(x)
+             y[i] = cos(x[i])
+         end
+  julia> plot(x,y)              
+```
+
+De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código que cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de $x$. Una alternativa piola es:
+
+```
+  julia> for i in eachindex(x)
+  ...
+```
+
+La función `eachindex()` devuelve la secuencia de índices de $x$ esto tiene varios sentidos: 
+- No necesitamos conocer previamente la longitud de $x$. 
+- Si bien el estándar es indexar desde 1, `Julia` admite _offset arrays_ (indexados arbitrariamente). `eachindex()` es automáticamente compatible con estos arrays.
+- Al recorrer un array se realiza una verificaación de que los índices son admisibles. `eachindex()` permite saltearse ese proceso, dado que por definición se correrán índices válidos (de $x$).
+- Para codificar caracteres unicode `Julia` usa el estandar `UTF-8` que es un sistema de longitud variable: los caracteres pueden ocupar entre 1 y 4 bytes. Los índices de un `String` cuentan bytes:
+```julia
+  julia> a = "αβ∀x"
+  julia> length(a)
+  julia> a[2]
+  julia> for k in eachindex(a)
+             println(k)
+         end
+```
+
+
+También hay una alternativa más compacta: 
+
+```julia
+  julia> y = [f(xx) for xx in x]
+  julia> plot(x,y)              
+```
+
+Es decir: `Julia` admite definiciones por comprensión.
+
+### Broadcasting
+
+Sin embargo, el mecanismo más natural para evaluar una función sobre un vector casillero a casillero no es ninguna de las anteriores, sino lo que se llama _broadcasting_: 
+
+```
+  julia> y = cos.(x)
+```
+
+El `.` indica que la función debe aplicarse lugar a lugar. Esto luce similar a `Matlab`, pero en realidad es bastante distinto. En `Matlab` el `.` debe aplicarse sobre cada operación problemática: `y = x.^2+x.^3`. En `Julia` la sintaxis es general se aplica a todo el lenguaje. En particular, en este caso lo podemos aplicar directamente a cualquier función: 
+
+```julia
+  julia> g(x) = cos(x^2)-exp(x+1)
+  julia> yf = g.(x)
+```
+
+Ni el cuadrado, ni sumar uno, ni la exponencial ni el coseno son funciones admisibles sobre vectores. Sin embargo aplicamos el `.` sólo cuando evaluamos $g$. No se realiza cada operación por separado casillero a casillero, sino que directamente se evalúa $g$ en cada lugar. La notación `g.(x)` es equivalente a `broadcast(g,x)`. 
+
+Por último, ¿Cómo hacemos dos gráficos juntos?
+
+```julia
+  julia> plot(x,f.(x))
+  julia> plot!(x,g.(x))
+```
+
+Hay dos versiones de `plot`: `plot` y `plot!` (hay muchos casos similares). La segunda _modifica_ el gráfico existente y por lo tanto hace el segundo gráfico sobre el primero. 
+ 
