@@ -171,13 +171,16 @@ Probar las siguientes sentencias:
 ```
 
 > <span style="color:teal">**Pequeñas magias de la REPL, capítulo 1**</span>
+> 
 > ¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
+> 
 > Si tipeamos `?`:
 > ```julia
 >   julia>? 
 > ```
 > la consola de `Julia` pasa a modo **help**. Allí podemos tipear el nombre de la función que nos interesa, en este caso `sizeof`, y obtener una descripción de lo que hace la función. 
 > `sizeof` nos devuelve el espacio en bytes que ocupa la variable. 
+> 
 > Para salir del modo **help** basta con teclear `backspace` (borrar). 
 
 
