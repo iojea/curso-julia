@@ -172,7 +172,7 @@ Probar las siguientes sentencias:
 
 ```html
 <div style="color: #ff0000; background-color: #ffbaba; padding: 10px; border: 3px dashed; border-radius: 10px;"
-**Pequeñas magias de la REPL, capítulo 1**</span>
+**Pequeñas magias de la REPL, capítulo 1**
 
  ¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
  Si tipeamos `?`:
