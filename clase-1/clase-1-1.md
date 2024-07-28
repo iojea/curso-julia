@@ -170,7 +170,6 @@ Probar las siguientes sentencias:
   julia> sizeof(y)
 ```
 
-```html
 <div style="color: #ff0000; background-color: #ffbaba; padding: 10px; border: 3px dashed; border-radius: 10px;">
 Pequeñas magias de la REPL, capítulo 1
 
@@ -182,6 +181,5 @@ la consola de `Julia` pasa a modo **help**. Allí podemos tipear el nombre de la
  `sizeof` nos devuelve el espacio en bytes que ocupa la variable. 
  Para salir del modo **help** basta con teclear `backspace` (borrar). 
 </div> 
-```
 
 
