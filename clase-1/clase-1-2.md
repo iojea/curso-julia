@@ -1,15 +1,14 @@
 # Intro a `Julia`
 
-## Clase 1: Parte 2
+## Clase 1: un poco de _teoría_
 
 ### Nociones generales
 
-Empecemos un poco teóricamente, posicionando a `Julia` dentro del universo de lenguajes de programación. 
+>[!WARNING]
+> La idea de estas notas (muy poco) teóricas es posicionar a `Julia` dentro de l universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en `Julia`. 
+
 
 A los fines de lo que nos interesa podemos pensar los lenguajes de programación en dos grandes grupos: los lenguajes más _rígidos_ y los más _flexibles_ (no hay una distinción tajante entre ambos). Los lenguajes más rígidos tienden a ser de tipado estricto y _compilados_ y los más flexibles tienden a ser de tipado dinámico e _interpretados_. A primera vista `Julia` luce como un lenguaje de los _flexibles_, pero en realidad en este y en muchos otros aspectos es más bien un _híbrido_. 
-
->[!WARNING]
->Estas notas no pretenden ser técnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en `Julia`. 
 
 #### Tipado dinámico vs estático
 
@@ -69,7 +68,7 @@ En el primero tenemos dos enteros que se suman de manera directa por su represen
 
 Suele haber otras diferencias entre lenguajes compilados e interpretados. Una de ellas (bastante sensible) es el manejo de la memoria. Cuando uno escribe un programa medianamente sofisticado suelen aparecer muchas variables auxiliares. Estas variables pueden ocupar mucho espacio (vectores o matrices, por ejemplo). En los lenguajes compilados suele ser necesario indicar de manera precisa qué va a hacer uno con el espacio ocupado por esas variables. Hay que reservar el espacio previamente, y liberarlo cuando la variable ya no se necesita. No hacer esto adecuadamente puede derivar en resultados catastróficos como quedarse sin memoria o intentar usar un bloque de memoria de acceso restringido (`segmentation fault`). El manejo de memoria conlleva una sintaxis específica y **mucho** cuidado. 
 
-Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo cual liberan al programador de bastantes preocupaciones. El costo, sin embargo es alto: los intérpretes son muy conservadores y procuran no liberar memoria a menos que estén absolutamente seguros de hacerlo no causará daños. Por lo tanto, un programa interpretado tiende a hacer un uso de memoria mucho más intensivo que uno previamente compilado (lo que a su vez lleva más tiempo).
+Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo cual liberan al programador de bastantes preocupaciones. El costo, sin embargo es alto: los intérpretes son muy conservadores y procuran no liberar memoria a menos que estén absolutamente seguros de hacerlo no causará daños. Por lo tanto, un programa interpretado tiende a hacer un uso de memoria mucho más intensivo que uno previamente compilado y a perder mucho más tiempo liberando memoria ocupada.
 
 #### El problema de los dos lenguajes
 
@@ -78,7 +77,7 @@ Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos leng
 >[!NOTE]
 >Además, `Matlab` y `R` fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. `Python` no tiene esta ventaja. 
 
-Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, aplicaciones a geometría, simulaciones numéricas de problemas físicos o químicos de gran tamaño, manejo de grandes volúmenes de datos, etc.) el tiempo de ejecución se torna un problema serio. Ahí es dondee estos lenguajes fallan y es necesario pasar a lenguajes compilados que son mucho más tediosos de programar, pero dan lugar a programas mucho más rápidos. 
+Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, aplicaciones a geometría, simulaciones numéricas de problemas físicos o químicos de gran tamaño, manejo de grandes volúmenes de datos, etc.) el tiempo de ejecución se torna un problema serio. Ahí es donde estos lenguajes fallan y es necesario pasar a lenguajes compilados que son mucho más tediosos de programar, pero dan lugar a programas mucho más rápidos. 
 
 Por lo tanto, en muchos casos se da una dinámica de dos lenguajes: los algoritmos se bocetan, se prueban y se ajustan en `Matlab` o `Python` pero la versión final se escribe en `C` o `Fortran`. Alternativamente, se usan los dos lenguajes al mismo tiempo: todo lo que hace a la interfaz del usuario (las funciones que el usuario llama, el sitio web o incluso una ventanita con botones) se implementan en `Python`, pero las rutinas críticas se escriben en `C`. El ejemplo más notorio de esta filosofía son las propias librerías de `Python`: `Numpy` y `Scipy` son librerías que permiten hacer operaciones matemáticas sofisticadas escribiendo código `Python`. Sin embargo, las librerías en sí están escritas en `C` y `C++` y hacen uso de diversas funciones de `Fortran`. Algo similar ocurre con `Matlab` en su conjunto. 
 
@@ -93,9 +92,9 @@ function sumar(a,b)
 end
 ```
 
-Sin embargo, `Julia` es un **lenguaje compilado** de **tipado dinámico**. Para lograr esto `Julia` hace uso de lo que se llama _Just In Time Compilation_. Además, `Julia` tiene algunas otras pecualiaridades que vale la pena mencionar. 
+Sin embargo, `Julia` es un **lenguaje compilado** de **tipado dinámico** (con tipado opcional). Para lograr esto `Julia` hace uso de lo que se llama _Just In Time Compilation_. Además, `Julia` tiene algunas otras pecualiaridades que vale la pena mencionar. 
 
-#### JIT
+#### JIT Compilation
 
 En `Julia` (en principio) uno no obtiene un ejecutable, sino que, como ocurre en `Python`, `R` o `Matlab` uno escribe un archivo de texto plano con el código y luego directamente ejecuta ese código. Lo que ocurre es que al hacer esto `Julia` infiere los tipos de las variables y **compila** una versión de las funciones que uno escribió adecuada a los tipos inferidos. Esa versión compilada se almacena en memoria y dura mientras la sesión de `Julia` se encuentre abierta. 
 
@@ -115,7 +114,7 @@ y = sumar(1.2,3.4)
 >Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
 
 >[!NOTE]
->La `JIT` no es una innovación de `Julia`. El primer sistema de `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. 
+>La compilación `JIT` no es una innovación de `Julia`. El primer sistema de compilación `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, `Julia` combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
 
 ##### Una ventaja educativa
 
@@ -125,6 +124,17 @@ En `Matlab` la tendencia natural es a escribir _scripts_. Es decir: secuencias d
 
 Un curso en el que se intente aprovechar las características de `Julia` debería hacer hincapié en el uso de funciones, que son el pilar fundamental sobre el que está construido el lenguaje. De este modo, `Julia` ayuda a introducir una buena practica de programación desde el inicio. 
 
-#### Multiple dispatch
+#### `Julia` de verdad es rápido.
+
+`Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de $10^15$ operaciones de punto flontante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
+
+A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones máticas típicas ($1$ corresponde al tiempo obtenido en `C`):
+
+
+![Alt text](/clase-1/images/mat_ops.png)
+
+Y luego una comparación general de lenguajes comparando tiempo de ejecución y longitud de código. 
+
+![Alt text](/clase-1/images/all_lang_summary.png)
 
 
