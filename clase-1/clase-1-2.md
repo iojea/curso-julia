@@ -1,6 +1,6 @@
 # Intro a `Julia`
 
-## Clase 1: Generalidades y primeros pasos
+## Clase 1: Parte 2
 
 ### Nociones generales
 
