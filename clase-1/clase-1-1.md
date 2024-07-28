@@ -170,7 +170,7 @@ Probar las siguientes sentencias:
   julia> sizeof(y)
 ```
 
-> [!Pequeñas magias de la REPL, capítulo 1]
+> <span style="color:teal">**Pequeñas magias de la REPL, capítulo 1**</span>
 > ¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
 > Si tipeamos `?`:
 > ```julia
