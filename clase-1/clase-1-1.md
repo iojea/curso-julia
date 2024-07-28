@@ -171,8 +171,8 @@ Probar las siguientes sentencias:
 ```
 
 
-<div style="color: #ff0000; background-color: #ffbaba; padding: 10px; border: 3px dashed; border-radius: 10px;">
-**Pequeñas magias de la REPL, capítulo 1**</span>
+<div style="color: #ff0000; background-color: #ffbaba; padding: 10px; border: 3px dashed; border-radius: 10px;"
+>**Pequeñas magias de la REPL, capítulo 1**</span>
 
 > ¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
 > Si tipeamos `?`:
@@ -182,7 +182,7 @@ Probar las siguientes sentencias:
 > la consola de `Julia` pasa a modo **help**. Allí podemos tipear el nombre de la función que nos interesa, en este caso `sizeof`, y obtener una descripción de lo que hace la función. 
 > `sizeof` nos devuelve el espacio en bytes que ocupa la variable. 
 > Para salir del modo **help** basta con teclear `backspace` (borrar). 
-</div>> 
+</div> 
 
 
 
