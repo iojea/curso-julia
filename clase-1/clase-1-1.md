@@ -157,6 +157,28 @@ Probar las siguientes sentencias:
 ```
 (para obtener `÷`, tipear `\div`+`tab`). 
 
+```julia
+  julia> x = 1:10
+  julia> typeof(x)
+  julia> y = 3:2:1000
+  julia> typeof(y)
+  julia> length(y)
+  julia> collect(x)
+  julia> z = collect(y)
+  julia> typeof(z) 
+  julia> sizeof(z)
+  julia> sizeof(y)
+```
+
+>[!Pequeñas magias de la REPL, capítulo 1]
+>¿Qué hace la función `sizeof()` y por qué da distinto en `y` y en `z`? 
+>Si tipeamos `?`:
+>```julia
+>  julia>? 
+>```
+>la consola de `Julia` pasa a modo **help**. Allí podemos tipear el nombre de la función que nos interesa, en este caso `sizeof`, y obtener una descripción de lo que hace la función. 
+>`sizeof` nos devuelve el espacio en bytes que ocupa la variable. 
+>Para salir del modo **help** basta con teclear `backspace` (borrar). 
 
 
 
