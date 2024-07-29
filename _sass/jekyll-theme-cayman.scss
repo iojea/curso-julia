@@ -271,10 +271,23 @@ a {
 
 warnbox, .warnbox {
   width: 90%;
-  background-color: #e6b5da;
+  background-color: #fbd1d7;
   border-width: 2px;
   border-style: solid;
-  border-color: red;
+  border-color: #f7576e;
+  border-radius: 10px;
+  align: center;
+  padding:1em;
+  margin: auto;
+}
+
+
+notebox, .notebox {
+  width: 90%;
+  background-color: #82dada;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #0a9090;
   border-radius: 10px;
   align: center;
   padding:1em;
