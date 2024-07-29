@@ -4,5 +4,6 @@ remote_theme: pages-themes/cayman@v0.2.0
 #remote_theme: pages-themes/tactile@v0.2.0
 plugins: 
   - jekyll-remote-theme
+  - jektex
 title: Micro curso de Julia
 description: Micro curso de Julia para el Departamento de Matemática de Exactas - UBA. 
