@@ -1,1 +1,3 @@
-gem 'jekyll-latex'
+group :jekyll_plugins do
+    gem "jektex"
+end
