@@ -269,7 +269,7 @@ a {
   }
 
 
-warnbox {
+.warnbox {
   width:90%;
   background-color:pink;
   border-width:2px;
@@ -279,6 +279,7 @@ warnbox {
   align:center;
   padding:1em;
 }
+
   pre code,
   pre tt {
     display: inline;
