@@ -81,8 +81,11 @@ Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo c
 
 Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos lenguajes_, que está muy presente especialmente en aplicaciones científicas. Un matemático, un físico o un químico típicamente no quieren ser programadores. Su tarea central no es programar. Por lo tanto, preferirían no tener que lidiar con todos los detalles de lenguajes compilados. De ahí la popularización de lenguajes como `Matlab`, `R` o `Python`. Son lenguajes mucho más sencillos en los que uno puede escribir y probar programas muchísimo más rápido. 
 
->[!NOTE]
->Además, `Matlab` y `R` fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. `Python` no tiene esta ventaja. 
+<div class="notebox">
+<span style="font-weight:bold;color:#A09090;">Nota:</span>
+
+Además, `Matlab` y `R` fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. `Python` no tiene esta ventaja. 
+</div>
 
 Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, aplicaciones a geometría, simulaciones numéricas de problemas físicos o químicos de gran tamaño, manejo de grandes volúmenes de datos, etc.) el tiempo de ejecución se torna un problema serio. Ahí es donde estos lenguajes fallan y es necesario pasar a lenguajes compilados que son mucho más tediosos de programar, pero dan lugar a programas mucho más rápidos. 
 
@@ -117,11 +120,17 @@ y = sumar(1.2,3.4)
 ```
 `Julia` _volverá a compilar_ la función, esta vez en una versión para flotantes. 
 
->[!IMPORTANT]
->Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
+<div class="importantbox">
+<span style="font-weight:bold;color:#5743a4">Importante:</span>
 
->[!NOTE]
->La compilación `JIT` no es una innovación de `Julia`. El primer sistema de compilación `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, `Julia` combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
+Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
+</div>
+
+<div class="notebox">
+<span style="font-weight:bold;color:#A09090;">Nota:</span>
+
+La compilación `JIT` no es una innovación de `Julia`. El primer sistema de compilación `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, `Julia` combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
+</div>
 
 ### Una ventaja educativa
 

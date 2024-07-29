@@ -294,6 +294,18 @@ notebox, .notebox {
   margin: auto;
 }
 
+importantbox, .importantbox {
+  width: 90%;
+  background-color: #b4a2f7;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #5743a4;
+  border-radius: 10px;
+  align: center;
+  padding:1em;
+  margin: auto;
+}
+
   pre code,
   pre tt {
     display: inline;
