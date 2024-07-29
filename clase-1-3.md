@@ -6,10 +6,10 @@ title: "Clase 1 - Tercera parte - Un poco de teoría"
   
 # Nociones generales
 
-<p style="background-color:pink">
+<div style="background-color:pink">
 > <span style="color:red">**Advertencia**</span>
 > La idea de estas notas (muy poco) teóricas es posicionar a `Julia` dentro de l universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en `Julia`. 
-</p>
+</div>
 
 
 A los fines de lo que nos interesa podemos pensar los lenguajes de programación en dos grandes grupos: los lenguajes más _rígidos_ y los más _flexibles_ (no hay una distinción tajante entre ambos). Los lenguajes más rígidos tienden a ser de tipado estricto y _compilados_ y los más flexibles tienden a ser de tipado dinámico e _interpretados_. A primera vista `Julia` luce como un lenguaje de los _flexibles_, pero en realidad en este y en muchos otros aspectos es más bien un _híbrido_. 
