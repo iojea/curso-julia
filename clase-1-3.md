@@ -126,7 +126,7 @@ y = sumar(1.2,3.4)
 Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
 </div>
 
-
+<br>
 
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
