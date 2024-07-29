@@ -4,7 +4,7 @@ title: "Clase 1 - Primera parte - La consola"
 #permalink: https://iojea.github.io/curso-julia/clase-
 ---
 
-### Instalación
+# Instalación
 
 `Julia` es gratuito y de código abierto (no sólo eso sino que, como remarcaremos reiteradamente, la mayor parte del código ¡está escrito en `Julia`!). La instalación es muy sencilla, siguiendo las instrucciones en el sitio de [Descargas](https://julialang.org/downloads/). La opción recomendada es abrir una terminal y correr el siguiente código (requiere conexión a internet):
 
@@ -21,7 +21,7 @@ La segunda alternativa es bajar un instalador o un binario específico para el s
 
 En cualquiera de los casos se obtendrá una instalación del núcleo de `Julia` (lo que se llama `Julia Base`) más algunas librerías consideradas básicas (`Statistics`, `LinearAlgebra`, etc.) que se incluyen en el paquete básico pero deben importarse en caso de querer usarlas. Existen muchísimos otros paquetes, que pueden instalarse aparte (desde `Julia`). 
 
-### La (o el?) REPL
+# La (o el?) REPL
 
 Una vez realizada la instalación lo más común (y recomendable) es usar `Julia` a través de la REPL (Read, Eval, Print Loop), a la que llamaremos simplemente "consola". En Windows probablmente se genere un ícono de `Julia`, que permitirá abrir la consola. En Linux y MacOS debería bastar correr el comando `julia` en una terminal.
 
@@ -39,7 +39,7 @@ Allí podemos escribir código y ejecutarlo (apretando enter). Para salir de la 
   julia> exit()
 ```
 
-### Modos
+# Modos
 
 Además del prompt para ejecutar código, la consola tiene otros tres modos que resultan muy útiles y la convierten en un entorno muy práctico para usar y gestionar `Julia`. 
 
@@ -66,7 +66,7 @@ Cada paquete (módulo) de `Julia` identifica mediante un archivo muy sencillo su
 - Para salir de cualquiera de los modos basta tipear `backspace` (borrar).
 
 
-### Primeros pasos
+# Primeros pasos
 
 Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr las siguientes líneas y observar el resultado. 
 
@@ -109,7 +109,7 @@ Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr l
 ```
 
 
-#### Pasando en limpio
+## Pasando en limpio
 
 Hasta aquí todo muy sencillo, pero vale la pena remarcar algunos detalles.
 
@@ -125,7 +125,7 @@ Hasta aquí todo muy sencillo, pero vale la pena remarcar algunos detalles.
 - Los `Strings` son inmutables: no podemos modificar un caracter. 
 - Los vectores son mutables: podemos modificarlos parcial o totalmente. 
 
-### Segundos pasos
+# Segundos pasos
 
 Una de las preocupaciones de `Julia` es la expresividad. La idea es que la matemática se exprese en el código de la manera más sencilla posible. Un pequeño truquito para facilitar esa expresividad es la admisión de caracteres unicode. Por ejemplo, en `Julia` podemos tener una variable llamada `α`. Para escribirla, basta tipear `\alpha` y luego `tab`. 
 
@@ -182,7 +182,7 @@ Probar las siguientes sentencias:
   julia> t[1] = 5
 ```
 
-#### Pasando en limpio
+## Pasando en limpio
 
 - `Julia` incorpora caracteres unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente del entorno, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
 - `Julia` tiene números racionales, mediante `//`.
@@ -197,7 +197,7 @@ Probar las siguientes sentencias:
 
 - Las tuplas se crean con paréntesis, son indexables e **inmutables**. El tipo de una tupla está determinado por los tipos de sus elementos. 
 
-### Terceros pasos 
+# Terceros pasos 
 
 Probemos un poco más de código: 
 
@@ -281,7 +281,7 @@ También hay una alternativa más compacta:
 
 Es decir: `Julia` admite definiciones por comprensión.
 
-### Broadcasting
+# Broadcasting
 
 Sin embargo, el mecanismo más natural para evaluar una función sobre un vector casillero a casillero no es ninguna de las anteriores, sino lo que se llama _broadcasting_: 
 

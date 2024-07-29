@@ -4,7 +4,7 @@ title: "Clase 1 - Tercera parte - Un poco de teoría"
 #permalink: https://iojea.github.io/curso-julia/clase-
 ---
   
-### Nociones generales
+# Nociones generales
 
 >[!WARNING]
 > La idea de estas notas (muy poco) teóricas es posicionar a `Julia` dentro de l universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en `Julia`. 
@@ -12,7 +12,7 @@ title: "Clase 1 - Tercera parte - Un poco de teoría"
 
 A los fines de lo que nos interesa podemos pensar los lenguajes de programación en dos grandes grupos: los lenguajes más _rígidos_ y los más _flexibles_ (no hay una distinción tajante entre ambos). Los lenguajes más rígidos tienden a ser de tipado estricto y _compilados_ y los más flexibles tienden a ser de tipado dinámico e _interpretados_. A primera vista `Julia` luce como un lenguaje de los _flexibles_, pero en realidad en este y en muchos otros aspectos es más bien un _híbrido_. 
 
-#### Tipado dinámico vs estático
+## Tipado dinámico vs estático
 
 En la computadora los distintos tipos de datos se almacenan de manera diferente. Por ejemplo: un _entero_ se guarda esencialmente como su representación en binario. Pero hay distintas clases de enteros: en un entero común se reserva un bit para indicar el signo, mientras que en un _Unsigned Integer_ esto no es necesario. Un número decimal, en cambio, se almacena por su representación en punto flotante. Un caracter o más en general un `string` (cadena de caracteres) se codifica en binario según algún sistema de codificación (`ASCII`, `UTF-8`, etc.). Es decir que `1`, `1.0` y `'1'`son tres cosas diferentes. Cualquier operación que involucre varios datos, como _sumar_, requiere que estos datos estén representados de un mismo modo. Por lo tanto, si hacemos `1 + 1.0` aunque nosotros no nos enteremos por detrás hay un proceso de conversión (del `1` en `1.0`). 
 
@@ -37,7 +37,7 @@ Lenguajes como `Python` o `Matlab` no tienen este requirimiento. En el momento d
 
 El tipado está asociado a otra característica fundamental de estos lenguajes: la _compilación_.
 
-#### Compilar vs. Interpretar
+## Compilar vs. Interpretar
 
 El código que efectivamente se ejecuta en un procesador no es el código que uno escribe (sea en `C`, en `Python` o en `Java`). Para que un código se ejecute hay un proceso de _traducción_ que lleva lo que uno escribió a lenguaje de máquina. Ese proceso es costoso y **lleva tiempo**. 
 
@@ -66,13 +66,13 @@ En el primero tenemos dos enteros que se suman de manera directa por su represen
 >[!NOTE]
 >Todo lo anterior no es absolutamente estricto. Con el paso del tiempo los lenguajes de tipado estático han incorporado algunas flexibilidades, muchos lenguajes interpretados admiten la posibilidad de compilación, etc. 
 
-#### Memoria
+## Memoria
 
 Suele haber otras diferencias entre lenguajes compilados e interpretados. Una de ellas (bastante sensible) es el manejo de la memoria. Cuando uno escribe un programa medianamente sofisticado suelen aparecer muchas variables auxiliares. Estas variables pueden ocupar mucho espacio (vectores o matrices, por ejemplo). En los lenguajes compilados suele ser necesario indicar de manera precisa qué va a hacer uno con el espacio ocupado por esas variables. Hay que reservar el espacio previamente, y liberarlo cuando la variable ya no se necesita. No hacer esto adecuadamente puede derivar en resultados catastróficos como quedarse sin memoria o intentar usar un bloque de memoria de acceso restringido (`segmentation fault`). El manejo de memoria conlleva una sintaxis específica y **mucho** cuidado. 
 
 Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo cual liberan al programador de bastantes preocupaciones. El costo, sin embargo es alto: los intérpretes son muy conservadores y procuran no liberar memoria a menos que estén absolutamente seguros de hacerlo no causará daños. Por lo tanto, un programa interpretado tiende a hacer un uso de memoria mucho más intensivo que uno previamente compilado y a perder mucho más tiempo liberando memoria ocupada.
 
-#### El problema de los dos lenguajes
+## El problema de los dos lenguajes
 
 Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos lenguajes_, que está muy presente especialmente en aplicaciones científicas. Un matemático, un físico o un químico típicamente no quieren ser programadores. Su tarea central no es programar. Por lo tanto, preferirían no tener que lidiar con todos los detalles de lenguajes compilados. De ahí la popularización de lenguajes como `Matlab`, `R` o `Python`. Son lenguajes mucho más sencillos en los que uno puede escribir y probar programas muchísimo más rápido. 
 
@@ -83,7 +83,7 @@ Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, ap
 
 Por lo tanto, en muchos casos se da una dinámica de dos lenguajes: los algoritmos se bocetan, se prueban y se ajustan en `Matlab` o `Python` pero la versión final se escribe en `C` o `Fortran`. Alternativamente, se usan los dos lenguajes al mismo tiempo: todo lo que hace a la interfaz del usuario (las funciones que el usuario llama, el sitio web o incluso una ventanita con botones) se implementan en `Python`, pero las rutinas críticas se escriben en `C`. El ejemplo más notorio de esta filosofía son las propias librerías de `Python`: `Numpy` y `Scipy` son librerías que permiten hacer operaciones matemáticas sofisticadas escribiendo código `Python`. Sin embargo, las librerías en sí están escritas en `C` y `C++` y hacen uso de diversas funciones de `Fortran`. Algo similar ocurre con `Matlab` en su conjunto. 
 
-### Julia
+# Julia
 
 A primera vista, `Julia` luce como un lenguaje interpretado, de tipado dinámico. Por ejemplo: la función `sumar` en `Julia` se puede escribir: 
 
@@ -96,7 +96,7 @@ end
 
 Sin embargo, `Julia` es un **lenguaje compilado** de **tipado dinámico** (con tipado opcional). Para lograr esto `Julia` hace uso de lo que se llama _Just In Time Compilation_. Además, `Julia` tiene algunas otras pecualiaridades que vale la pena mencionar. 
 
-#### JIT Compilation
+## JIT Compilation
 
 En `Julia` (en principio) uno no obtiene un ejecutable, sino que, como ocurre en `Python`, `R` o `Matlab` uno escribe un archivo de texto plano con el código y luego directamente ejecuta ese código. Lo que ocurre es que al hacer esto `Julia` infiere los tipos de las variables y **compila** una versión de las funciones que uno escribió adecuada a los tipos inferidos. Esa versión compilada se almacena en memoria y dura mientras la sesión de `Julia` se encuentre abierta. 
 
@@ -118,7 +118,7 @@ y = sumar(1.2,3.4)
 >[!NOTE]
 >La compilación `JIT` no es una innovación de `Julia`. El primer sistema de compilación `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, `Julia` combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
 
-##### Una ventaja educativa
+### Una ventaja educativa
 
 En `Matlab` la tendencia natural es a escribir _scripts_. Es decir: secuencias de instrucciones de código. Esto es muy poco recomendable por muchas razones. Siempre es mejor escribir _funciones_ que realicen tareas pequeñas y específicas y luego llamar a esas funciones para procesar cada instancia particular de datos. 
 
@@ -126,7 +126,7 @@ En `Matlab` la tendencia natural es a escribir _scripts_. Es decir: secuencias d
 
 Un curso en el que se intente aprovechar las características de `Julia` debería hacer hincapié en el uso de funciones, que son el pilar fundamental sobre el que está construido el lenguaje. De este modo, `Julia` ayuda a introducir una buena practica de programación desde el inicio. 
 
-#### `Julia` de verdad es rápido.
+## `Julia` de verdad es rápido.
 
 `Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de `10^15` operaciones de punto flontante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
 
