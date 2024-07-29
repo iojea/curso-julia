@@ -192,8 +192,11 @@ Probar las siguientes sentencias:
 - Los _rangos_ se almacenan de manera _lazy_: se guarda la instrucción para construir el rango, pero no los números que lo forman. Por eso ocupa mucho menos espacio que el vector correspondiente.
 - Las funciones `push!()` y `pop!()` permiten poner y sacar elementos de un vector (al final). También existen funciones `pushfirst!()` y `popfirst!()`. En este sentido, los vectores puede funcionar como las listas en `Python`. 
 
->[!NOTE]
-> El `!` en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de `Julia`. Indica que la función modifica su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones.
+<div class="notebox">
+<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+
+ El <code>!</code> en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de <code>Julia</code>. Indica que la función modifica su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones.
+</div>
 
 - Las tuplas se crean con paréntesis, son indexables e **inmutables**. El tipo de una tupla está determinado por los tipos de sus elementos. 
 
@@ -223,7 +226,11 @@ Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estánda
   julia> using Plots
 ```
 
-[!NOTE] Hay dos comandos para importar paquetes. Uno es `import`, que es similar al `import` de `Python`. Si uno usa `import` es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: `Plots.plot()`. El otro es `using` que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente `plot()`). En general en `Julia` se prefiere `using`. 
+<div class="notebox">
+<span style="font-weight:bold;color:#0A9090;">Nota:<span>
+
+ Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia<code> se prefiere <code>using</span>. 
+</div>
 
 El primer dibujo simplón se puede hacer simplemente con: 
 

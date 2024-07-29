@@ -84,7 +84,7 @@ Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos leng
 <div class="notebox">
 <span style="font-weight:bold;color:#A09090;">Nota:</span>
 
-Además, `Matlab` y `R` fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. `Python` no tiene esta ventaja. 
+Además, <code>Matlab</code> y <code>R</code> fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. <code>python</code> no tiene esta ventaja. 
 </div>
 
 Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, aplicaciones a geometría, simulaciones numéricas de problemas físicos o químicos de gran tamaño, manejo de grandes volúmenes de datos, etc.) el tiempo de ejecución se torna un problema serio. Ahí es donde estos lenguajes fallan y es necesario pasar a lenguajes compilados que son mucho más tediosos de programar, pero dan lugar a programas mucho más rápidos. 
@@ -123,7 +123,7 @@ y = sumar(1.2,3.4)
 <div class="importantbox">
 <span style="font-weight:bold;color:#5743a4">Importante:</span>
 
-Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
+Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
 </div>
 
 <br>
@@ -131,7 +131,7 @@ Esto da lugar a uno de los _defectos_ de `Julia`: lo que se llama _problema del 
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
 
-La compilación `JIT` no es una innovación de `Julia`. El primer sistema de compilación `JIT` fue desarrollado para `Lisp` y data de la década de 1960. `Matlab` introdujo un proceso de `JIT` hace más de diez años. En `Python` está la librería `Numba` que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, `Julia` combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
+La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT<code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba<code> que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
 </div>
 
 ### Una ventaja educativa
