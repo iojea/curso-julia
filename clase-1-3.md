@@ -6,7 +6,7 @@ title: "Clase 1 - Tercera parte - Un poco de teoría"
   
 # Nociones generales
 
-<div style="align:center;width:90%;background-color:pink;border-width:2px;border-style:solid;border-color:red;border-radius:10px;">
+<div style="align:center;width:90%;background-color:pink;border-width:2px;border-style:solid;border-color:red;border-radius:10px;padding:1em">
 <span style="color:red;font-weight:bold">Advertencia</span>
 
 La idea de estas notas (muy poco) teóricas es posicionar a <code>Julia</code> dentro del universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en <code>Julia</code>. 
