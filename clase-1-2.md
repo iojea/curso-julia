@@ -34,3 +34,10 @@ Luego, abrimos una sesión de `Julia` (en `VSCode` y otras IDEs puede abrirse un
 
 
 
+ <div style="text-align: left">
+<a href="https://iojea.github.io/curso-julia/clase-1-1"> << Volver a la parte 1</a> 
+</div> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-1-3"> >> Ir a la parte 3</a> 
+</div>
+
+

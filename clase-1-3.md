@@ -138,3 +138,7 @@ Y luego una comparación general de lenguajes comparando tiempo de ejecución y 
 ![Alt text](/clase-1/images/all_lang_summary.png)
 
 
+
+ <div style="text-align: left">
+<a href="https://iojea.github.io/curso-julia/clase-1-2"> << Volver a la parte 2</a> 
+

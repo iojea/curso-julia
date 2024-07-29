@@ -311,6 +311,8 @@ Por último, ¿Cómo hacemos dos gráficos juntos?
 
 Hay dos versiones de `plot`: `plot` y `plot!` (hay muchos casos similares). La segunda _modifica_ el gráfico existente y por lo tanto hace el segundo gráfico sobre el primero. 
 
- <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1-1"> >>Ir a la parte 2</a> 
+ <div style="text-align: left">
+<a href="https://iojea.github.io/curso-julia/"> << Volver al índice</a> 
+</div> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-1-2"> >> Ir a la parte 2</a> 
 </div>
