@@ -47,9 +47,9 @@ Allí podemos escribir código y ejecutarlo (apretando enter). Para salir de la 
 
 Además del prompt para ejecutar código, la consola tiene otros tres modos que resultan muy útiles y la convierten en un entorno muy práctico para usar y gestionar `Julia`. 
 
-- Tipeando `?` se accede al modo $$\textbf{\color{orange}help}$$. Si ahí escribimos el nombre de una función, por ejemplo `length`, vemos la documentación de la función. Este modo también permite buscar expresiones regulares. Por ejemplo si buscamos "length" nos devuelve una lista de todas las funciones en cuya documentación aparece la palabra "length".
-- Tipeando `;` se accede al modo $\textbf{\color{red}shell}$, es decir: se obtiene una terminal del sistema operativo. Allí se pueden hacer cualquier operación válida en una terminal: cambiar de directorio, crear archivos, editarlos (con algún editor de terminal), moverlos, etc. Al retornar, la consola de `Julia` queda en el directorio al que nos hayamos movido desde $\textbf{\color{red}shell}$. 
-- `Julia` viene con su propio gestor de paquetes. Se accede a él tipeando `]` (modo $\textbf{\color{blue}pkg}$). Para instalar paquetes hay que ponerse en modo $\textbf{\color{blue}pkg}$ y tipear:
+- Tipeando `?` se accede al modo <span style="color:yellow">help<\span>. Si ahí escribimos el nombre de una función, por ejemplo `length`, vemos la documentación de la función. Este modo también permite buscar expresiones regulares. Por ejemplo si buscamos "length" nos devuelve una lista de todas las funciones en cuya documentación aparece la palabra "length".
+- Tipeando `;` se accede al modo <span style="color:red">shell</span>, es decir: se obtiene una terminal del sistema operativo. Allí se pueden hacer cualquier operación válida en una terminal: cambiar de directorio, crear archivos, editarlos (con algún editor de terminal), moverlos, etc. Al retornar, la consola de `Julia` queda en el directorio al que nos hayamos movido desde <span style="color:red">shell</span>. 
+- `Julia` viene con su propio gestor de paquetes. Se accede a él tipeando `]` (modo <span style="color:blue">pkg</span>). Para instalar paquetes hay que ponerse en modo <span style="color:blue">pkg</span> y tipear:
 
 ```julia
   pkg> add NombreDePaquete
@@ -235,15 +235,15 @@ El primer dibujo simplón se puede hacer simplemente con:
   julia> plot(f)
 ```
 
-Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente, necesitamos valores para $x$ sobre los que queremos evaluar la función:
+Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente, necesitamos valores para `x` sobre los que queremos evaluar la función:
 
 ```
   julia> plot(-1:0.1:1,f)
 ```
 
-Notar que en general en otros lenguajes una función como `plot()` requiere dos secuencias de datos: una con valores de $x$ y otra con valores de $y$. Aquí les estamos pasando un _rango_ (una forma de vector, digamos) y una _**función**_. 
+Notar que en general en otros lenguajes una función como `plot()` requiere dos secuencias de datos: una con valores de `x` y otra con valores de `y`. Aquí les estamos pasando un _rango_ (una forma de vector, digamos) y una _**función**_. 
 
-También funciona en el formato usual. Para ello tendríamos que generar un vector de evaluaciones de $f$. En lugar de hacerlo con $f$, probemos con otra función. 
+También funciona en el formato usual. Para ello tendríamos que generar un vector de evaluaciones de `f`. En lugar de hacerlo con `f`, probemos con otra función. 
 
 ```
   julia> x = -1:0.1:1
@@ -254,17 +254,17 @@ También funciona en el formato usual. Para ello tendríamos que generar un vect
   julia> plot(x,y)              
 ```
 
-De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código que cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de $x$. Una alternativa piola es:
+De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código que cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de `x`. Una alternativa piola es:
 
 ```
   julia> for i in eachindex(x)
   ...
 ```
 
-La función `eachindex()` devuelve la secuencia de índices de $x$ esto tiene varios sentidos: 
-- No necesitamos conocer previamente la longitud de $x$. 
+La función `eachindex()` devuelve la secuencia de índices de `x` esto tiene varios sentidos: 
+- No necesitamos conocer previamente la longitud de `x`. 
 - Si bien el estándar es indexar desde 1, `Julia` admite _offset arrays_ (indexados arbitrariamente). `eachindex()` es automáticamente compatible con estos arrays.
-- Al recorrer un array se realiza una verificaación de que los índices son admisibles. `eachindex()` permite saltearse ese proceso, dado que por definición se correrán índices válidos (de $x$).
+- Al recorrer un array se realiza una verificaación de que los índices son admisibles. `eachindex()` permite saltearse ese proceso, dado que por definición se correrán índices válidos (de `x`).
 - Para codificar caracteres unicode `Julia` usa el estandar `UTF-8` que es un sistema de longitud variable: los caracteres pueden ocupar entre 1 y 4 bytes. Los índices de un `String` cuentan bytes:
 ```julia
   julia> a = "αβ∀x"
@@ -300,7 +300,7 @@ El `.` indica que la función debe aplicarse lugar a lugar. Esto luce similar a 
   julia> yf = g.(x)
 ```
 
-Ni el cuadrado, ni sumar uno, ni la exponencial ni el coseno son funciones admisibles sobre vectores. Sin embargo aplicamos el `.` sólo cuando evaluamos $g$. No se realiza cada operación por separado casillero a casillero, sino que directamente se evalúa $g$ en cada lugar. La notación `g.(x)` es equivalente a `broadcast(g,x)`. 
+Ni el cuadrado, ni sumar uno, ni la exponencial ni el coseno son funciones admisibles sobre vectores. Sin embargo aplicamos el `.` sólo cuando evaluamos `g`. No se realiza cada operación por separado casillero a casillero, sino que directamente se evalúa `g` en cada lugar. La notación `g.(x)` es equivalente a `broadcast(g,x)`. 
 
 Por último, ¿Cómo hacemos dos gráficos juntos?
 

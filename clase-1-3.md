@@ -126,9 +126,9 @@ Un curso en el que se intente aprovechar las características de `Julia` deberí
 
 #### `Julia` de verdad es rápido.
 
-`Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de $10^15$ operaciones de punto flontante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
+`Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de `10^15` operaciones de punto flontante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
 
-A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones máticas típicas ($1$ corresponde al tiempo obtenido en `C`):
+A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones máticas típicas (`1` corresponde al tiempo obtenido en `C`):
 
 
 ![Alt text](/clase-1/images/mat_ops.png)

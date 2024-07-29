@@ -22,7 +22,7 @@ Abrir un archivo e insertar el siguiente código:
   end 
 ```
 
-Se trata de una función muy sencilla que recibe un parámetro `n` y devuelve un vector con los números: $1^2, 2^2, \dots, n^2$. 
+Se trata de una función muy sencilla que recibe un parámetro `n` y devuelve un vector con los números:  `1, 2, ..., n^2`. 
 
 Guardemos el archivo, por ejemplo como `clase1.jl` (identificar en qué directorio guardamos el archivo). 
 
