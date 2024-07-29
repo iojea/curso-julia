@@ -6,7 +6,7 @@ title: "Clase 1 - Tercera parte - Un poco de teoría"
   
 # Nociones generales
 
-<div class=warnbox>
+<div class="warnbox">
 <span style="color:red;font-weight:bold">Advertencia</span>
 
 La idea de estas notas (muy poco) teóricas es posicionar a <code>Julia</code> dentro del universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en <code>Julia</code>. 
