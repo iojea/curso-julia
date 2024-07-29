@@ -47,7 +47,7 @@ Allí podemos escribir código y ejecutarlo (apretando enter). Para salir de la 
 
 Además del prompt para ejecutar código, la consola tiene otros tres modos que resultan muy útiles y la convierten en un entorno muy práctico para usar y gestionar `Julia`. 
 
-- Tipeando `?` se accede al modo <span style="color:yellow">help<\span>. Si ahí escribimos el nombre de una función, por ejemplo `length`, vemos la documentación de la función. Este modo también permite buscar expresiones regulares. Por ejemplo si buscamos "length" nos devuelve una lista de todas las funciones en cuya documentación aparece la palabra "length".
+- Tipeando `?` se accede al modo <span style="color:yellow">help</span>. Si ahí escribimos el nombre de una función, por ejemplo `length`, vemos la documentación de la función. Este modo también permite buscar expresiones regulares. Por ejemplo si buscamos "length" nos devuelve una lista de todas las funciones en cuya documentación aparece la palabra "length".
 - Tipeando `;` se accede al modo <span style="color:red">shell</span>, es decir: se obtiene una terminal del sistema operativo. Allí se pueden hacer cualquier operación válida en una terminal: cambiar de directorio, crear archivos, editarlos (con algún editor de terminal), moverlos, etc. Al retornar, la consola de `Julia` queda en el directorio al que nos hayamos movido desde <span style="color:red">shell</span>. 
 - `Julia` viene con su propio gestor de paquetes. Se accede a él tipeando `]` (modo <span style="color:blue">pkg</span>). Para instalar paquetes hay que ponerse en modo <span style="color:blue">pkg</span> y tipear:
 
