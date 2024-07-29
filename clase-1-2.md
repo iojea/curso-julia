@@ -1,6 +1,8 @@
-# Intro a `Julia`
-
-## Clase 1: Archivos `.jl`
+---
+layout: default
+title: "Clase 1 - Segunda parte - Empezando a programar"
+#permalink: https://iojea.github.io/curso-julia/clase-
+---
 
 ### Editor
 

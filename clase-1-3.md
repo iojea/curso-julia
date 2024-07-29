@@ -1,7 +1,9 @@
-# Intro a `Julia`
-
-## Clase 1: un poco de _teoría_
-
+---
+layout: default
+title: "Clase 1 - Tercera parte - Un poco de teoría"
+#permalink: https://iojea.github.io/curso-julia/clase-
+---
+  
 ### Nociones generales
 
 >[!WARNING]
