@@ -12,13 +12,13 @@ title: "Clase 1 - Primera parte - La consola"
 
 `Julia` es gratuito y de código abierto (no sólo eso sino que, como remarcaremos reiteradamente, la mayor parte del código ¡está escrito en `Julia`!). La instalación es muy sencilla, siguiendo las instrucciones en el sitio de [Descargas](https://julialang.org/downloads/). La opción recomendada es abrir una terminal y correr el siguiente código (requiere conexión a internet):
 
-##
-    curl -fsSL https://install.julialang.org | sh
-
+```
+ $ curl -fsSL https://install.julialang.org | sh
+```
 Esto instala `juliaup` que es una aplicación para mantener y actualizar `Julia` y además corre `juliaup` instalando la versión actual de `Julia`. En el futuro se podrá actualizar a la versión más reciente de `Julia` corriendo en una terminal: 
 
 ```
-> juliaup update
+ $ juliaup update
 ```
 
 La segunda alternativa es bajar un instalador o un binario específico para el sistema operativo en el que se quiera instalar (más abajo, en la misma página). Esto sólo instala `Julia`.
