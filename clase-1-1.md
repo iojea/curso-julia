@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "Clase 1 - Primera parte - La consola"
-permalink: https://iojea.github.io/curso-julia/clase-1-1
+#permalink: https://iojea.github.io/curso-julia/clase-1-1
 ---
 
 # Intro a Julia
