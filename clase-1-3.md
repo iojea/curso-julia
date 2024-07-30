@@ -131,7 +131,7 @@ Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _pr
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
 
-La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT</code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba</code> que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
+La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT</code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba</code> que introduce la posibilidad de compilar funciones just in time. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama <b>multiple dispatch</b>  que exploraremos más adelante y hace una diferencia notable.
 </div>
 
 ### Una ventaja educativa
@@ -142,11 +142,11 @@ En `Matlab` la tendencia natural es a escribir _scripts_. Es decir: secuencias d
 
 Un curso en el que se intente aprovechar las características de `Julia` debería hacer hincapié en el uso de funciones, que son el pilar fundamental sobre el que está construido el lenguaje. De este modo, `Julia` ayuda a introducir una buena practica de programación desde el inicio. 
 
-## `Julia` de verdad es rápido.
+# Julia de verdad es rápido.
 
-`Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de `10^15` operaciones de punto flontante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
+`Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de `10^15` operaciones de punto flotante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
 
-A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones máticas típicas (`1` corresponde al tiempo obtenido en `C`):
+A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones mátemáticas típicas (`1` corresponde al tiempo obtenido en `C`):
 
 
 ![Alt text](/clase-1/images/mat_ops.png)
@@ -155,7 +155,9 @@ Y luego una comparación general de lenguajes comparando tiempo de ejecución y 
 
 ![Alt text](/clase-1/images/all_lang_summary.png)
 
+# Un ejemplo
 
+Terminemos con un ejemplo que permite constatar en la práctica la velocidad `Julia`
 
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1-2"> << Volver a la parte 2</a> 
