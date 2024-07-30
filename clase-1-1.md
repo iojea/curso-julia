@@ -182,6 +182,19 @@ Probar las siguientes sentencias:
   julia> t[1] = 5
 ```
 
+```julia
+  julia> D = divrev(13,5)
+  julia> d,r = divrem(13,5)
+  julia> d
+  julia> r 
+  julia> (dd,rr) = divrem(13,5)
+  julia> dd
+  julia> rr
+  julia> r,d = d,r
+  julia> print("d:",d,"r:",r)
+```
+
+
 ## Pasando en limpio
 
 - `Julia` incorpora caracteres unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente del entorno, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
@@ -199,11 +212,34 @@ Probar las siguientes sentencias:
 </div>
 
 - Las tuplas se crean con paréntesis, son indexables e **inmutables**. El tipo de una tupla está determinado por los tipos de sus elementos. 
+- Hay funciones que devuelven varias cosas. En tal caso, se empaquetan en una tupla. 
+- Una tupla puede descomponerse en variables individuales haciendo: `a,b = tupla` o `(a,b)=tupla`. 
+- De manera similar se pueden hacer asignaciones simultáneas vía: `a,b = c,d`: el miembro derecho se interpreta como una tupla que se descompone en `a` y `b`. En particular esto puede usarse para cruzar variables sin necesidad de una variable intermedia.
 
 # Terceros pasos 
 
 Probemos un poco más de código: 
 
+```julia
+  julia> z = begin 
+              x = 2
+              y = 3
+              x*y
+            end
+  julia> z
+  julia> z = (x=2;y=3;x+y)
+  julia> z
+```
+
+`begin` - `end` define un bloque de código. En `Julia` los bloques devuelven el valor de su última expresión. Por eso se asigna a `z` el valor de `x*y`. Lo mismo puede hacerse más compacto separando las expresiones con `;`.
+
+
+```julia
+  julia> x<y
+  julia> x>y
+  julia> x==y
+  julia> x!=y
+```
 
 ```julia
   julia> f(x) = 2x^2+1
@@ -227,9 +263,9 @@ Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estánda
 ```
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:<span>
+<span style="font-weight:bold;color:#0A9090;">Nota:</span>
 
- Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia<code> se prefiere <code>using</span>. 
+ Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia<code> se prefiere <code>using</code>. 
 </div>
 
 El primer dibujo simplón se puede hacer simplemente con: 
