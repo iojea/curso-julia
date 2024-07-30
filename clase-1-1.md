@@ -265,7 +265,7 @@ Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estánda
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
 
- Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia<code> se prefiere <code>using</code>. 
+ Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia</code> se prefiere <code>using</code>. 
 </div>
 
 El primer dibujo simplón se puede hacer simplemente con: 
