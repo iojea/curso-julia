@@ -280,7 +280,7 @@ Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente
   julia> plot(-1:0.1:1,f)
 ```
 
-Notar que en general en otros lenguajes una función como `plot()` requiere dos secuencias de datos: una con valores de `x` y otra con valores de `y`. Aquí les estamos pasando un _rango_ (una forma de vector, digamos) y una _**función**_. 
+Notar que en general en otros lenguajes una función como `plot()` requiere dos secuencias de datos: una con valores de `x` y otra con valores de `y`. Aquí le estamos pasando un _rango_ (una forma de vector, digamos) y una _**función**_. 
 
 También funciona en el formato usual. Para ello tendríamos que generar un vector de evaluaciones de `f`. En lugar de hacerlo con `f`, probemos con otra función. 
 
@@ -293,7 +293,7 @@ También funciona en el formato usual. Para ello tendríamos que generar un vect
   julia> plot(x,y)              
 ```
 
-De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código que cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de `x`. Una alternativa piola es:
+De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código se cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de `x`. Una alternativa piola es:
 
 ```
   julia> for i in eachindex(x)
