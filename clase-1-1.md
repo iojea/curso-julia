@@ -332,11 +332,11 @@ Sin embargo, el mecanismo más natural para evaluar una función sobre un vector
   julia> y = cos.(x)
 ```
 
-El `.` indica que la función debe aplicarse lugar a lugar. Esto luce similar a `Matlab`, pero en realidad es bastante distinto. En `Matlab` el `.` debe aplicarse sobre cada operación problemática: `y = x.^2+x.^3`. En `Julia` la sintaxis es general se aplica a todo el lenguaje. En particular, en este caso lo podemos aplicar directamente a cualquier función: 
+El `.` indica que la función debe aplicarse lugar a lugar. Esto luce similar a `Matlab`, pero en realidad es considerablemente más poderoso, como iremos viendo a lo largo del curso. Por ahora observemos que en `Matlab` el `.` debe aplicarse sobre cada operación problemática: `y = x.^2+x.^3`. En `Julia` la sintaxis es general y se aplica a todo el lenguaje. En particular, en este caso lo podemos aplicar directamente a cualquier función: 
 
 ```julia
   julia> g(x) = cos(x^2)-exp(x+1)
-  julia> yf = g.(x)
+  julia> y = g.(x)
 ```
 
 Ni el cuadrado, ni sumar uno, ni la exponencial ni el coseno son funciones admisibles sobre vectores. Sin embargo aplicamos el `.` sólo cuando evaluamos `g`. No se realiza cada operación por separado casillero a casillero, sino que directamente se evalúa `g` en cada lugar. La notación `g.(x)` es equivalente a `broadcast(g,x)`. 
