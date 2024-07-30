@@ -131,7 +131,7 @@ Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _pr
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
 
-La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT<code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba<code> que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
+La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT</code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba</code> que introduce la posibilidad de compilar funciones _just in time_. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama _multiple dispatch_ que exploraremos más adelante y hace una diferencia notable.
 </div>
 
 ### Una ventaja educativa
