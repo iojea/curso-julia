@@ -9,5 +9,5 @@ Procuaremos dedicar la mayor parte del tiempo a los aspectos que distinguen a `J
 #### Clase 1
 
 + [Primera parte](https://iojea.github.io/curso-julia/clase-1-1): Instalación, familizarización con la consola y exploración inicial.
-+ [Segunda parte](https://iojea.github.io/curso-julia/clase-1-2): 
-+ [Tercera parte](https://iojea.github.io/curso-julia/clase-1-3)
++ [Segunda parte](https://iojea.github.io/curso-julia/clase-1-2): Archivos `.jl`. Funciones, `if`, `for` y `while`.
++ [Tercera parte](https://iojea.github.io/curso-julia/clase-1-3): Breve (y parcial) encuadre del lenguaje. Un ejemplo para testear performance. 

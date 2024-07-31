@@ -157,8 +157,29 @@ Y luego una comparación general de lenguajes comparando tiempo de ejecución y 
 
 # Un ejemplo
 
-Terminemos con un ejemplo que permite constatar en la práctica la velocidad `Julia`
+Terminemos con un ejemplo que permite constatar en la práctica la velocidad `Julia` y la enorme potencia de su proceso de compilación _just in time_. 
 
+Consideremos un programa bastante tonto para estimar `π` mediante un método de Montecarlo: tiramos puntos al azar en el cuadrado [-1,1]<sup>2</sup>, contamos cuántos caen en el disco unitario y estimamos `π∼4n/N`, donde `N` es la cantidad total de puntos y `n` la cantidad de puntos que cayeron en el círculo.
+
+**Ejercicio:** Implementar una función que resuelva este problema. Puede resultar útil utilizar la función `rand()` (sin argumentos) que devuelve un número al azar en el intervalo [0,1]. 
+
+Podemos comparar la función implementada en `Julia` con su análogo en `Python`. Supongamos que consideramos: 
+
+```python
+import numpy as np
+def estimate_pi(N):
+    n = 0
+    for i in range(N):
+        x = 2*np.random.random() - 1
+        y = 2*np.random.random() - 1
+        if np.sqrt(x**2 + y**2) <= 1:
+           n_circle += 1
+    return 4*n_circle/N
+```   
+
+
+
+  
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1-2"> << Volver a la parte 2</a> 
 

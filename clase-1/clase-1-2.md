@@ -12,31 +12,7 @@ No existe una IDE especializada para `Julia` como pueden ser `Spyder` para `Pyth
 
 Para escribir código `Julia` sólo necesitamos generar un archivo con extensión `.jl`. Luego podemos correrlo desde la consola. 
 
-Abrir un archivo e insertar el siguiente código: 
-
-```julia
-  function generar_cuadrados(n)
-      salida = zeros(n)
-      for i in eachindex(salida)
-          salida[i] = i^2
-      end
-      return salida  
-  end 
-```
-
-Se trata de una función muy sencilla que recibe un parámetro `n` y devuelve un vector con los números:  1<sup>2</sup>, 2<sup>2</sup>, ..., n<sup>2</sup>. 
-
-Guardemos el archivo, por ejemplo como `clase1.jl` (identificar en qué directorio guardamos el archivo). 
-
-Luego, abrimos una sesión de `Julia` (en `VSCode` y otras IDEs puede abrirse una terminal interna, dentro del propio programa) y corremos: 
-
-```julia
-  julia> include("clase1.jl")
-```
-
-# Funciones
-
-Generemos un archivo e implementemos algunas funciones sencillas. Por ejemplo:
+Generar un archivo nuevo e insertar el siguiente código: 
 
 ```julia
 function fibonacci(n)
@@ -49,9 +25,20 @@ function fibonacci(n)
 end
 ```
 
+Se trata de una función muy sencilla que recibe un parámetro `n` y devuelve un vector con los primeros `n` términos de la sucesión de Fibonacci. 
+
+Guardamos el archivo, por ejemplo como `clase1.jl` (identificar en qué directorio queda guardado). 
+
+Luego podemos ejecutarlo desde una consola `Julia` (en `VSCode` y otras IDEs puede abrirse una terminal interna, dentro del propio programa). 
+
+# Funciones
+
+Continuando con el ejemplo, vale la pena notar:
+
 - Ya vimos que el `for` debe cerrarse con un `end`. Lo mismo ocurre con todos los bloques, incluido `function`.
 - Podemos poner más de una operación por línea, separando los tramos con `;`. 
 - `∈` puede usarse en reemplazo de `in`.
+- La instrucción `return` nos dice qué valor devuelve la función, aunque ya veremos que puede omitirse.
 
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
@@ -59,7 +46,7 @@ end
 La indentación no es obligatoria. Sin embargo, las recomendaciones de estilo indican que deben usarse 4 espacios.
 </div>
 
-Guardemos el archivo y ejecutémoslo desde una sesión de `Julia`: 
+Al ejecutar el archivo desde una sesión de `Julia` obtenemos: 
 
 ```julia
   julia> include("clase1.jl")
@@ -68,7 +55,8 @@ Guardemos el archivo y ejecutémoslo desde una sesión de `Julia`:
 
 Recordar que para que esto funcione la consola debe estar posicionada en el directorio del archivo. Si no, es posible incluir el archivo poniendo toda la ruta en lugar de sólo el nombre. El texto `fibonacci (generic function with 1 method)` aparece porque la sesión interactiva siempre muestra el resultado de la última expresión ejecutada. En este caso, la única expresión ha sido la definición de la función. Se puede suprimir este mensaje poniendo `;`. 
 
-Si corremos nuestra función obtenemos, por ejemplo: 
+Hasta aquí sólo hemos generado la función dentro de la sesión interactiva. Podemos correrla, por ejemplo: 
+ 
 ```julia
   julia> fibonacci(4)
   4-element Vector{Float64}:
@@ -78,29 +66,17 @@ Si corremos nuestra función obtenemos, por ejemplo:
     3.0
 ```
 
-Esto no es lo más deseable, dado que la sucesión de Fibonacci está formada por enteros. El problema viene de que `zeros(n)` genera, por defecto, un vector de ceros en flotante. Al cargarle enteros, `Julia` los _promueve_ a flotantes para mantener el tipo del vector.
+Hay varias cosas que vale la pena remarcar. 
 
-El comportamiento deseado se obtiene haciendo: 
-
+- La instrucción `return` no es necesaria. Como ya dijimos, los bloques de código devuelven por defecto el valor de la última sentencia. Por lo tanto, `return fib` puede reemplazar simplemente por `fib`. Hacer esta modificación en el archivo, recargarlo en la consola y volver a correr la función. 
+- El resultado obtenido no es el más deseable, dado que la sucesión de Fibonacci está formada por enteros. El problema viene de que `zeros(n)` genera, por defecto, un vector de ceros en flotante. Al cargarle enteros, `Julia` los _promueve_ a flotantes para mantener el tipo del vector.
+Para obtener un vector de enteros, podemos hacer:
 ```julia
 fib = zeros(Int,n)
 ```
-
-Por otro lado, la línea: 
-```julia
-fib[1] = 1; fib[2] = 1
-```
-es equivalente a:
-```julia
-fib[1:2] .= 1
-```
-
-Aquí usamos _broadcasting_ sobre el operador `=` para que la asignación se realice casillero a casillero sobre los primeros dos lugares del vector `fib`. Notar que el `.` se usa después de una función (`f.(x)`) pero precede a los operadores (`.=`). 
-
-Para que los cambios en el archivo tengan efecto en la consola, hay que volver a incluirlo. 
-
-Ya que estamos, ¿qué se puede esperar si corremos el siguiente comando? 
-
+Recargar el archivo y probar la función. 
+- La primera línea de la función podría usar _broadcasting_: `fib[1:2] .= 1`. El `.` antecede al operador de asignación e indica que la asignación debe ser casillero a casillero sobre subvector formado por los dos primeros lugares de `fib`. Notar que al llamar a una función el `.` se coloca luego del nombre de la función (`f.(x)`), pero se pone _antes_ de los operadores (`.=`).
+Y ya que estamos hablando de _broadcasting_, ¿Qué esperaría al correr el siguiente código?
 ```julia
   julia> fibonacci.([2,4,7])
 ```
@@ -121,10 +97,10 @@ function comparar(x,y)
 end      
 ```
 
-- `if` evalúa una operación lógica (que debe devolver un booleano, `true` o `false`). Debe cerrarse con `end`. 
+- `if` evalúa una operación lógica (que debe devolver un booleano, `true` o `false`). Como siempre, debe cerrarse con `end`. 
 - `elseif` permite agregar nuevas condiciones para ser evaluadas. Pueden incluirse todas las cláusulas `elseif` necesarias.
 - `else` recoge los casos no considerados por las cláusulas anteriores, y no lleva condición. 
-- `elseif` y `else` puede omitirse. 
+- `elseif` y `else` pueden omitirse. 
 - La notación `$x` permite interpolar el valor de la variable `x` en una `String`. 
 
 Al ejecutar la función, ¿qué devuelve? Probar el código:
@@ -189,20 +165,19 @@ isinteger(n) || error("n debe ser entero")
 
 ## Operador ternario
 
-Dado que cláusula `if - else` aparece con muchísima frecuencia, `Julia` incluye una variante abreviada. Probar lo siguiente: 
+Dado que la cláusula `if - else` aparece con muchísima frecuencia, `Julia` incluye una variante abreviada. Probar lo siguiente: 
 
 ```julia
   julia> isodd(3) ? println("es impar") : println("es par")
   julia> isodd(2) ? println("es impar") : println("es par")
 ```
 
-La sintaxis es: `condicion ? respuesta si true : respuesta si false`. Son imporantes los espacios antes y después de `?` y de `:`. 
+La sintaxis es: `condicion ? respuesta si true : respuesta si false`. Son importantes los espacios antes y después de `?` y de `:`. 
 
 Más interesante aún: el operador ternario _devuelve_ el valor de salida, por lo cual puede usarse para realizar asignaciones condicionales. Veamos un ejemplo. 
 
       
-Consideremos la función que dado un `n` natural devuelve `n/2` si `n` es par y `3n+1` si es impar. La conjetura de Collatz dice que si aplicamos reiteradamente esta función comenzando por cualquier natural, eventualmente se alcanzará el valor `1`. Para testear esta conjetura, primero necesitamos la función. Una primera versión sería algo así:
-
+Consideremos la función partida que un `n` natural devuelve `n/2` si `n` es par y `3n+1` si es impar. Una implementación de esta función podría ser: 
 ```julia
 function collatz(n)
     if iseven(n)
@@ -221,7 +196,51 @@ collatz(n) = iseven(n) ? n÷2 : 3n+1
 
 # While
 
+La conjetura de Collatz dice que si componemos la función implementada más arriba suficientes veces eventualmente se alcanzará el valor `1`. Experimentemos para evaluar esta conjetura. 
 
+Podemos agregar la siguiente función a nuestro archivo: 
+
+```julia
+function verif_collatz(n)
+    i = 0
+    while n!=1 && i<1000
+        n = collatz(n)
+        i = i+1
+    end  
+    if i==1000
+        println("No cumple (en 1000 iteraciones)")
+    else 
+        println("Cumple! (en $i iteraciones)")
+    end
+end
+```
+
+Tenemos un clásico uso de la sentencia `while`. `while` repite un determinado bloque de código _mietras_ se ejecute cumpla una cierta condición. En este caso nuestra condición es doble: en primer lugar, continuamos evaluando `collatz` mientras no se haya alcanzado el valor `1`. Sin embargo, esto por sí sólo entraña un riesgo: si la conjetura es falsa y probamos un `n` para el cual nunca se alcanza el `1`, el loop continuará para siempre. Para prevenir esto, agregamos un contador de iteraciones `i` y cortamos el `while` si se alcanzan las `1000` vueltas.
+
+El valor `1000` es totalmente arbitrario. Podríamos eliminarlo agregando un parámetro `max_iter`a la función: 
+```julia
+function verif_collatz(n,max_iter)
+    i = 0
+    while n!=1 && i<max_iter
+        n = collatz(n)
+        i = i+1
+    end  
+    if i==max_iter
+        println("No cumple (en $max_iter iteraciones)")
+    else 
+        println("Cumple! (en $i iteraciones)")
+    end
+end
+```
+
+Esto no es del todo feliz, porque normalmente no nos interesa el valor de `max_iter`, sino sólo el de `n`. Una forma de evitar el problema es asignarle a `max_iter` un valor por defecto. Esto se logra cambiando la firma de la función por:
+```julia
+function verif_collatz(n,max_iter=1000)
+```
+
+De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`), o sólo uno (`n`), en cuyo caso `max_iter` tomará el valor por defecto `1000`.
+
+**Ejercicio:** Modificar el código de `verif_collatz` reemplazando el `if - else` por el operador ternario.
 
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1-1"> << Volver a la parte 1</a> 

@@ -280,6 +280,10 @@ warnbox, .warnbox {
   padding:1em;
   margin: auto;
 }
+warntit, .warntit {
+  color: #f7576e;
+  font-weight: bold;
+}
 
 
 notebox, .notebox {
@@ -293,6 +297,10 @@ notebox, .notebox {
   padding:1em;
   margin: auto;
 }
+notetit, .notetit {
+  color: #0a9090;
+  font-weight: bold;
+}
 
 importantbox, .importantbox {
   width: 90%;
@@ -304,6 +312,10 @@ importantbox, .importantbox {
   align: center;
   padding:1em;
   margin: auto;
+}
+importantit, .importanttit {
+  color: #5743a4;
+  font-weight: bold;
 }
 
   pre code,
