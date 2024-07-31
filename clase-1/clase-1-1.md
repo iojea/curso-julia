@@ -25,7 +25,7 @@ En cualquiera de los casos se obtendrá una instalación del núcleo de `Julia` 
 
 Una vez realizada la instalación lo más común (y recomendable) es usar `Julia` a través de la REPL (Read, Eval, Print Loop), a la que llamaremos simplemente "consola". En Windows probablmente se genere un ícono de `Julia`, que permitirá abrir la consola. En Linux y MacOS debería bastar correr el comando `julia` en una terminal.
 
-La REPL es una consola interactiva que nos permite realizar escribir código (en pocas líneas) y ejecutarlo, correr archivos de código `Julia`, importar módulos, instalar módulos, acceder a un help y algunas cosas más. Un archivo con código `Julia` puede también ejecutarse de manera directa, sin consola interactiva. También puede usarse `Julia` en una `jupyter-notebook`. Y `Julia` cuenta también con su propio sistema de notebooks (`Pluto`) que es un poco distinto de `jupyter`. Por ahora nos concentraremos en la consola. 
+La REPL es una consola interactiva que nos permite escribir código (en pocas líneas) y ejecutarlo, correr archivos `.jl`, importar módulos, instalar módulos, acceder a un help y algunas cosas más. Un archivo con código `Julia` puede también ejecutarse de manera directa, sin consola interactiva. También puede usarse `Julia` en una `jupyter-notebook` (incluido Colab, aunque tiene sus vueltas). Y `Julia` cuenta también con su propio sistema de notebooks (`Pluto`) que es un poco distinto de `jupyter`. Por ahora nos concentraremos en la consola. 
 
 La consola nos muestra inicialmente un banner que nos da algo de información sobre la instalación y nos da un _prompt_:
 
@@ -46,23 +46,18 @@ Además del prompt para ejecutar código, la consola tiene otros tres modos que 
 - Tipeando `?` se accede al modo <span style="color:orange">help</span>. Si ahí escribimos el nombre de una función, por ejemplo `length`, vemos la documentación de la función. Este modo también permite buscar expresiones regulares. Por ejemplo si buscamos "length" nos devuelve una lista de todas las funciones en cuya documentación aparece la palabra "length".
 - Tipeando `;` se accede al modo <span style="color:red">shell</span>, es decir: se obtiene una terminal del sistema operativo. Allí se pueden hacer cualquier operación válida en una terminal: cambiar de directorio, crear archivos, editarlos (con algún editor de terminal), moverlos, etc. Al retornar, la consola de `Julia` queda en el directorio al que nos hayamos movido desde <span style="color:red">shell</span>. 
 - `Julia` viene con su propio gestor de paquetes. Se accede a él tipeando `]` (modo <span style="color:blue">pkg</span>). Para instalar paquetes hay que ponerse en modo <span style="color:blue">pkg</span> y tipear:
-
 ```julia
   pkg> add NombreDePaquete
 ```
-
 Para borrar un paquete:
 ```julia
   pkg> rm NombreDePaquete
 ```
-
 Para actualizar los paquetes instalados: 
 ```julia
   pkg> update
 ```
-
 Cada paquete (módulo) de `Julia` identifica mediante un archivo muy sencillo sus dependencias, de modo que el gestor de paquetes las instala automáticamente.
-
 - Para salir de cualquiera de los modos basta tipear `backspace` (borrar).
 
 
@@ -72,9 +67,6 @@ Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr l
 
 ```julia
   julia> 1 + 2  
-```
-
-```julia
   julia> 2/2
 ```
 
