@@ -175,7 +175,6 @@ def estimate_pi(N):
            n_circle += 1
     return 4*n_circle/N
 ```
-
 Probamos esta función con `N=1_000_000` y usando `%time` y obtenemos un tiempo de ejecución de `848 ms`. Esto es esperable porque los `for` de `Python` son interpretados, no compilados, de modo que suelen ser muy lentos. Un truco usual en `Python` y `Matlab` es _vectorizar_ el código de modo que las operaciones que se hacen dentro del `for` sean reemplazadas por funciones de librería que ejecutan internamente un `for` compilado (y escrito en `C` o `Java`). Nuestro código luciría más o menos así: 
 
 ```python
@@ -204,7 +203,7 @@ def estimate_pi_numba(N):
     return 4*n/N
 ```
 
-Para no contabilizar el tiempo de compilación, ejecutamos esta función primero con `N=2` y luego con `%time` y `N=1_000_000`. El tiempo obtenido es de `7.66 ms`
+Para no contabilizar el tiempo de compilación, ejecutamos esta función primero con `N=2` y luego con `%time` y `N=1_000_000`. El tiempo obtenido es de `7.65 ms`
 
 Probamos ahora nuestro código en `Julia`:
 
@@ -222,7 +221,27 @@ function estimate_pi(n)
 end
 ```
 
-  
+Lo corremos una vez para compilar y medimos el tiempo la segunda y obtenemos: `3.8 ms`. Es decir: la mitad que con `Numba` y un décimo que la versión vectorizada en `Python`.
+
+Cabe preguntarse, ¿ganaremos algo vectorizando el código de `Julia`? Podemos probar. El siguiente código es análogo al de `Python`.
+
+```julia
+function estimate_pi_vec(N)
+    xy = 2*rand(N,2) .- 1
+    norma = sum(xy.^2,dims=2)    
+    en_circ = norma .≤ 1 
+    n = sum(en_circ)
+    return 4*n/N
+end
+```
+
+Y al correrlo con `@time` obtenemos un tiempo de alrededor de `11 ms` (aunque es bastante volátil). Es decir: empeoramos (aunque en general estamos mejor que con `Numpy`). 
+
+La razón de esto la da el propi `@time`: estamos haciendo `18` _allocations_ (accesos a memoria) por un total de `68 Mb`. Esto a su vez desencadena llamados al _Garbage Collector_ (`gc`) que debe limpiar la memoria que ocupamos para `arrays` auxiliares. Esto además de memoria consume _tiempo_.  La versión sin vectorizar no reportaba _allocations_. 
+
+En resumen: en general el código _natural_ es muy eficiente en `Julia` y no necesitamos de trucos como la _vectorización_ de las operaciones. Esto además de dar programas más rápidos permite escribir código más claro y descriptivo.
+
+
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1-2"> << Volver a la parte 2</a> 
 
