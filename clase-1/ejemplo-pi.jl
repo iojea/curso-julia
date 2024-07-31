@@ -4,7 +4,7 @@ using BenchmarkTools
    
 estima el valor de π mediante un argumento de Montecarlo: tira puntos al azar en el cuadrado [-1,1]² y calcula cuántos puntos caen en el círculo unitario.
 """
-function estimate_pi(n)
+function estimate_pi(N)
     n = 0
     for i in 1:N
         x = 2*rand() - 1
