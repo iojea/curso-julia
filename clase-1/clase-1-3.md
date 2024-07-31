@@ -176,7 +176,7 @@ def estimate_pi(N):
     return 4*n_circle/N
 ```
 
-Probamos esta función con `N=1_000_000` y usando `%time` y obtenemos un tiempo de ejecución de `1.35 s`. Esto es esperable porque los `for` de `Python` son interpretados, no compilados, de modo que suelen ser muy lentos. Un truco usual en `Python` y `Matlab` es _vectorizar_ el código de modo que las operaciones que se hacen dentro del `for` sean reemplazadas por funciones de librería que ejecutan internamente un `for` compilado (y escrito en `C` o `Java`). Nuestro código luciría más o menos así: 
+Probamos esta función con `N=1_000_000` y usando `%time` y obtenemos un tiempo de ejecución de `848 ms`. Esto es esperable porque los `for` de `Python` son interpretados, no compilados, de modo que suelen ser muy lentos. Un truco usual en `Python` y `Matlab` es _vectorizar_ el código de modo que las operaciones que se hacen dentro del `for` sean reemplazadas por funciones de librería que ejecutan internamente un `for` compilado (y escrito en `C` o `Java`). Nuestro código luciría más o menos así: 
 
 ```python
 def estimate_pi_numpy(n):
@@ -187,7 +187,7 @@ def estimate_pi_numpy(n):
     return 4*n_circle/n
 ```
 
-Aquí creamos una matriz en donde cada fila es un punto, calculamos la norma al cuadrado de cada fila, comparamos con 1 y sumamos los menores que 1. El tiempo de ejecución es de `35 ms`. Una ganancia considerable. 
+Aquí creamos una matriz en donde cada fila es un punto, calculamos la norma al cuadrado de cada fila, comparamos con 1 y sumamos los menores que 1. El tiempo de ejecución es de `31 ms`. Una ganancia considerable. 
 
 En `Python` hay otra alternativa, que es utilizar la librería `Numba`. `Numba` agrega funcionalidades de compilación _just in time_ que permiten acelerar el `for`. Nuestro código es: 
 
@@ -204,7 +204,25 @@ def estimate_pi_numba(N):
     return 4*n/N
 ```
 
-Para no contabilizar el tiempo de compilación, ejecutamos esta función primero con `N=2` y luego con `%time` y `N=1_000_000`. El tiempo obtenido es de 
+Para no contabilizar el tiempo de compilación, ejecutamos esta función primero con `N=2` y luego con `%time` y `N=1_000_000`. El tiempo obtenido es de `7.66 ms`
+
+Probamos ahora nuestro código en `Julia`:
+
+```julia
+function estimate_pi(N)
+    n = 0
+    for i in 1:n
+        x = 2*rand() - 1
+        y = 2*rand() - 1
+        if x^2 + y^2 <= 1
+           n += 1
+        end
+    end
+    return 4*n/N
+end
+```
+
+De nuevo, corremos la función una vez con `N` chico y luego calculamos el tiempo con `N=1_000_000`. El tiempo obtenido es de `3.4 ms`. 
 
   
  <div style="text-align: left">
