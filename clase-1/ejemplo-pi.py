@@ -7,7 +7,7 @@ def estimate_pi(n):
     for i in range(n):
         x = 2*np.random.random() - 1
         y = 2*np.random.random() - 1
-        if np.sqrt(x**2 + y**2) <= 1:
+        if x**2 + y**2 <= 1:
            n_circle += 1
     return 4*n_circle/n
 
@@ -24,6 +24,6 @@ def estimate_pi_numba(n):
     for i in range(n):
         x = 2*np.random.random() - 1
         y = 2*np.random.random() - 1
-        if np.sqrt(x**2 + y**2) <= 1:
+        if x**2 + y**2 <= 1:
            n_circle += 1
     return 4*n_circle/n

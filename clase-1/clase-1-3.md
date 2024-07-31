@@ -158,13 +158,12 @@ Y luego una comparación general de lenguajes comparando tiempo de ejecución y 
 # Un ejemplo
 
 Terminemos con un ejemplo que permite constatar en la práctica la velocidad `Julia` y la enorme potencia de su proceso de compilación _just in time_. 
-
+    
 Consideremos un programa bastante tonto para estimar `π` mediante un método de Montecarlo: tiramos puntos al azar en el cuadrado [-1,1]<sup>2</sup>, contamos cuántos caen en el disco unitario y estimamos `π∼4n/N`, donde `N` es la cantidad total de puntos y `n` la cantidad de puntos que cayeron en el círculo.
 
 **Ejercicio:** Implementar una función que resuelva este problema. Puede resultar útil utilizar la función `rand()` (sin argumentos) que devuelve un número al azar en el intervalo [0,1]. 
 
 Podemos comparar la función implementada en `Julia` con su análogo en `Python`. Supongamos que consideramos: 
-
 ```python
 import numpy as np
 def estimate_pi(N):
@@ -175,9 +174,37 @@ def estimate_pi(N):
         if np.sqrt(x**2 + y**2) <= 1:
            n_circle += 1
     return 4*n_circle/N
-```   
+```
 
+Probamos esta función con `N=1_000_000` y usando `%time` y obtenemos un tiempo de ejecución de `1.35 s`. Esto es esperable porque los `for` de `Python` son interpretados, no compilados, de modo que suelen ser muy lentos. Un truco usual en `Python` y `Matlab` es _vectorizar_ el código de modo que las operaciones que se hacen dentro del `for` sean reemplazadas por funciones de librería que ejecutan internamente un `for` compilado (y escrito en `C` o `Java`). Nuestro código luciría más o menos así: 
 
+```python
+def estimate_pi_numpy(n):
+    xy = 2*np.random.random((n, 2)) - 1
+    norma = (xy**2).sum(axis = 1)    
+    en_circ = norma <= 1    
+    n_circle = en_circ.sum()
+    return 4*n_circle/n
+```
+
+Aquí creamos una matriz en donde cada fila es un punto, calculamos la norma al cuadrado de cada fila, comparamos con 1 y sumamos los menores que 1. El tiempo de ejecución es de `35 ms`. Una ganancia considerable. 
+
+En `Python` hay otra alternativa, que es utilizar la librería `Numba`. `Numba` agrega funcionalidades de compilación _just in time_ que permiten acelerar el `for`. Nuestro código es: 
+
+```python
+import numba
+@numba.jit()
+def estimate_pi_numba(N):
+    n = 0
+    for i in range(n):
+        x = 2*np.random.random() - 1
+        y = 2*np.random.random() - 1
+        if x**2 + y**2 <= 1:
+           n += 1
+    return 4*n/N
+```
+
+Para no contabilizar el tiempo de compilación, ejecutamos esta función primero con `N=2` y luego con `%time` y `N=1_000_000`. El tiempo obtenido es de 
 
   
  <div style="text-align: left">
