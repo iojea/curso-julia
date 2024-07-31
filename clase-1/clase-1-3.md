@@ -208,21 +208,19 @@ Para no contabilizar el tiempo de compilación, ejecutamos esta función primero
 
 Probamos ahora nuestro código en `Julia`:
 
-```julia
-function estimate_pi(N)
-    n = 0
+```
+function estimate_pi(n)
+    n_circle = 0
     for i in 1:n
         x = 2*rand() - 1
         y = 2*rand() - 1
-        if x^2 + y^2 <= 1
-           n += 1
+        if sqrt(x^2 + y^2) <= 1
+           n_circle += 1
         end
     end
-    return 4*n/N
+    return 4*n_circle/n
 end
 ```
-
-De nuevo, corremos la función una vez con `N` chico y luego calculamos el tiempo con `N=1_000_000`. El tiempo obtenido es de `3.4 ms`. 
 
   
  <div style="text-align: left">

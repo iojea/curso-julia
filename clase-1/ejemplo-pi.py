@@ -21,7 +21,7 @@ def estimate_pi_numpy(N):
 @numba.jit()
 def estimate_pi_numba(N):
     n = 0
-    for i in range(n):
+    for i in range(N):
         x = 2*np.random.random() - 1
         y = 2*np.random.random() - 1
         if x**2 + y**2 <= 1:
