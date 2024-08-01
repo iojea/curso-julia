@@ -243,5 +243,5 @@ En resumen: en general el código _natural_ es muy eficiente en `Julia` y no nec
 
 
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-1-2"> << Volver a la parte 2</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> << Volver a la parte 2</a> 
 

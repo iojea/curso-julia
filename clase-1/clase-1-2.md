@@ -243,9 +243,9 @@ De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`)
 **Ejercicio:** Modificar el código de `verif_collatz` reemplazando el `if - else` por el operador ternario.
 
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-1-1"> << Volver a la parte 1</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-1"> << Volver a la parte 1</a> 
 </div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1-3"> >> Ir a la parte 3</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-3"> >> Ir a la parte 3</a> 
 </div>
 
 
