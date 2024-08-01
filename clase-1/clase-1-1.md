@@ -390,3 +390,4 @@ La `JIT compilation` le permite a `Julia` alcanzar velocidades cercanas (!o mayo
 <a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> >> Ir a la parte 2</a> 
 </div></td>
 </tr>
+</table>
