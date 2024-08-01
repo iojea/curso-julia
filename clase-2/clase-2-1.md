@@ -63,5 +63,73 @@ Esta función recibe la función que define la ecuación diferencial, el dato in
 
 El código anterior funciona sólo para ecuaciones escalares, pero no para sistemas. En un sistema `x` es un vector y `f` es un campo vectorial. En principio esto no depende directamente de la función `euler`, sino del usuario que debe generar datos `f` y `x₀`adecuados. El problema del código es que para un sistema la variable `x` debería ser una matriz en donde cada columna o cada fila represente el vector solución en un tiempo dado. 
 
-**Ejercicio 4:** Modificar la función `euler` de modo que sirva también para sistemas. La función debe: deducir la dimensión `d` del problema del dato inicial y llenar una matriz `x` de `d×N` en donde cada columna corresponde a la solución en un instante. Probar la función con datos de un sistema de dimensión `2`. Graficar.
+**Ejercicio 4:** Modificar la función `euler` de modo que sirva también para sistemas. La función debe: deducir la dimensión `d` del problema del dato inicial y llenar una matriz `x` de `d×N` en donde cada columna corresponde a la solución en un instante. Probar la función resolviendo las ecuaciones de Lotka-Volterra: `ẋ=ax-bxy, ẏ=-cy+dxy`, tomando `a=2/3`, `b=4/3`, `c=d=1`. Si `t` es el vector de tiempos y `x` es la matriz solución, ejecutar el siguiente código: 
+```julia
+  julia> p1 = plot(t,x',label=["Predador" "Presa"], title="Evolución de las poblaciones")
+  julia> p2 = plot(x[1,:],x[2,:],title="Diagrama de fases")
+  julia> plot(p1,p2,layout=(2,1))
+```
+
+# Un poco de Álgebra Lineal
+
+La instalación básica de `Julia` incluye la librería `LinearAlgebra`, que incluye todo lo necesario para hacer operaciones de Álgebra Lineal sobre matrices _densas_. Probar los siguientes fragmentos: 
+
+```julia
+ julia> using LinearAlgebra
+ julia> A = rand(-3:3,3,3)
+ julia> b = rand(-3:3,3)
+ julia> c = rand(-3:3,3)
+ julia> b*c
+ julia> b⋅c # \cdot + tab
+ julia> b'*c
+ julia> x = A\b
+ julia> A*x-b
+ julia> det(A)
+ julia> tr(A)
+ julia> inv(A)
+ julia> A + I
+ julia> eigvals(A)
+ julia> eigvecs(A)
+ julia> I(5)
+```
+
+Hasta aquí lo esperable. Tenemos funciones para todas las operaciones básicas sobre matrices. Cabe resaltar: 
++ El operador `\cdot` es el producto escalar (`b⋅c` es lo mismo que `b'*c`).
++ El operador `\` resuelve el sistema `Ax=b` 
++ `Julia` tiene la amabilidad de permitirnos usar el símbolo `I` para representar la identidad. Si usamos `I` entre otras matrices (`A+I`), `Julia` deduce su tamaño. En caso contrario `I(n)` devolverá la identidad de tamaño `n`.
+
+Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos muestra la matriz poniendo puntos en donde irían los ceros. Esto es un indicador de **no** se está almacenando toda la matriz. En particular, no se almacenan los ceros. Podemos constatar que `I(5)` ocupa mucho menos lugar que una matriz llena del mismo tamaño.
+
+```julia
+ julia> sizeof(I(5))
+ julia> sizeof(rand(-3:3,5,5))
+```
+
+También tenemos funciones cómodas para extraer diagonales y crear matrices por diagonales:
+
+```julia
+    julia> diag(A)
+    julia> diag(A,1)
+    julia> diag(A,-2)
+    julia> diagm([1,2,3])
+    julia> diagm(1=>[1,2])
+    julia> diagm(0=>-1:1,2=>ones(1))
+```
+
+Notar que `diagm()` crea matrices _llenas_ (no como `I(5)`), que de hecho son de tipo `Matrix`. 
+
+Sin embargo, las matrices diagonales suelen aparecer en distintos contextos y tienen algunas facilidades. Hay un tipo especial para manipularlas: 
+
+```julia
+  julia> D = Diagonal([1,2,3])
+```
+
+Notar que `D` es de tipo `Diagonal`, como ocurre con `I(5)`. 
+
+<div class="notebox">
+<span class="notetit">Nota: </span>
+
+En <code>Julia</code> los nombres de las funciones se escriben con minúscula y los tipos de dato (<code>Int64</code>, <code>Float64</code>, etc.) con mayúscula. <code>Diagonal</code> es una función especial: es el constructor de un tipo de dato particular (el de las matrices diagonales). Por lo tanto, tiene el mismo nombre que el tipo <code>Diagonal</code>.
+</div>
+
 

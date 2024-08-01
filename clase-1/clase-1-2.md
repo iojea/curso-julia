@@ -242,6 +242,10 @@ De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`)
 
 **Ejercicio:** Modificar el código de `verif_collatz` reemplazando el `if - else` por el operador ternario.
 
+
+**Ejercicio:** Escribir una función que dado un `n` devuelva la longitud de la sucesión de Collatz generada a partir de `n` (hasta alcanzar el `1`). Hallar el `n` entre `1` y un millón que da la sucesión más larga. 
+
+
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1/clase-1-1"> << Volver a la parte 1</a> 
 </div> <div style="text-align: right">
