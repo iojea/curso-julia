@@ -41,7 +41,7 @@ Continuando con el ejemplo, vale la pena notar:
 - La instrucción `return` nos dice qué valor devuelve la función, aunque ya veremos que puede omitirse.
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
 La indentación no es obligatoria. Sin embargo, las recomendaciones de estilo indican que deben usarse 4 espacios.
 </div>

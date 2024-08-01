@@ -215,7 +215,7 @@ Probar las siguientes sentencias:
 - Las funciones `push!()` y `pop!()` permiten poner y sacar elementos de un vector (al final). También existen funciones `pushfirst!()` y `popfirst!()`. En este sentido, los vectores puede funcionar como las listas en `Python`. Sin embargo, para otros usos son _vectores_ en el sentido matemático del término. 
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
  El <code>!</code> en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de <code>Julia</code>. Indica que la función modifica su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones.
 </div>
@@ -266,7 +266,7 @@ Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estánda
 ```
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
  Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia</code> se prefiere <code>using</code>. 
 </div>
