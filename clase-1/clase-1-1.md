@@ -383,10 +383,10 @@ La <code>JIT compilation</code> le permite a <code>Julia</code> alcanzar velocid
 <br>
 <table class="botones">
 <tr>
-<td class="botones"><div style="text-align: left">
+<td><div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/"> << Volver al índice</a> 
 </div></td>
-<td class="botones"> <div style="text-align: right">
+<td> <div style="text-align: right">
 <a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> >> Ir a la parte 2</a> 
 </div></td>
 </tr>
