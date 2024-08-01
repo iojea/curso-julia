@@ -381,7 +381,7 @@ La `JIT compilation` le permite a `Julia` alcanzar velocidades cercanas (!o mayo
   </div>
 
 <br>
-<table style="width:100%;border:0px;cellpadding:0;cellspacing:0">
+<table style="width:50em;border:0px;">
 <tr>
 <td><div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/"> << Volver al índice</a> 
