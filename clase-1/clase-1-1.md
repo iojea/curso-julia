@@ -29,9 +29,9 @@ La REPL es una consola interactiva que nos permite escribir código (en pocas l�
 
 La consola nos muestra inicialmente un banner que nos da algo de información sobre la instalación y nos da un _prompt_:
 
-```julia
+<code>
   julia>
-```
+</code>
 
 Allí podemos escribir código y ejecutarlo (apretando enter). Para salir de la consola de `Julia` basta con correr la función: 
 
