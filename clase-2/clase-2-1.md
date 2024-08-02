@@ -132,4 +132,15 @@ Notar que `D` es de tipo `Diagonal`, como ocurre con `I(5)`.
 En <code>Julia</code> los nombres de las funciones se escriben con minúscula y los tipos de dato (<code>Int64</code>, <code>Float64</code>, etc.) con mayúscula. <code>Diagonal</code> es una función especial: es el constructor de un tipo de dato particular (el de las matrices diagonales). Por lo tanto, tiene el mismo nombre que el tipo <code>Diagonal</code>.
 </div>
 
+Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede aplicar algoritmos especializados. A modo de ejemplo sencillo, probemos lo siguiente: 
 
+```julia
+  julia> using BenchmarkTools
+  julia> v = rand(1000);
+  julia> Dd = diagm(v);
+  julia> Dr = Diagonal(v);
+  julia> @benchmark det($Dd)
+  julia> @benchmark det($Dr)
+```
+
+`BenchmarkTools` es un paquete que contiene algunas herramientas para testear performance, más sofisticadas que `@time`. En particular, `@benchmark` corre muchas veces la función que le pasamos, y nos devuelve información diversa acerca de todas las corridas, incluido un histograma de tiempos. Conviene poner `$` antes del nombre de la variable que le pasamos a la pasamos porque estamos usando variables globales que son más difíciles de gestionar para el compilador. Al usar `$` pasamos el valor de la variable como si fuera una variable local, lo que da mediciones más confiables (y más parecidas a lo que se obtiene en un uso realista de la función).
