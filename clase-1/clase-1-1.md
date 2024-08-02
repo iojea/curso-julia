@@ -70,7 +70,7 @@ Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr l
   julia> 2/2
 ```
 
-```julia
+<code class="language-julia"
   julia> x = 2
   julia> x^2
   julia> y = 3(2x+5); 
@@ -79,7 +79,7 @@ Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr l
   julia> z = y/x
   julia> typeof(x)
   julia> typeof(z)
-```
+</code>
 
 ```julia
   julia> x<y
