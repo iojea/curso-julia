@@ -41,7 +41,7 @@ Continuando con el ejemplo, vale la pena notar:
 - La instrucción `return` nos dice qué valor devuelve la función, aunque ya veremos que puede omitirse.
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
 La indentación no es obligatoria. Sin embargo, las recomendaciones de estilo indican que deben usarse 4 espacios.
 </div>
@@ -242,10 +242,14 @@ De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`)
 
 **Ejercicio:** Modificar el código de `verif_collatz` reemplazando el `if - else` por el operador ternario.
 
+
+**Ejercicio:** Escribir una función que dado un `n` devuelva la longitud de la sucesión de Collatz generada a partir de `n` (hasta alcanzar el `1`). Hallar el `n` entre `1` y un millón que da la sucesión más larga. 
+
+
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-1-1"> << Volver a la parte 1</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-1"> << Volver a la parte 1</a> 
 </div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1-3"> >> Ir a la parte 3</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-3"> >> Ir a la parte 3</a> 
 </div>
 
 

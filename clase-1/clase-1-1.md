@@ -215,7 +215,7 @@ Probar las siguientes sentencias:
 - Las funciones `push!()` y `pop!()` permiten poner y sacar elementos de un vector (al final). También existen funciones `pushfirst!()` y `popfirst!()`. En este sentido, los vectores puede funcionar como las listas en `Python`. Sin embargo, para otros usos son _vectores_ en el sentido matemático del término. 
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
  El <code>!</code> en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de <code>Julia</code>. Indica que la función modifica su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones.
 </div>
@@ -266,7 +266,7 @@ Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estánda
 ```
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
  Hay dos comandos para importar paquetes. Uno es <code>import</code>, que es similar al <code>import</code> de <code>Python</code>. Si uno usa <code>import</code> es necesario usar el nombre del paquete como prefijo cada vez que se corre una función: <code>Plots.plot()</code>. El otro es <code>using</code> que trae todas las funciones y no requiere del uso del prefijo (podemos correr directamente <code>plot()</code>). En general en <code>Julia</code> se prefiere <code>using</code>. 
 </div>
@@ -377,11 +377,17 @@ Se observa que la ejecución es mucho más veloz y `@time` ya no reporta tiempo 
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
-La `JIT compilation` le permite a `Julia` alcanzar velocidades cercanas (!o mayores!) a las de lenguajes compilados _ahead of time_ como `C` o `Fortran`. Sin embargo, tiene el pequeño costo de que la _primera_ ejecución de una función incluye el proceso de compilación. A esto se lo conoce como _problema del primer plot_ justamente porque los _plots_ suelen ser costosos y es una de las operaciones _simples_ en las que el fenómeno resulta más notorio. Este problema puede eludirse haciendo compilación _ahead of time_ (hay un paquete para eso). Pero además es algo que mejora con cada nueva versión de `Julia`. Por último: veremos más adelante que uno puede hacer algunas cosas al programar para minimizar el impacto de este problema. 
+La <code>JIT compilation</code> le permite a <code>Julia</code> alcanzar velocidades cercanas (!o mayores!) a las de lenguajes compilados <i>ahead of time</i> como <code>C</code> o <code>Fortran</code>. Sin embargo, tiene el pequeño costo de que la <i>primera</i> ejecución de una función incluye el proceso de compilación. A esto se lo conoce como <i>problema del primer plot</i> justamente porque los plots suelen ser costosos y es una de las operaciones <i>simples</i> en las que el fenómeno resulta más notorio. Este problema puede eludirse haciendo compilación <i>ahead of time</i> (hay un paquete para eso). Pero además es algo que mejora con cada nueva versión de <code>Julia</code>. Por último: veremos más adelante que uno puede hacer algunas cosas al programar para minimizar el impacto de este problema. 
   </div>
 
- <div style="text-align: left">
+<br>
+<table class="botones">
+<tr>
+<td><div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/"> << Volver al índice</a> 
-</div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1-2"> >> Ir a la parte 2</a> 
-</div>
+</div></td>
+<td> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> >> Ir a la parte 2</a> 
+</div></td>
+</tr>
+</table>

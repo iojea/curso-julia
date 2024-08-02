@@ -7,7 +7,7 @@ title: "Clase 1 - Tercera parte - Un poco de teoría"
 # Nociones generales
 
 <div class="warnbox">
-<span style="color:red;font-weight:bold">Advertencia</span>
+<span class="warntit">Advertencia</span>
 
 La idea de estas notas (muy poco) teóricas es posicionar a <code>Julia</code> dentro del universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en <code>Julia</code>. 
 </div>
@@ -67,7 +67,7 @@ c = sumar(1,2.1)
 En el primero tenemos dos enteros que se suman de manera directa por su representación en binario. En el segundo tenemos un entero y un flotante. El entero debe ser convertido a flotante y sumado al otro, mediante la suma de flotantes.
 
 <div class="notebox">
-<span style="color:#0A9090;font-weight:bold;">Nota:</span>
+<span class="notetit">Nota:</span>
 
 Todo lo anterior no es absolutamente estricto. Con el paso del tiempo los lenguajes de tipado estático han incorporado algunas flexibilidades, muchos lenguajes interpretados admiten la posibilidad de compilación, etc. 
 </div>
@@ -82,7 +82,7 @@ Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo c
 Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos lenguajes_, que está muy presente especialmente en aplicaciones científicas. Un matemático, un físico o un químico típicamente no quieren ser programadores. Su tarea central no es programar. Por lo tanto, preferirían no tener que lidiar con todos los detalles de lenguajes compilados. De ahí la popularización de lenguajes como `Matlab`, `R` o `Python`. Son lenguajes mucho más sencillos en los que uno puede escribir y probar programas muchísimo más rápido. 
 
 <div class="notebox">
-<span style="font-weight:bold;color:#A09090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
 Además, <code>Matlab</code> y <code>R</code> fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. <code>python</code> no tiene esta ventaja. 
 </div>
@@ -121,7 +121,7 @@ y = sumar(1.2,3.4)
 `Julia` _volverá a compilar_ la función, esta vez en una versión para flotantes. 
 
 <div class="importantbox">
-<span style="font-weight:bold;color:#5743a4">Importante:</span>
+<span class="importantit">Importante:</span>
 
 Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
 </div>
@@ -129,7 +129,7 @@ Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _pr
 <br>
 
 <div class="notebox">
-<span style="font-weight:bold;color:#0A9090;">Nota:</span>
+<span class="notetit">Nota:</span>
 
 La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT</code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba</code> que introduce la posibilidad de compilar funciones just in time. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama <b>multiple dispatch</b>  que exploraremos más adelante y hace una diferencia notable.
 </div>
@@ -243,5 +243,5 @@ En resumen: en general el código _natural_ es muy eficiente en `Julia` y no nec
 
 
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-1-2"> << Volver a la parte 2</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> << Volver a la parte 2</a> 
 

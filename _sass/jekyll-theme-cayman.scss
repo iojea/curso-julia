@@ -313,9 +313,16 @@ importantbox, .importantbox {
   padding:1em;
   margin: auto;
 }
-importantit, .importanttit {
+importantit, .importantit {
   color: #5743a4;
   font-weight: bold;
+}
+
+.botones {
+  width: 300%;
+  border-style: none;
+  align: center;
+  margin: auto;
 }
 
   pre code,
