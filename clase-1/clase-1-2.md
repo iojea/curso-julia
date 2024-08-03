@@ -1,255 +1,247 @@
 ---
 layout: default
-title: "Clase 1 - Segunda parte - Empezando a programar"
+title: "Clase 2 - Segunda parte - Un poco de teoría"
 #permalink: https://iojea.github.io/curso-julia/clase-
 ---
+  
+# Nociones generales
 
-# Editor
+<div class="warnbox">
+<span class="warntit">Advertencia</span>
 
-No existe una IDE especializada para `Julia` como pueden ser `Spyder` para `Python`, `R Studio` para `R` o `Matlab` en sí mismo. Para escribir código `Julia` más extenso es necesario utilizar un editor de texto plano externo: `VSCode`, `Sublime`, `Atom`, `Kate`, `GEdit`, `Zed`, etc., etc., etc. Cualquiera de ellos es capaz de reconocer la sintaxis de `Julia` (eventualmente vía plug-ins). Los esfuerzos de la comunidad de `Julia` han estado focalizados en el desarrollo del plug-in para `VSCode`, de modo que si no hay preferencias previas lo más sencillo es usar `VSCode` (o `VS-Codium` si se prefiere una versión de código abierto y des-microsofteada). A quienes gusten de editores que corren en la terminal, les recomiendo [Helix](https://helix-editor.com/). 
+La idea de estas notas (muy poco) teóricas es posicionar a <code>Julia</code> dentro del universo de lenguajes de programación. No pretenden ser tecnicamente precisas, sino sólo dar una idea general para ayudar a pensar al momento de escribir programas en <code>Julia</code>. 
+</div>
 
-# Archivos `.jl`
 
-Para escribir código `Julia` sólo necesitamos generar un archivo con extensión `.jl`. Luego podemos correrlo desde la consola. 
+A los fines de lo que nos interesa podemos pensar los lenguajes de programación en dos grandes grupos: los lenguajes más _rígidos_ y los más _flexibles_ (no hay una distinción tajante entre ambos). Los lenguajes más rígidos tienden a ser de tipado estricto y _compilados_ y los más flexibles tienden a ser de tipado dinámico e _interpretados_. A primera vista `Julia` luce como un lenguaje de los _flexibles_, pero en realidad en este y en muchos otros aspectos es más bien un _híbrido_. 
 
-Generar un archivo nuevo e insertar el siguiente código: 
+## Tipado dinámico vs estático
 
-```julia
-function fibonacci(n)
-    fib = zeros(n)
-    fib[1] = 1; fib[2] = 1
-    for i ∈ 3:n
-        fib[i] = fib[i-1] + fib[i-2]
-    end
-    return fib
-end
+En la computadora los distintos tipos de datos se almacenan de manera diferente. Por ejemplo: un _entero_ se guarda esencialmente como su representación en binario. Pero hay distintas clases de enteros: en un entero común se reserva un bit para indicar el signo, mientras que en un _Unsigned Integer_ esto no es necesario. Un número decimal, en cambio, se almacena por su representación en punto flotante. Un caracter o más en general un `string` (cadena de caracteres) se codifica en binario según algún sistema de codificación (`ASCII`, `UTF-8`, etc.). Es decir que `1`, `1.0` y `'1'`son tres cosas diferentes. Cualquier operación que involucre varios datos, como _sumar_, requiere que estos datos estén representados de un mismo modo. Por lo tanto, si hacemos `1 + 1.0` aunque nosotros no nos enteremos por detrás hay un proceso de conversión (del `1` en `1.0`). 
+
+Lenguajes como `C`, `C++` o `Fortran` requieren que uno especifique el tipo de dato de cada variable y, de ser necesario, obligan al usuario a realizar la conversión explícitamente. El siguiente es un ejemplo de función en `C`:
+
+```C
+  int sumar(int a, int b)    
+  {
+    int resultado;
+    resultado = a+b;
+    return resultado;        
+  }
 ```
 
-Se trata de una función muy sencilla que recibe un parámetro `n` y devuelve un vector con los primeros `n` términos de la sucesión de Fibonacci. 
+Lenguajes como `Python` o `Matlab` no tienen este requirimiento. En el momento de correr el código el lenguaje _infiere_ qué tipo de dato debe asignarle a cada variable y cuando lo necesita realiza las conversiones pertinentes de manera silenciosa, sin que el usuario se entere. A continuación la función anterior, escrita en `Python`:
 
-Guardamos el archivo, por ejemplo como `clase1.jl` (identificar en qué directorio queda guardado). 
+```python
+  def sumar(a,b)    
+    resultado = a+b
+    return resultado   
+```
 
-Luego podemos ejecutarlo desde una consola `Julia` (en `VSCode` y otras IDEs puede abrirse una terminal interna, dentro del propio programa). 
+El tipado está asociado a otra característica fundamental de estos lenguajes: la _compilación_.
 
-# Funciones
+## Compilar vs. Interpretar
 
-Continuando con el ejemplo, vale la pena notar:
+El código que efectivamente se ejecuta en un procesador no es el código que uno escribe (sea en `C`, en `Python` o en `Java`). Para que un código se ejecute hay un proceso de _traducción_ que lleva lo que uno escribió a lenguaje de máquina. Ese proceso es costoso y **lleva tiempo**. 
 
-- Ya vimos que el `for` debe cerrarse con un `end`. Lo mismo ocurre con todos los bloques, incluido `function`.
-- Podemos poner más de una operación por línea, separando los tramos con `;`. 
-- `∈` puede usarse en reemplazo de `in`.
-- La instrucción `return` nos dice qué valor devuelve la función, aunque ya veremos que puede omitirse.
+Los lenguajes compilados, como `C` o `Fortran` no ejecutan el código que uno escribe de manera directa, sino que tienen una instancia de _compilación_ que traduce el archivo de texto plano que uno escribió en un archivo ejecutable. A posteriori puede _correr_ ese ejecutable, eventualmente pasándole ciertos parámetros y obtener el resultado. En el archivo ejecutable se encuentran los pasos a realizar en lenguaje de máquina. Por lo tanto, al momento de usar ese ejecutable debe estar perfectamente determinado el tipo de cada una de las variables usadas, de modo que la máquina sepa qué estructura utilizar al generar esas variables en la memoria y cómo operar con ellas. Por eso el proceso de compilación está separado y es _previo_ a la ejecución del programa. 
+
+Otros lenguajes (más modernos) como `Python` o `R` son _interpretados_. Es decir: no requieren de un proceso de compilación, sino que hay un _intérprete_ que lee el archivo de texto plano que uno escribe, lo convierte _al vuelo_ en lenguaje de máquina y lo ejecuta, dando el resultado. Típicamente, en ese proceso de interpretación se _infiere_ el tipo de las variables. Usualmente los lenguajes interpretados son de tipado dinámico y los compilados son de tipado estático. 
+
+Los lenguajes interpretados son mucho más flexibles y cómodos para programar: uno puede escribir un montón de código sin preocuparse por aclarar si algo es un entero (con signo o sin signo) o un flotante. El lenguaje se encarga de lidiar con todos esos detalles. El resultado suele ser un código más claro (más cercano a un lenguaje humano) y considerablemente más corto. 
+
+Los lenguajes compilados en cambio, tienen una ventaja que en muchas aplicaciones es crucial: al procesar el código previamente y traducirlo a lenguaje de máquina producen programas muchísimo más veloces. La razón es muy simple: todo lo que el compilador hace (y a veces compilar lleva un buen rato), el intérprete lo tiene que hacer en el momento de ejecutar el código (y repetir cada vez que se ejecuta). 
+
+Por ejemplo,  consideremos la función `sumar` escrita en `Python` (más arriba). El siguiente fragmento:
+
+```python
+c = sumar(1,2)
+```
+
+realiza un proceso totalmente distinto al siguiente
+
+```python
+c = sumar(1,2.1)
+```
+
+En el primero tenemos dos enteros que se suman de manera directa por su representación en binario. En el segundo tenemos un entero y un flotante. El entero debe ser convertido a flotante y sumado al otro, mediante la suma de flotantes.
 
 <div class="notebox">
 <span class="notetit">Nota:</span>
 
-La indentación no es obligatoria. Sin embargo, las recomendaciones de estilo indican que deben usarse 4 espacios.
+Todo lo anterior no es absolutamente estricto. Con el paso del tiempo los lenguajes de tipado estático han incorporado algunas flexibilidades, muchos lenguajes interpretados admiten la posibilidad de compilación, etc. 
+</div>
+## Memoria
+
+Suele haber otras diferencias entre lenguajes compilados e interpretados. Una de ellas (bastante sensible) es el manejo de la memoria. Cuando uno escribe un programa medianamente sofisticado suelen aparecer muchas variables auxiliares. Estas variables pueden ocupar mucho espacio (vectores o matrices, por ejemplo). En los lenguajes compilados suele ser necesario indicar de manera precisa qué va a hacer uno con el espacio ocupado por esas variables. Hay que reservar el espacio previamente, y liberarlo cuando la variable ya no se necesita. No hacer esto adecuadamente puede derivar en resultados catastróficos como quedarse sin memoria o intentar usar un bloque de memoria de acceso restringido (`segmentation fault`). El manejo de memoria conlleva una sintaxis específica y **mucho** cuidado. 
+
+Los lenguajes interpretados se encargan de esta tarea automáticamente, por lo cual liberan al programador de bastantes preocupaciones. El costo, sin embargo es alto: los intérpretes son muy conservadores y procuran no liberar memoria a menos que estén absolutamente seguros de hacerlo no causará daños. Por lo tanto, un programa interpretado tiende a hacer un uso de memoria mucho más intensivo que uno previamente compilado y a perder mucho más tiempo liberando memoria ocupada.
+
+## El problema de los dos lenguajes
+
+Todo lo anterior ha dado lugar a lo que se conoce como _problema de los dos lenguajes_, que está muy presente especialmente en aplicaciones científicas. Un matemático, un físico o un químico típicamente no quieren ser programadores. Su tarea central no es programar. Por lo tanto, preferirían no tener que lidiar con todos los detalles de lenguajes compilados. De ahí la popularización de lenguajes como `Matlab`, `R` o `Python`. Son lenguajes mucho más sencillos en los que uno puede escribir y probar programas muchísimo más rápido. 
+
+<div class="notebox">
+<span class="notetit">Nota:</span>
+
+Además, <code>Matlab</code> y <code>R</code> fueron diseñados específicamente para hacer cálculo científico, por lo cual su sintaxis es mucho más cercana al lenguaje al que los científicos están habituados. <code>python</code> no tiene esta ventaja. 
 </div>
 
-Al ejecutar el archivo desde una sesión de `Julia` obtenemos: 
+Sin embargo, en muchas aplicaciones (resolución de ecuaciones diferenciales, aplicaciones a geometría, simulaciones numéricas de problemas físicos o químicos de gran tamaño, manejo de grandes volúmenes de datos, etc.) el tiempo de ejecución se torna un problema serio. Ahí es donde estos lenguajes fallan y es necesario pasar a lenguajes compilados que son mucho más tediosos de programar, pero dan lugar a programas mucho más rápidos. 
+
+Por lo tanto, en muchos casos se da una dinámica de dos lenguajes: los algoritmos se bocetan, se prueban y se ajustan en `Matlab` o `Python` pero la versión final se escribe en `C` o `Fortran`. Alternativamente, se usan los dos lenguajes al mismo tiempo: todo lo que hace a la interfaz del usuario (las funciones que el usuario llama, el sitio web o incluso una ventanita con botones) se implementan en `Python`, pero las rutinas críticas se escriben en `C`. El ejemplo más notorio de esta filosofía son las propias librerías de `Python`: `Numpy` y `Scipy` son librerías que permiten hacer operaciones matemáticas sofisticadas escribiendo código `Python`. Sin embargo, las librerías en sí están escritas en `C` y `C++` y hacen uso de diversas funciones de `Fortran`. Algo similar ocurre con `Matlab` en su conjunto. 
+
+# Julia
+
+A primera vista, `Julia` luce como un lenguaje interpretado, de tipado dinámico. Por ejemplo: la función `sumar` en `Julia` se puede escribir: 
 
 ```julia
-  julia> include("clase1.jl")
-  fibonacci (generic function with 1 method)
-```
-
-Recordar que para que esto funcione la consola debe estar posicionada en el directorio del archivo. Si no, es posible incluir el archivo poniendo toda la ruta en lugar de sólo el nombre. El texto `fibonacci (generic function with 1 method)` aparece porque la sesión interactiva siempre muestra el resultado de la última expresión ejecutada. En este caso, la única expresión ha sido la definición de la función. Se puede suprimir este mensaje poniendo `;`. 
-
-Hasta aquí sólo hemos generado la función dentro de la sesión interactiva. Podemos correrla, por ejemplo: 
- 
-```julia
-  julia> fibonacci(4)
-  4-element Vector{Float64}:
-    1.0
-    1.0
-    2.0
-    3.0
-```
-
-Hay varias cosas que vale la pena remarcar. 
-
-- La instrucción `return` no es necesaria. Como ya dijimos, los bloques de código devuelven por defecto el valor de la última sentencia. Por lo tanto, `return fib` puede reemplazar simplemente por `fib`. Hacer esta modificación en el archivo, recargarlo en la consola y volver a correr la función. 
-- El resultado obtenido no es el más deseable, dado que la sucesión de Fibonacci está formada por enteros. El problema viene de que `zeros(n)` genera, por defecto, un vector de ceros en flotante. Al cargarle enteros, `Julia` los _promueve_ a flotantes para mantener el tipo del vector.
-Para obtener un vector de enteros, podemos hacer:
-```julia
-fib = zeros(Int,n)
-```
-Recargar el archivo y probar la función. 
-- La primera línea de la función podría usar _broadcasting_: `fib[1:2] .= 1`. El `.` antecede al operador de asignación e indica que la asignación debe ser casillero a casillero sobre subvector formado por los dos primeros lugares de `fib`. Notar que al llamar a una función el `.` se coloca luego del nombre de la función (`f.(x)`), pero se pone _antes_ de los operadores (`.=`).
-Y ya que estamos hablando de _broadcasting_, ¿Qué esperaría al correr el siguiente código?
-```julia
-  julia> fibonacci.([2,4,7])
-```
-
-# If
-
-Agreguemos la siguiente función a nuestro archivo,  volvamos a correrlo en la consola y probemos la función: 
-
-```julia
-function comparar(x,y)
-    if x<y
-        println("$x es menor que $y")
-    elseif x>y
-        println("$x es mayor que $y")
-    else
-        println("$x e $y son iguales")
-    end
-end      
-```
-
-- `if` evalúa una operación lógica (que debe devolver un booleano, `true` o `false`). Como siempre, debe cerrarse con `end`. 
-- `elseif` permite agregar nuevas condiciones para ser evaluadas. Pueden incluirse todas las cláusulas `elseif` necesarias.
-- `else` recoge los casos no considerados por las cláusulas anteriores, y no lleva condición. 
-- `elseif` y `else` pueden omitirse. 
-- La notación `$x` permite interpolar el valor de la variable `x` en una `String`. 
-
-Al ejecutar la función, ¿qué devuelve? Probar el código:
-
-```julia
-  julia> w = comparar(5,4)
-  julia> w
-  julia> typeof(w)
-```
-
-Otros lenguajes tienen el valor `NULL` o el valor `None`. En `Julia`, `nothing` cumple un papel similar. `nothing` es un valor único de tipo `Nothing`. Al mostrar el valor de una variable que tiene asignado `nothing`, la consola muestra... nada. 
-
-Los operadores booleanos usuales en `Julia` son: 
-
-- `==`: igualdad
-- `!=`,`≠`: distinto
-- `>`: mayor
-- `<`: menor
-- `>=`,`≥`: mayor o igual
-- `<=`,`≤`: menor o igual
-- `!`: negación
-- `&&`: y
-- `||`: o
-
-Además, existe el operador `===` que compara la representación en memoria de los valores. Probar:
-
-```julia
-  julia> 1 == 1.0
-  julia> 1 === 1.0
-  julia> 1 === 2÷2
-```
-
-Además, existen muchísimas funciones que devuelven booleanos y pueden usarse como condiciones lógicas. Por ejemplo, `isodd()` e `iseven()`.
-
-## Evaluaciones cortas
-
-Cuando `Julia` evalúa una instrucción `if`-`elseif`-`else` lo hace sólo hasta encontrar un `true`. Es decir: si la condición del `if` se verifica, no se chequea la condición del `elseif`. Lo mismo ocurre con `&&` y `||`. Probar lo siguiente: 
-
-```julia
-  julia> iseven(2) && println("es par")
-  julia> iseven(3) && println("es par")
-  julia> iseven(2) || println("es impar")
-  julia> iseven(3) || prinln("es impar")
-```
-
-En todos los casos, el operador lógico (`&&`, `||`) no está realmente comparando variables booleanas, porque el segundo término no devuelve un booleano (de hecho, devuelve `nothing`). Lo que estamos haciendo es aprovechar el mecanismo de evaluación de `Julia` para correr condicionalmente el `println()`, que sólo se ejecutará cuando el primer término sea `true` (en los cosas con `&&`) o cuando sea `false` (en los casos con `||`). La sentencia 
-```julia
-iseven(2) && println("es par")
-```
-es equivalente a la más extensa
-```julia
-if iseven(2)
-    println("es par")
+function sumar(a,b)    
+  resultado = a+b
+  return resultado     
 end
 ```
 
-Esta herramienta se usa bastante en `Julia`. Un buen uso podría ser agregar la siguiente línea a la función `fibonacci()`:
+Sin embargo, `Julia` es un **lenguaje compilado** de **tipado dinámico** (con tipado opcional). Para lograr esto `Julia` hace uso de lo que se llama _Just In Time Compilation_. Además, `Julia` tiene algunas otras pecualiaridades que vale la pena mencionar. 
 
+## JIT Compilation
+
+En `Julia` (en principio) uno no obtiene un ejecutable, sino que, como ocurre en `Python`, `R` o `Matlab` uno escribe un archivo de texto plano con el código y luego directamente ejecuta ese código. Lo que ocurre es que al hacer esto `Julia` infiere los tipos de las variables y **compila** una versión de las funciones que uno escribió adecuada a los tipos inferidos. Esa versión compilada se almacena en memoria y dura mientras la sesión de `Julia` se encuentre abierta. 
+
+Esto es una enorme ventaja, porque el código de `Julia` se ejecuta realmente rápido y puede alcanzar velocidades muy cercanas a las de `C` o `Fortran`. 
+
+En principio, `Julia` deduce los tipos de las variables en función de lo que se escribió en la función o, en su defecto, de los valores que se usaron al llamar a la función. Por ejemplo: la función `sumar` no da ninguna pista respecto de si pretendemos sumar enteros o flotantes. `Julia` deducirá cuál es el caso la primera vez que se ejecute la función. Por lo tanto, si corremos 
 ```julia
-isinteger(n) || error("n debe ser entero")
+x = sumar(3,6)
+```
+`Julia` compilará una versión de la función asumiendo que los dos parámetros son enteros. Si luego corremos: 
+```julia
+y = sumar(1.2,3.4)
+```
+`Julia` _volverá a compilar_ la función, esta vez en una versión para flotantes. 
+
+<div class="importantbox">
+<span class="importantit">Importante:</span>
+
+Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
+</div>
+
+<br>
+
+<div class="notebox">
+<span class="notetit">Nota:</span>
+
+La compilación <code>JIT</code> no es una innovación de <code>Julia</code>. El primer sistema de compilación <code>JIT</code> fue desarrollado para <code>Lisp</code> y data de la década de 1960. <code>Matlab</code> introdujo un proceso de <code>JIT</code> hace más de diez años. En <code>Python</code> está la librería <code>Numba</code> que introduce la posibilidad de compilar funciones just in time. Sin embargo, <code>Julia</code> combina la compilación con algo que se llama <b>multiple dispatch</b>  que exploraremos más adelante y hace una diferencia notable.
+</div>
+
+### Una ventaja educativa
+
+En `Matlab` la tendencia natural es a escribir _scripts_. Es decir: secuencias de instrucciones de código. Esto es muy poco recomendable por muchas razones. Siempre es mejor escribir _funciones_ que realicen tareas pequeñas y específicas y luego llamar a esas funciones para procesar cada instancia particular de datos. 
+
+`Python` invita más a escribir funciones, pero los estudiantes igualmente tienen tendencia a escribir bloques de código suelto (entornos como `Colab` contribuyen a ello). 
+
+Un curso en el que se intente aprovechar las características de `Julia` debería hacer hincapié en el uso de funciones, que son el pilar fundamental sobre el que está construido el lenguaje. De este modo, `Julia` ayuda a introducir una buena practica de programación desde el inicio. 
+
+# Julia de verdad es rápido.
+
+`Julia` es el único lenguaje de tipado dinámico que pertenece al selecto club de los `Petaflop`, es decir: la pequeña familia de lenguajes capaces de ejecutar más de `10^15` operaciones de punto flotante en menos de un segundo. Logró este objetivo dentro del proyecto `Celeste`, en donde `Julia` corre en una supercomputadora con más de un millón de threads. Los otros miembros del club son: `C`, `C++` y `Fortran`. 
+
+A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones mátemáticas típicas (`1` corresponde al tiempo obtenido en `C`):
+
+
+![Alt text](/clase-1/images/mat_ops.png)
+
+Y luego una comparación general de lenguajes comparando tiempo de ejecución y longitud de código. 
+
+![Alt text](/clase-1/images/all_lang_summary.png)
+
+# Un ejemplo
+
+Terminemos con un ejemplo que permite constatar en la práctica la velocidad `Julia` y la enorme potencia de su proceso de compilación _just in time_. 
+    
+Consideremos un programa bastante tonto para estimar `π` mediante un método de Montecarlo: tiramos puntos al azar en el cuadrado [-1,1]<sup>2</sup>, contamos cuántos caen en el disco unitario y estimamos `π∼4n/N`, donde `N` es la cantidad total de puntos y `n` la cantidad de puntos que cayeron en el círculo.
+
+**Ejercicio:** Implementar una función que resuelva este problema. Puede resultar útil utilizar la función `rand()` (sin argumentos) que devuelve un número al azar en el intervalo [0,1]. 
+
+Podemos comparar la función implementada en `Julia` con su análogo en `Python`. Supongamos que consideramos: 
+```python
+import numpy as np
+def estimate_pi(N):
+    n = 0
+    for i in range(N):
+        x = 2*np.random.random() - 1
+        y = 2*np.random.random() - 1
+        if np.sqrt(x**2 + y**2) <= 1:
+           n_circle += 1
+    return 4*n_circle/N
+```
+Probamos esta función con `N=1_000_000` y usando `%time` y obtenemos un tiempo de ejecución de `848 ms`. Esto es esperable porque los `for` de `Python` son interpretados, no compilados, de modo que suelen ser muy lentos. Un truco usual en `Python` y `Matlab` es _vectorizar_ el código de modo que las operaciones que se hacen dentro del `for` sean reemplazadas por funciones de librería que ejecutan internamente un `for` compilado (y escrito en `C` o `Java`). Nuestro código luciría más o menos así: 
+
+```python
+def estimate_pi_numpy(n):
+    xy = 2*np.random.random((n, 2)) - 1
+    norma = (xy**2).sum(axis = 1)    
+    en_circ = norma <= 1    
+    n_circle = en_circ.sum()
+    return 4*n_circle/n
 ```
 
-## Operador ternario
+Aquí creamos una matriz en donde cada fila es un punto, calculamos la norma al cuadrado de cada fila, comparamos con 1 y sumamos los menores que 1. El tiempo de ejecución es de `31 ms`. Una ganancia considerable. 
 
-Dado que la cláusula `if - else` aparece con muchísima frecuencia, `Julia` incluye una variante abreviada. Probar lo siguiente: 
+En `Python` hay otra alternativa, que es utilizar la librería `Numba`. `Numba` agrega funcionalidades de compilación _just in time_ que permiten acelerar el `for`. Nuestro código es: 
 
-```julia
-  julia> isodd(3) ? println("es impar") : println("es par")
-  julia> isodd(2) ? println("es impar") : println("es par")
+```python
+import numba
+@numba.jit()
+def estimate_pi_numba(N):
+    n = 0
+    for i in range(n):
+        x = 2*np.random.random() - 1
+        y = 2*np.random.random() - 1
+        if x**2 + y**2 <= 1:
+           n += 1
+    return 4*n/N
 ```
 
-La sintaxis es: `condicion ? respuesta si true : respuesta si false`. Son importantes los espacios antes y después de `?` y de `:`. 
+Para no contabilizar el tiempo de compilación, ejecutamos esta función primero con `N=2` y luego con `%time` y `N=1_000_000`. El tiempo obtenido es de `7.65 ms`
 
-Más interesante aún: el operador ternario _devuelve_ el valor de salida, por lo cual puede usarse para realizar asignaciones condicionales. Veamos un ejemplo. 
+Probamos ahora nuestro código en `Julia`:
 
-      
-Consideremos la función partida que un `n` natural devuelve `n/2` si `n` es par y `3n+1` si es impar. Una implementación de esta función podría ser: 
-```julia
-function collatz(n)
-    if iseven(n)
-        out = n÷2
-    else
-        out = 3n+1
+```
+function estimate_pi(n)
+    n_circle = 0
+    for i in 1:n
+        x = 2*rand() - 1
+        y = 2*rand() - 1
+        if sqrt(x^2 + y^2) <= 1
+           n_circle += 1
+        end
     end
+    return 4*n_circle/n
 end
 ```
 
-Notar que no le estamos poniendo `return` a la función. Podríamos hacerlo, pero no hace falta. Las funciones siempre devuelven el valor de su última expresión. En este caso la última expresión será alguna de las respuestas del `if`. Incluso podríamos eliminar la variable `out`. Esta función hace lo que necesitamos, pero cuesta 7 líneas para evaluar una pavada. La siguiente variante es mucho más compacta (y más fácil de leer):
+Lo corremos una vez para compilar y medimos el tiempo la segunda y obtenemos: `3.8 ms`. Es decir: la mitad que con `Numba` y un décimo que la versión vectorizada en `Python`.
+
+Cabe preguntarse, ¿ganaremos algo vectorizando el código de `Julia`? Podemos probar. El siguiente código es análogo al de `Python`.
 
 ```julia
-collatz(n) = iseven(n) ? n÷2 : 3n+1
-```
-
-# While
-
-La conjetura de Collatz dice que si componemos la función implementada más arriba suficientes veces eventualmente se alcanzará el valor `1`. Experimentemos para evaluar esta conjetura. 
-
-Podemos agregar la siguiente función a nuestro archivo: 
-
-```julia
-function verif_collatz(n)
-    i = 0
-    while n!=1 && i<1000
-        n = collatz(n)
-        i = i+1
-    end  
-    if i==1000
-        println("No cumple (en 1000 iteraciones)")
-    else 
-        println("Cumple! (en $i iteraciones)")
-    end
+function estimate_pi_vec(N)
+    xy = 2*rand(N,2) .- 1
+    norma = sum(xy.^2,dims=2)    
+    en_circ = norma .≤ 1 
+    n = sum(en_circ)
+    return 4*n/N
 end
 ```
 
-Tenemos un clásico uso de la sentencia `while`. `while` repite un determinado bloque de código _mietras_ se ejecute cumpla una cierta condición. En este caso nuestra condición es doble: en primer lugar, continuamos evaluando `collatz` mientras no se haya alcanzado el valor `1`. Sin embargo, esto por sí sólo entraña un riesgo: si la conjetura es falsa y probamos un `n` para el cual nunca se alcanza el `1`, el loop continuará para siempre. Para prevenir esto, agregamos un contador de iteraciones `i` y cortamos el `while` si se alcanzan las `1000` vueltas.
+Y al correrlo con `@time` obtenemos un tiempo de alrededor de `11 ms` (aunque es bastante volátil). Es decir: empeoramos (aunque en general estamos mejor que con `Numpy`). 
 
-El valor `1000` es totalmente arbitrario. Podríamos eliminarlo agregando un parámetro `max_iter`a la función: 
-```julia
-function verif_collatz(n,max_iter)
-    i = 0
-    while n!=1 && i<max_iter
-        n = collatz(n)
-        i = i+1
-    end  
-    if i==max_iter
-        println("No cumple (en $max_iter iteraciones)")
-    else 
-        println("Cumple! (en $i iteraciones)")
-    end
-end
-```
+La razón de esto la da el propio `@time`: estamos haciendo `18` _allocations_ (accesos a memoria) por un total de `68 Mb`. Esto a su vez desencadena llamados al _Garbage Collector_ (`gc`) que debe limpiar la memoria que ocupamos para `arrays` auxiliares. Esto además de memoria consume _tiempo_.  La versión sin vectorizar no reportaba _allocations_. 
 
-Esto no es del todo feliz, porque normalmente no nos interesa el valor de `max_iter`, sino sólo el de `n`. Una forma de evitar el problema es asignarle a `max_iter` un valor por defecto. Esto se logra cambiando la firma de la función por:
-```julia
-function verif_collatz(n,max_iter=1000)
-```
-
-De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`), o sólo uno (`n`), en cuyo caso `max_iter` tomará el valor por defecto `1000`.
-
-**Ejercicio:** Modificar el código de `verif_collatz` reemplazando el `if - else` por el operador ternario.
-
-
-**Ejercicio:** Escribir una función que dado un `n` devuelva la longitud de la sucesión de Collatz generada a partir de `n` (hasta alcanzar el `1`). Hallar el `n` entre `1` y un millón que da la sucesión más larga. 
+En resumen: en general el código _natural_ es muy eficiente en `Julia` y no necesitamos de trucos como la _vectorización_ de las operaciones. Esto además de dar programas más rápidos permite escribir código más claro y descriptivo.
 
 
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-1"> << Volver a la parte 1</a> 
-</div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-3"> >> Ir a la parte 3</a> 
-</div>
-
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> << Volver a la parte 2</a> 
 
