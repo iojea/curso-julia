@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Clase 2 - Primera parte - Jugando a Cálculo Numérico"
+title: "Clase 2 - Segunda parte - Jugando a Cálculo Numérico"
 #permalink: https://iojea.github.io/curso-julia/clase-
 ---
 
@@ -144,3 +144,10 @@ Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede
 ```
 
 `BenchmarkTools` es un paquete que contiene algunas herramientas para testear performance, más sofisticadas que `@time`. En particular, `@benchmark` corre muchas veces la función que le pasamos, y nos devuelve información diversa acerca de todas las corridas, incluido un histograma de tiempos. Conviene poner `$` antes del nombre de la variable que le pasamos a la pasamos porque estamos usando variables globales que son más difíciles de gestionar para el compilador. Al usar `$` pasamos el valor de la variable como si fuera una variable local, lo que da mediciones más confiables (y más parecidas a lo que se obtiene en un uso realista de la función).
+
+<br>
+ <div style="text-align: left">
+<a href="https://iojea.github.io/curso-julia/clase-2/clase-2-1"> << Volver a la primera parte</a> 
+</div> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-3/clase-3-1"> >> Ir a la clase 3</a> 
+</div>

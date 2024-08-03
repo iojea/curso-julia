@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Clase 2 - Segunda parte - Un poco de teoría"
-#permalink: https://iojea.github.io/curso-julia/clase-
+#permalink: https://iojea.github.io/curso-julia/clase-1/clase-1-2
 ---
   
 # Nociones generales
@@ -241,7 +241,9 @@ La razón de esto la da el propio `@time`: estamos haciendo `18` _allocations_ (
 
 En resumen: en general el código _natural_ es muy eficiente en `Julia` y no necesitamos de trucos como la _vectorización_ de las operaciones. Esto además de dar programas más rápidos permite escribir código más claro y descriptivo.
 
-
+<br>
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> << Volver a la parte 2</a> 
-
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-1"> << Volver a la parte 1</a> 
+</div> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-2-1"> >> Ir a la clase 2</a> 
+</div>

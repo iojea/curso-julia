@@ -247,7 +247,7 @@ De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`)
 
 **Ejercicio:** Escribir una función que dado un `n` devuelva la longitud de la sucesión de Collatz generada a partir de `n` (hasta alcanzar el `1`). Hallar el `n` entre `1` y un millón que da la sucesión más larga. 
 
-
+<br>
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> << Volver a la clase 1</a> 
 </div> <div style="text-align: right">

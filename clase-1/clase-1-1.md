@@ -380,8 +380,9 @@ Se observa que la ejecución es mucho más veloz y `@time` ya no reporta tiempo 
 La <code>JIT compilation</code> le permite a <code>Julia</code> alcanzar velocidades cercanas (¡o mayores!) a las de lenguajes compilados <i>ahead of time</i> como <code>C</code> o <code>Fortran</code>. Sin embargo, tiene el pequeño costo de que la <i>primera</i> ejecución de una función incluye el proceso de compilación. A esto se lo conoce como <i>problema del primer plot</i> justamente porque los <i>plots</i> suelen ser costosos y es una de las operaciones <i>simples</i> en las que el fenómeno resulta más notorio. Este problema puede eludirse haciendo compilación <i>ahead of time</i> (hay un paquete para eso). Pero además es algo que mejora con cada nueva versión de <code>Julia</code>. Por último: veremos más adelante que uno puede hacer algunas cosas al programar para minimizar el impacto de este problema. 
   </div>
 
+<br>
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/"> << Volver al índice</a> 
 </div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1-2"> >> Ir a la parte 2</a> 
+<a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> >> Ir a la parte 2</a> 
 </div>
