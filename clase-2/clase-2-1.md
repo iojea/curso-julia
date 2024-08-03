@@ -251,7 +251,7 @@ De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`)
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-1/clase-1-2"> << Volver a la clase 1</a> 
 </div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-1/clase-2-2"> >> Ir a la parte 2</a> 
+<a href="https://iojea.github.io/curso-julia/clase-2/clase-2-2"> >> Ir a la parte 2</a> 
 </div>
 
 
