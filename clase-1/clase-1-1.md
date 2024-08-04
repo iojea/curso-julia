@@ -192,7 +192,7 @@ Probar las siguientes sentencias:
 ```
 
 ```julia
-  julia> D = divrev(13,5)
+  julia> D = divrem(13,5)
   julia> d,r = divrem(13,5)
   julia> d
   julia> r 
