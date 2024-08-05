@@ -36,7 +36,7 @@ Veamos un ejemplo:
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
-El término correcto para denominar las distintas versiones de una función es _método_. Decimos que `g` es **una** función con dos métodos. 
+El término correcto para denominar las distintas versiones de una función es <i>método</i>. Decimos que `g` es <b>una</b> función con dos métodos. 
 </div>
 
 Esta es la **principal** aplicación de las anotaciones de tipo en `Julia`. 
@@ -45,9 +45,9 @@ Esta es la **principal** aplicación de las anotaciones de tipo en `Julia`.
 <div class="importantbox">
 <span class="importantit">Muy importante:</span>
 
-El _multiple dispatch_ **no es sólo** un chiche. Permite la repetición de nombres de funciones y le simplifica la vida al usuario que sabe que si tiene que hacer un `plot` seguramente tendrá que usar el comando `plot`, independientemente de qué es lo que quiera graficar. 
+El <i>multiple dispatch</i> <b>no es sólo</b> un chiche. Permite la repetición de nombres de funciones y le simplifica la vida al usuario que sabe que si tiene que hacer un <code>plot</code> seguramente tendrá que usar el comando <code>plot</code>, independientemente de qué es lo que quiera graficar. 
 
-La principal ventaja del _multiple dispatch_ es que le permite al compilador decidir qué método quiere aplicar y usar el más adecuado al tipo de dato ingresado. Esto, a su vez, hace que el compilador pueda aplicar una serie de optimizaciones específicas para ese tipo de dato, lo que redunda en una mejor performance. Lo que hace que `Julia` pueda competir con `Fortran` o `C` es la **combinación** de **just in time compilation** con un muy buen sistema de **multiple dispatch**.
+La principal ventaja del <i>multiple dispatch</i> es que le permite al compilador decidir qué método quiere aplicar y usar el más adecuado al tipo de dato ingresado. Esto, a su vez, hace que el compilador pueda aplicar una serie de optimizaciones específicas para ese tipo de dato, lo que redunda en una mejor performance. Lo que hace que <code>Julia</code> pueda competir con <code>Fortran</code> o `C` es la <b>combinación</b> de <b>just in time compilation</b> con un muy buen sistema de <b>multiple dispatch</b>.
 </div>
 
 Veamos un ejemplo apenas más sofisticado:
