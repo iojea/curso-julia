@@ -154,6 +154,7 @@ Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede
   julia> @benchmark det($Dr)
 ```
 
+En `LinearAlgebra` hay tipos especiales para diversas clases de matrices, incluyendo `Symmetric`, `Hermitian`, `Tridiagonla`, `SymTridiagonal`, `UpperTriangular`, `LowerTriangular`, etc. 
 
 <br>
  <div style="text-align: left">
