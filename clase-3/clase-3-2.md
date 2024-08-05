@@ -154,6 +154,7 @@ end
 
 + `Rational` es un nuevo tipo de dato, que se define con la sentencia `struct`. En un **tipo compuesto** porque se define a través de otros datos que se indican en el interior de la cláusula `struct`: `num` (numerador) y `den` (denominador). 
 + La indicación `<: Real` a la derecha de la definición ubica a `Rational` dentro del árbol de tipos. Esto será usado a la hora de aplicar _multiple dispatch_, para buscar el método más apropiado de una función cuando se llame con un dato de tipo `Rational`.
++ Si no se aclara de quién desciende el nuevo tipo, por defecto será hijo de `Any`.
 + La sintaxis `Rational{T<:Integer}` indica que el tipo `Rational` tiene un parámetro `T`, que en este caso se aclara que debe descender de `Integer` (`T<:Integer`). Esto puede indicarse también usando la palabra clave `where`. La sintaxis (equivalente) sería: 
 ```julia
 struct Rational{T} <: Real where T<:Integer
@@ -180,4 +181,47 @@ Consideremos lo siguiente:
   julia> Rational{Signed} <: Rational
   julia> Rational{Int64} <: Rational{Signed}
 ```
+
+Es decir: `Rational{T}` para cualquier tipo `T` es un subtipo de `Rational`. Pero `Rational{Int64}` **no es** un subtipo de `Rational{Signed}` pese a que `Int64` es un subtipo de `Signed`. Es decir: las relaciones de parentesco no se anidan. 
+
+`Rational` es lo que se llama un tipo `UnionAll`. Es decir función como la unión de `Rational{T}` para todo `T`. 
+
+
+# Unión de tipos
+
+En algunos casos puede resultar útil admitir tipos de datos disímiles. Por ejemplo, supongamos que queremos generar una estructura de datos que adentro tendrá un flotante, pero queremos dejar la posibilidad de que ese valor quede sin inicializar. En tal caso, le asignaríamos el valor `nothing`, cuyo tipo es `Nothing` (que desciende directametne de `Any`). Esto lo podemos lograr haciendo: 
+
+```julia
+struct MiDato{T} where T<:Union{AbstractFloat,Nothing}
+  num::T
+end
+```
+
+Es decir que `MiDato` es un contenedor que tiene un numero y ese número puede ser cualquier variante de flotante (descendiente de `AbstractFloat`) o `nothing` (único valor de tipo `Nothing`).
+
+El sistema de _multiple dispatch_ es muy eficiente y maneja bien uniones, siempre que sean de pocos tipos. 
+
+# Explorando tipos compuestos
+
+Ahora que conocemos los entretelones del tipo `Rational`, problemas algunas cosas: 
+
+```julia
+  julia> r = 2//3
+  julia> propertynames(r)
+  julia> r.num
+  julia> r.den
+  julia> getproperty(r,:den)
+  julia> getproperty(r,:num)
+  julia> denominator(r)
+  julia> numerator(r)
+```
+
++ `propertynames` nos devuelve los nombres de todas variables definidas dentro de nuestra variable. 
++ se puede acceder directamente usando `.` precedido por el nombre de la variable y seguido del nombre del atributo. 
++ la función `getproperty` cumple la misma función. El primer parámetro es la variable y el segundo un símbolo creado a partir del nombre interno de la propiedad.
++ Muchas veces las propiedades internas de un nuevo tipo no tienen sentido para el usuario externo. Sin embargo, cuando tienen un significado y puede ser útil recuperarlas, suelen agregarse funciones específicas, como en este caso son `denominator` y `numerator`. Estas funciones hacen lo mismo que las otras. De hecho, si miramos el código veremos que la definición de `numerator` es: 
+```julia
+  numerator(r::Rational) = r.num
+```
+
 
