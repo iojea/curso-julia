@@ -149,7 +149,7 @@ Un curso en el que se intente aprovechar las características de `Julia` deberí
 A continuación un par de gráficos comparativos con otros lenguajes. Primero, comparando algunas operaciones mátemáticas típicas (`1` corresponde al tiempo obtenido en `C`):
 
 
-![Alt text](/clase-1/images/mat_ops.png)
+<img src="../clase-1/images/mat_ops.png">
 
 Y luego una comparación general de lenguajes comparando tiempo de ejecución y longitud de código. 
 

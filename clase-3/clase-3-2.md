@@ -134,5 +134,50 @@ Considerar lo siguiente:
   julia> typeof(z)
   julia> w = Rational{Int16}(2,3)
   julia> typeof(w)
-    
+  julia> c = 2 + 4im
+  julia> d = 2.5 + 2im
 ```
+
+Estos ejemplos nos muestran que `Rational` y `Complex` **no son** _tipos concretos_ en el sentido de tener una representación de máquina predeterminada. El tipo de racional que definimos depende del tipo de enteros que usamos para el numerador y el denominador. Algo similar ocurre con la parte real y compleja de los complejos. 
+
+Por ejemplo, un racional definido de manera estandar (`2//3`) es de tipo `Rational{Int64}`. Es decir que tenemos un _tipo paramétrico_. Si usamos `@edit` o `@less` para ver cómo se define un racional vemos lo siguiente: 
+
+```julia
+struct Rational{T<:Integer} <:Real
+   num::T
+   den::T
+end
+```
+(omitimos sólo una línea que contiene un constructor para `Rational`). 
+
+¿Qué nos dice esto?
+
++ `Rational` es un nuevo tipo de dato, que se define con la sentencia `struct`. En un **tipo compuesto** porque se define a través de otros datos que se indican en el interior de la cláusula `struct`: `num` (numerador) y `den` (denominador). 
++ La indicación `<: Real` a la derecha de la definición ubica a `Rational` dentro del árbol de tipos. Esto será usado a la hora de aplicar _multiple dispatch_, para buscar el método más apropiado de una función cuando se llame con un dato de tipo `Rational`.
++ La sintaxis `Rational{T<:Integer}` indica que el tipo `Rational` tiene un parámetro `T`, que en este caso se aclara que debe descender de `Integer` (`T<:Integer`). Esto puede indicarse también usando la palabra clave `where`. La sintaxis (equivalente) sería: 
+```julia
+struct Rational{T} <: Real where T<:Integer
+  num::T
+  den::T
+end
+```
++ Los _atributos_ internos `num` y `den` deben ser ambos de tipo `T`. 
+
+De esto podemos inferir algunas conclusiones iniciales: 
++ Sólo podremos construir un `Rational` si le pasamos dos enteros. Pueden ser cualquier clase de enteros, pero no pueden ser otra cosa. 
++ `num` y `den` serán siempre del mismo tipo. Es decir que, por ejemplo, no podremos construir racionales cuyo denominador sea `Int64` y cuyo numerador sea `UInt8`.
++ En realidad `Rational` no es **un** tipo, sino una **familia** de tipos. `Rational{Int64}`, `Rational{Int32}` o, dicho más apropiadamente: 
+```julia
+Rational{T} where T<:Integer
+```
+son todas variantes de `Rational`. Cuando creamos un número racional no es de tipo `Rational`, sino de alguno de los tipos concretos (por defecto `Rational{Int64}`).
+
+Consideremos lo siguiente: 
+
+```julia
+  julia> Rational{Int64} <: Rational
+  julia> Rational{UInt16} <: Rational
+  julia> Rational{Signed} <: Rational
+  julia> Rational{Int64} <: Rational{Signed}
+```
+
