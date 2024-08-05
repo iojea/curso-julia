@@ -153,7 +153,7 @@ A continuación un par de gráficos comparativos con otros lenguajes. Primero, c
 
 Y luego una comparación general de lenguajes comparando tiempo de ejecución y longitud de código. 
 
-<img src="/clase-1/images/all_lang_summary.png">
+<img src="../clase-1/images/all_lang_summary.png">
 
 # Un ejemplo
 
