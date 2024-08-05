@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Clase 2 - Segunda parte - Jugando a Cálculo Numérico"
+title: "Clase 3 - Primera parte - Jugando a Cálculo Numérico"
 #permalink: https://iojea.github.io/curso-julia/clase-
 ---
 
@@ -70,9 +70,20 @@ El código anterior funciona sólo para ecuaciones escalares, pero no para siste
   julia> plot(p1,p2,layout=(2,1))
 ```
 
+**Ejercicio 5:** Hagamos algo un poquito más divertido. Tomemos las poblaciones obtenidas en el ejercicio anterior (las filas de la matriz `x`), y hagamos una película mostrando la evolución de una respecto de la otra. Para ello queremos hacer una sucesión de plots con graficos parciales y cada vez más completos. Hecho esto, generar una animación usando `Plots` es trivial:
+```julia
+  julia> anim = @animate for i in 1:size(x,2)
+                             plot(x[1,1:i],x[2,1:i])
+                         end
+  julia> mp4(anim,"pred_presa.mp4")
+```
+Además de la función `mp4` también hay una función `gif` que genera un `.gif`. A estas funciones se les puede pasar un argumento `fps` para indicar el número de cuadros por segundo. (por ejemplo `mp4(anim,"pred_presa.mp4",fps=24)`). 
+
+Realizar una animación que muestre la evolución de ambas poblaciones variando a lo largo del tiempo. 
+
 # Un poco de Álgebra Lineal
 
-La instalación básica de `Julia` incluye la librería `LinearAlgebra`, que incluye todo lo necesario para hacer operaciones de Álgebra Lineal sobre matrices _densas_. Probar los siguientes fragmentos: 
+La instalación básica de `Julia` incluye la librería `LinearAlgebra`, que tiene todo lo necesario para hacer operaciones de Álgebra Lineal sobre matrices _densas_. Probar los siguientes fragmentos: 
 
 ```julia
  julia> using LinearAlgebra
@@ -98,7 +109,7 @@ Hasta aquí lo esperable. Tenemos funciones para todas las operaciones básicas 
 + El operador `\` resuelve el sistema `Ax=b` 
 + `Julia` tiene la amabilidad de permitirnos usar el símbolo `I` para representar la identidad. Si usamos `I` entre otras matrices (`A+I`), `Julia` deduce su tamaño. En caso contrario `I(n)` devolverá la identidad de tamaño `n`.
 
-Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos muestra la matriz poniendo puntos en donde irían los ceros. Esto es un indicador de **no** se está almacenando toda la matriz. En particular, no se almacenan los ceros. Podemos constatar que `I(5)` ocupa mucho menos lugar que una matriz llena del mismo tamaño.
+Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos muestra la matriz poniendo puntos en donde irían los ceros. Esto es un indicador de que **no** se está almacenando toda la matriz. En particular, no se almacenan los ceros. Podemos constatar que `I(5)` ocupa mucho menos lugar que una matriz llena del mismo tamaño.
 
 ```julia
  julia> sizeof(I(5))
@@ -142,6 +153,7 @@ Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede
   julia> @benchmark det($Dd)
   julia> @benchmark det($Dr)
 ```
+
 
 <br>
  <div style="text-align: left">
