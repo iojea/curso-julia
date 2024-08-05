@@ -116,7 +116,6 @@ Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos mu
  julia> sizeof(rand(-3:3,5,5))
 ```
 
-También tenemos funciones cómodas para extraer diagonales y crear matrices por diagonales:
 
 ```julia
     julia> diag(A)
@@ -127,20 +126,40 @@ También tenemos funciones cómodas para extraer diagonales y crear matrices por
     julia> diagm(0=>-1:1,2=>ones(1))
 ```
 
-Notar que `diagm()` crea matrices _llenas_ (no como `I(5)`), que de hecho son de tipo `Matrix`. 
-
-Sin embargo, las matrices diagonales suelen aparecer en distintos contextos y tienen algunas facilidades. Hay un tipo especial para manipularlas: 
-
 ```julia
   julia> D = Diagonal([1,2,3])
+  julia> T = Tridiagonal(-ones(9),2ones(10),-ones(9))
+  julia> A = rand(1:5,4,4)
+  julia> Tridiagonal(A)
+  julia> Diagonal(A)
+  julia> SymTridiagonal([1,2,3,4],[1,2,3])
+  julia> SymTridiagonal(A)
+  julia> Symmetric(A)
+  julia> Symmetric(A, :L)
+  julia> SymTridiagonal(Symmetric(A))
+  julia> :pera
+  julia> typeof(:pera)
 ```
 
-Notar que `D` es de tipo `Diagonal`, como ocurre con `I(5)`. 
+Pasando en limpio: 
+
++ `diag(A)` extrae la diagonal principal de una matriz y devuelve un vector. `diag(A,k)`, devuelve la `k`-ésima diagonal, donde las superiores se numeran positivamente y las inferiores con negativos. 
++ `diagm(v)` crea una matriz con `v` en la diagonal. En general, permite crear matrices _por_diagonales. La sintaxes `diagm(0=>2ones(3),1=>-ones(2),-1=>ones(2))` crea la matriz que tiene `2` en la diagonal principal, `-1` en la superior y `1` en la inferior. Notar que `diagm` produce matrices _llenas_ (no como `I(5)`), que de hecho son de tipo `Matrix`. 
++ `Diagonal` permite crear matrices diagonales (sólo tienen números en la diagonal principal). Puede aplicarse a un vector o a una matriz. Notar que `D` es de tipo `Diagonal`, como ocurre con `I(5)`. 
++ `Tridiagonal` crea matrices tridiagonales. Recibe tres vectores: la digonal inferior, la principal y la superior. También puede aplicarse a una matriz preexistente. 
++ `SymTridiagonal` crea matrices que son tridiagonales y simétricas. Recibe primero la diagonal principal y luego la otra. Puede funcionar sobre una matriz, pero sólo si ésta es simétrica.
++ `Symmetric` crea matrices simétricas. Se aplica sobre una matriz. Por defecto _simetriza_ respetando la parte superior. Poniendo en el segundo parámetro `:L` se respeta la parte inferior (_lower_). 
+
+<div class="notebox>">
+<span class="notetit">Símbolox: </span>
+
+Todo nombre precedido de `:` (como `:L`) es un _símbolo_ (de tipo `Symbol`). Para crear un símbolo, basta con escribir una palabra precedida por `:`. Los símbolos suelen servir como reemplazo de las cadenas de caracteres. En otros lenguajes para identificar si uno quiere tomar la _parte inferior_ habría que usar un código (-1, por ejemplo) o un `String`, por ejemplo `"lower"`. Los símbolos sirven de atajo para este tipo de usos. 
+</div>
 
 <div class="notebox">
 <span class="notetit">Nota: </span>
 
-En <code>Julia</code> los nombres de las funciones se escriben con minúscula y los tipos de dato (<code>Int64</code>, <code>Float64</code>, etc.) con mayúscula. <code>Diagonal</code> es una función especial: es el constructor de un tipo de dato particular (el de las matrices diagonales). Por lo tanto, tiene el mismo nombre que el tipo <code>Diagonal</code>.
+Según las convenciones de <code>Julia</code> los nombres de las funciones se escriben con **minúscula** y los tipos de dato (<code>Int64</code>, <code>Float64</code>, etc.) con **mayúscula**. <code>Diagonal, Tridiagonal</code>, etc. son funciones especiales: son  **constructores** de un tipo de dato particular (el de las matrices diagonales, tridiagonales, etc.). Por lo tanto, tienen el mismo nombre que el tipo de dato que crean.
 </div>
 
 Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede aplicar algoritmos especializados. A modo de ejemplo sencillo, probemos lo siguiente: 
@@ -154,7 +173,57 @@ Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede
   julia> @benchmark det($Dr)
 ```
 
-En `LinearAlgebra` hay tipos especiales para diversas clases de matrices, incluyendo `Symmetric`, `Hermitian`, `Tridiagonla`, `SymTridiagonal`, `UpperTriangular`, `LowerTriangular`, etc. 
+En `LinearAlgebra` hay tipos especiales para diversas clases de matrices, incluyendo `Symmetric`, `Hermitian`, `Tridiagonal`, `SymTridiagonal`, `UpperTriangular`, `LowerTriangular`, etc. 
+
+Experimentemos un poco más:
+
+```julia
+  julia> A = rand(1:5,5,5)
+  julia> luA = lu(A)
+  julia> typeof(luA)
+  julia> A = rand(1000,1000);
+  julia> b = rand(1000);
+  julia> luA = lu(A);
+  julia> qrA = qr(A);
+  julia> typeof(qrA)
+  julia> @benchmark $A\$b
+  julia> @benchmark $luA\$b
+  julia> @benchmark @qrA\$b  
+```
+
+Pasando en limpio: 
++ El sistema de _multiple dispatch_ permite re-definir funciones usando algoritmos especializados según el tipo. Así, calcular el determinante de una matriz de tipo `Diagonal` es mucho más veloz que calcular el determinante que una matriz de tipo `Matriz` que puede estar llena. 
++ las funciones `lu` y `qr` calculan las descomposiciones LU y QR de una matriz, respectivamente. Como resultado no devuelven una simple tupla con dos matrices sino objetos con un tipo de dato específico para cada descomposición. 
++ las descomposiciones pueden usarse directamente para resolver un sistema mediante el operador `\`.
++ Naturalmente, si se cuenta con una descomposición, la resolución del sistema es mucho más veloz. Por defecto `A\b` triangula el sistema extendido `A|b` realizando las operaciones que sirven para calcular la descomposición LU. Una vez triangulado el sistema, se despeja. Al aplicar `\` directamente sobre la descomposición: `luA\b` `Julia` sólo despeja. 
+
+**Ejercicio:** Consideremos la ecuación del calor en el `[0,,1]`: 
+
+    uₓₓ(x,t) &= uₜ(x,t)
+    u(x,0) &= u₀(x) 
+    u(0,t) & 0 ∀t    
+    u(1,t) & 0 ∀t
+
+Para resolverla, discretizamos el problema tomando un vector `x` de `n` casilleros (`x=range(0,1,length=n)`). Notamos `h` al paso del vector `x`. De manera similar definimos un vector `t` que vaya de `0` a un tiempo final con paso `Δt`. Llamamos `m` a la longitud de `t`. Definimos una matriz `u` de `n×m` en donde cada columna representará la solución para un tiempo fijo. Es decir `u[:,i]` es la solución a tiempo `t[i]`. A su vez, los valores de la primera y la última fila de `u` son ceros, dadas las condiciones de contorno del problema. 
+
+Aplicando un esquema implícito de diferencias finitas tenemos el siguiente sistema de ecuaciones para la matriz `u`:
+
+    -r u[j-1,k+1] + (1-2r) u[j,k+1] + r u[j+1,k+1] = u[j,k]
+
+donde `r = Δt/h^2` y `j` debe tomarse en el rango `2:end-1`, pues no queremos operar sobre los valores de borde, que deben mantenerse en `0`, para todo tiempo. Escribiendo este sistema matricialmente tenemos que: 
+
+    A u[2:end-1,k+1] = u[2:end-1,k] 
+
+donde `A` es la matriz tridiagonal que tiene `(1-2r)` en la diagonal principal y `-r` en las diagonales inferior y superior. Es decir: la columna `k+1` (la solución a tiempo `t[k+1]`) depende de la columna `k` (la solución a tiempo `t[k]`). Dado que el dato inicial nos da la solución a tiempo `t[0]`, necesitamos resolver iterativamente el sistema para ir rellenando las siguientes columnas de `u`.
+
+Implementar una función que reciba como datos: la función que define el dato inicial `u₀`, `n`, el tiempo final `Tf` y el paso temporal `Δt`. La función debe: 
+  - Generar los vectores `x` y `t` y la matriz `u`, y rellenar su primer columna con la evaluación de `u₀` en `x`. 
+  - Generar la matriz `A` y calcular su descomposición LU.
+  - Rellenar iterativamente la matriz `u` resolviendo en cada paso el sistema correspondiente (aprovechando la descomposición LU calculada).
+  - Devolver `t`, `x` y `u`.
+
+Implementar una segunda función que reciba como input `x` y `u` y realice una película que en cada cuadro contenga la solución en un instante de tiempo. Al ver la película vemos la evolución temporal de la temperatura sobre el segmento. 
+
 
 <br>
  <div style="text-align: left">
