@@ -58,6 +58,16 @@ Probemos ahora:
   julia> Polinomio(3,5,1)
 ```
 
-Vemos que `Julia` infiere el valor del parámetro `T` en función de los datos con los cuales creamos el polinomio. Sin embargo, no es capaz de crear un polinomio a partir de números sueltos. 
+Vemos que `Julia` infiere el valor del parámetro `T` en función de los datos con los cuales creamos el polinomio. Sin embargo, no es capaz de crear un polinomio a partir de números sueltos. El constructor por defecto espera recibir variables que le permitan cubrir los campos respetando sus tipos. Podemos definir constructores nuevos que faciliten la tarea. Por ejemplo: 
+
+```julia
+Polinomio(x...) = Polinomio([x...])
+```
+El operador _splat_ `...` cumple sirve en este caso para representar un número indefinido de parámetros. Es decir que `x...` juega el papel de `x1,x2,x3,...`. La definición indica que si `Polinomio` recibe un número indefinido de variables sueltas, debe encapsularlas en un vector y ejecutar el constructor por defecto. Es decir, creamos un nuevo método para el constructor que llama al método original. Cargar esta función en el archivo, recargarlo (ahora no hace falta reiniciar) y volver a probar: 
+```julia
+  julia> Polinomio(3,5,1)
+```
+
+
 
 

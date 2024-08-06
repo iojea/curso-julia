@@ -21,8 +21,8 @@ Procuraremos dedicar la mayor parte del tiempo a los aspectos que distinguen a `
 
 ## Clase 3 (Martes 6/8) - 9 a 11 hs - Labo 1110)
 
-+ [Primera parte](https://iojea.github.io/curso-julia/clase-2/clase-3-1): Bajamos un cambio. Jugamos un ratito con comandos que podríamos usar en Cálculo Numérico. 
-+ [Segunda parte](https://iojea.github.io/curso-julia/clase-2/clase-3-2): Exploramos el sistema de tipos de `Julia`.
++ [Primera parte](https://iojea.github.io/curso-julia/clase-3/clase-3-1): Bajamos un cambio. Jugamos un ratito con comandos que podríamos usar en Cálculo Numérico. 
++ [Segunda parte](https://iojea.github.io/curso-julia/clase-3/clase-3-2): Exploramos el sistema de tipos de `Julia`.
 
 ## Bibliografía
 
