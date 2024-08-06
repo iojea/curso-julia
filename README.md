@@ -24,6 +24,12 @@ Procuraremos dedicar la mayor parte del tiempo a los aspectos que distinguen a `
 + [Primera parte](https://iojea.github.io/curso-julia/clase-3/clase-3-1): Bajamos un cambio. Jugamos un ratito con comandos que podríamos usar en Cálculo Numérico. 
 + [Segunda parte](https://iojea.github.io/curso-julia/clase-3/clase-3-2): Exploramos el sistema de tipos de `Julia`.
 
+
+## Clase 4 (Viernes 9/8) - 9 a 11 hs - Labo 1110)
+
++ [Primera parte](https://iojea.github.io/curso-julia/clase-4/clase-4-1): Implementamos nuestro propio tipo de dato: polinomios y le agregamos algunas funciones. 
++ [Segunda parte](https://iojea.github.io/curso-julia/clase-4/clase-4-2): Fin del curso. Comentamos algo de todo lo que dejamos afuera.
+
 ## Bibliografía
 
 + [Algunas referencias](https://iojea.github.io/curso-julia/biblio)
