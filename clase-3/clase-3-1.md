@@ -9,6 +9,7 @@ title: "Clase 3 - Primera parte - Jugando a Cálculo Numérico"
 `Julia` tiene algunas lindas funciones para explorar el sistema de punto flotante. 
 
 **Ejercicio 1:** Mirar el `help` de las funciones `eps`, `nextfloat` y `prevfloat`. 
+
 **Ejercicio 2:** Graficar la función `eps`.
 
 # Matrices
@@ -31,10 +32,29 @@ Probar los siguientes comandos:
 
 Sacar conclusiones. 
 
+```julia
+  julia> function cambiouno!(A)
+             A[1,1] = 1
+         end
+  julia> B = rand(5,5)
+  julia> cambiouno!(B)
+  julia> B
+  julia> cambiouno!(B[2:4,3:5])
+  julia> B
+  julia> vista = view(B,2:4,3:5)
+  julia> cambiouno!(vista)
+  julia> B
+```
+
++ Cuando le pasamos a una función un fragmento de matriz (por ejemplo `B[2:4,3:5]`), `Julia` realiza una copia de ese fragmento. Por lo tanto, si la función cambia lo que recibe, igualmente la matriz original sigue intacta. 
++ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original.
+
+
+
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
-En `Julia` las matrices se almacenan _por columna_ (al revés que en `Python`). Esto puede observarse al ejecutar `A[:]` que _lee_ todos los casilleros de `A`. Por lo tanto es más eficiente operar por columnas y cuando se recorre una matriz es más eficiente leer por columnas.
+En <code>Julia</code> las matrices se almacenan <i>por columna</i> (al revés que en <code>Python</code>). Esto puede observarse al ejecutar <code>A[:]</code> que <i>lee</i> todos los casilleros de <code>A</code>. Por lo tanto es más eficiente operar por columnas y cuando se recorre una matriz es más eficiente leer por columnas.
 </div>
 
 
@@ -104,6 +124,7 @@ La instalación básica de `Julia` incluye la librería `LinearAlgebra`, que tie
  julia> I(5)
 ```
 
+
 Hasta aquí lo esperable. Tenemos funciones para todas las operaciones básicas sobre matrices. Cabe resaltar: 
 + El operador `\cdot` es el producto escalar (`b⋅c` es lo mismo que `b'*c`).
 + El operador `\` resuelve el sistema `Ax=b` 
@@ -112,8 +133,8 @@ Hasta aquí lo esperable. Tenemos funciones para todas las operaciones básicas 
 Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos muestra la matriz poniendo puntos en donde irían los ceros. Esto es un indicador de que **no** se está almacenando toda la matriz. En particular, no se almacenan los ceros. Podemos constatar que `I(5)` ocupa mucho menos lugar que una matriz llena del mismo tamaño.
 
 ```julia
- julia> sizeof(I(5))
- julia> sizeof(rand(-3:3,5,5))
+ julia> Base.summarysize(I(5))
+ julia> Base.summarysize(rand(-3:3,5,5))
 ```
 
 
@@ -159,7 +180,7 @@ Todo nombre precedido de `:` (como `:L`) es un _símbolo_ (de tipo `Symbol`). Pa
 <div class="notebox">
 <span class="notetit">Nota: </span>
 
-Según las convenciones de <code>Julia</code> los nombres de las funciones se escriben con **minúscula** y los tipos de dato (<code>Int64</code>, <code>Float64</code>, etc.) con **mayúscula**. <code>Diagonal, Tridiagonal</code>, etc. son funciones especiales: son  **constructores** de un tipo de dato particular (el de las matrices diagonales, tridiagonales, etc.). Por lo tanto, tienen el mismo nombre que el tipo de dato que crean.
+Según las convenciones de <code>Julia</code> los nombres de las funciones se escriben con <b>minúscula</b> y los tipos de dato (<code>Int64</code>, <code>Float64</code>, etc.) con <b>mayúscula</b>. <code>Diagonal, Tridiagonal</code>, etc. son funciones especiales: son  <b>constructores</b> de un tipo de dato particular (el de las matrices diagonales, tridiagonales, etc.). Por lo tanto, tienen el mismo nombre que el tipo de dato que crean.
 </div>
 
 Al definir un tipo de dato especial `Julia` distingue una matriz de otra y puede aplicar algoritmos especializados. A modo de ejemplo sencillo, probemos lo siguiente: 
