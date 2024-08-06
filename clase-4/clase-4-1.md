@@ -40,13 +40,8 @@ struct Polinomio{T<:Number}
   coef::Vector{T}
 end
 ```
-o, equivalentemente
-```julia
-struct Polinomio{T} where T<:Number
-  coef::Vector{T}
-end
-```
-`Julia` no nos permite recargar el archivo. Esto es porque crear una nueva `struct` altera el árbol de tipos. Hay que cerrar y reabrir la sesión. 
+
+`Julia` **no** nos permite recargar el archivo. Esto es porque crear una nueva `struct` altera el árbol de tipos. Hay que cerrar y reabrir la sesión. 
 
 Probemos ahora: 
 ```julia
@@ -98,7 +93,7 @@ Polinomio{Int64}([1,2,3])
 Sería mejor ver el polinomio como lo escribimos matemáticamente. Para esto tenemos que definir un nuevo método para la función `show`.
 
 ```julia
-function Base.show(io::IO,p::Polinomio)
+function show(io::IO,mime::MIME"text/plain",p::Polinomio)
     c = p.coef
     print(c[1])
     for i in 2:length(c)
@@ -109,11 +104,99 @@ function Base.show(io::IO,p::Polinomio)
 end
 ```
 
-+ La definición de la función es `Base.show` porque debemos indicar que estamos definiendo un nuevo método de la función `show` que está definida en la instación básica de `Julia` (y no una nueva función `show` en un entorno diferenciado).
-+ `Base.show` debe recibir un objeto de tipo `IO` (input-output) y el dato que querramos mostrar. No hace falta usar `io` para nada. Por defecto, `io` será la consola. 
++ `show` debe recibir un objeto de tipo `IO` (input-output) y otro de tipo `MIME"text/plain"` y  el dato que querramos mostrar. No hace falta usar `io` ni `mime` para nada. En el uso normal, esto estará definido por la consola.
 + Imprimimos el primer coeficiente y luego imprimimos los siguientes siempre que sean no nulos. cada coeficiente va acompañado de `x^` y la potencia correspondiente.  
+
+
+Por último, suele ser útil crear funciones que permitan extraer la información de nuestra estructura. En nuestro caso, estaría bueno tener la función: 
+```julia
+coeficientes(p::Polinomio) = p.coef
+```
+De este modo el usuario no necesita saber cómo se llama el _campo_ interno que define los coeficientes del polinomio. 
 
 Ahora empieza la diversión: 
 
 **Ejercicio:** Implementar una función que se llame `_completar` que reciba dos vectores `v` y `w`. Si tienen la misma longitud, los debe devolver tal como los recibió. Si hay uno más corto que el otro (digamos `v` es más corto que `w`), debe crear una copia del más corto (`v2 = copy(v)`) y agregarle ceros hasta que tenga la misma longitud que `w` y devolver `v2` y `w`. 
 
+
+**Ejercicio:** Queremos sumar polinomios. Para ello, necesitamos implementar un método para la función suma. Para que esto funcione bien necesitamos importar la función `+` de `Base`. En la primera linea del archivo, agregar: 
+```julia
+import Base.:+
+```
+Hecho esto, podemos implementar la función `+(p::Polinomio,q::Polinomio)`. Esta función debe tomar los coeficientes de `p` y `q`, usar la función `_completar` para obtener dos vectores de igual longitud
+ y crear y devolver un nuevo polinomio creado a partir de la suma de los coeficientes. 
+
+**Ejercicio:** Implementar la función que permite evaluar un polinomio: `(p::P)(x::Number)`. 
+
+**Ejercicio:** Si las funciones anteriores están bien, las siguientes siguientes pruebas deberían funcionar según lo esperado
+
+```julia
+  julia> p = Polinomio(2,3,1)
+  julia> q = Polinomio(1,-3)
+  julia> r = p+q
+  julia> q(2)
+  julia> r(2.5)
+  julia> r(1//2)
+  julia> v = [p,q,r]
+  julia> s = sum(v)
+  julia> w = rand(5)
+  julia> s.(w)
+  julia> using Plots
+  julia> x = -1:0.01:1
+  julia> plot(x,p.(x))
+```
+
+Aquí graficamos aprovechando que podemos evaluar `p`. Si queremos tener métodos más directos que reciban un rango o vector y un polinomio o sólo un polinomio, sólo tenemos que agregar métodos a la función `plot`. Para ello agregamos al archivo la linea: 
+```julia
+import Plots.plot
+  ```
+y agregamos al archivo las funciones:
+```julia
+plot(x,p::Polinomio) = plot(x,p.(x))
+plot(p::Polinomio) = plot(-5:0.01:5,p) 
+```
+El primer método indica que si recibo un `x`, debemos evaluar el polinomio en `x` para graficar. El segundo fija un intervalo por default en el caso en que `plot` se llame directamente sobre `p`. Cargando nuevamente el archivo podemos correr: 
+
+```julia
+  julia> plot(p)
+```
+
+Para agregar la resta de polinomios debemos definir un método para `-`. Agregamos: 
+```julia
+import Base.:-
+```
+`-` cumple dos funciones: es la resta (aplicada a dos cosas), pero también es el negativo. Podemos definir ambas: 
+```julia
+-(p::Polinomio) = Polinomio(-coeficientes(p))
+-(p::Polinomio,q::Polinomio) = p + (-q)
+```
+
+Con esto queda bien definida la resta de polinomios, pero también la expresión:
+```julia
+  julia> -p
+```
+
+Algunos ejercicios extra para entretenerse: 
+
+**Ejercicio:** Implementar el producto entre un escalar y un polinomio. 
+
+**Ejercicio:** Implementar el producto entre dos polinomios. 
+
+**Ejercicio:** Implementar una función `desderaices` que reciba las raíces del polinomio y construya el polinomio. 
+
+**Ejercicio:** Implementar una función `derivar(p::Polinomio)` que devuelva un polinomio con los coeficientes correspondientes al derivado de `p`. Tener en cuenta que en general el polinomio derivado tendrá un coeficiente menos que el original, salvo en el caso en que `p` sea constante. En esta situación queremos obtener el polinomio nulo (con un coeficiente, igual a `0`). 
+
+**Ejercicio:** Implementar una función `integrar(p::Polinomio,a,b)` que integre el polinomio `p` en el intervalor `[a,b]`.
+
+**Ejercicio:** Implementar un método para la función `divrem(p::Polinomio,q::Polinomio)` que calcule la división y el resto de `p` dividido `q`. 
+
+Hay muchísimas más cosas que podrían implementarse (algoritmos especializados para buscar raíces, expansiones en bases de polinomios conocidas, etc. etc.). 
+
+Por supuesto, todo esto ya existe, en la librería `Polynomials`. 
+
+<br>
+ <div style="text-align: left">
+<a href="https://iojea.github.io/curso-julia/clase-3/clase-3-2"> Volver a la clase 3</a> 
+</div> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-4/clase-4-2"> Ir a la segunda parte</a> 
+</div>

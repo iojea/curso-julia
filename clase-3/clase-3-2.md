@@ -155,13 +155,7 @@ end
 + `Rational` es un nuevo tipo de dato, que se define con la sentencia `struct`. En un **tipo compuesto** porque se define a través de otros datos que se indican en el interior de la cláusula `struct`: `num` (numerador) y `den` (denominador). 
 + La indicación `<: Real` a la derecha de la definición ubica a `Rational` dentro del árbol de tipos. Esto será usado a la hora de aplicar _multiple dispatch_, para buscar el método más apropiado de una función cuando se llame con un dato de tipo `Rational`.
 + Si no se aclara de quién desciende el nuevo tipo, por defecto será hijo de `Any`.
-+ La sintaxis `Rational{T<:Integer}` indica que el tipo `Rational` tiene un parámetro `T`, que en este caso se aclara que debe descender de `Integer` (`T<:Integer`). Esto puede indicarse también usando la palabra clave `where`. La sintaxis (equivalente) sería: 
-```julia
-struct Rational{T} <: Real where T<:Integer
-  num::T
-  den::T
-end
-```
++ La sintaxis `Rational{T<:Integer}` indica que el tipo `Rational` tiene un parámetro `T`, que en este caso se aclara que debe descender de `Integer` (`T<:Integer`). 
 + Los _atributos_ internos `num` y `den` deben ser ambos de tipo `T`. 
 
 De esto podemos inferir algunas conclusiones iniciales: 
@@ -192,7 +186,7 @@ Es decir: `Rational{T}` para cualquier tipo `T` es un subtipo de `Rational`. Per
 En algunos casos puede resultar útil admitir tipos de datos disímiles. Por ejemplo, supongamos que queremos generar una estructura de datos que adentro tendrá un flotante, pero queremos dejar la posibilidad de que ese valor quede sin inicializar. En tal caso, le asignaríamos el valor `nothing`, cuyo tipo es `Nothing` (que desciende directametne de `Any`). Esto lo podemos lograr haciendo: 
 
 ```julia
-struct MiDato{T} where T<:Union{AbstractFloat,Nothing}
+struct MiDato{T<:Union{AbstractFloat,Nothing}}
   num::T
 end
 ```
@@ -225,3 +219,9 @@ Ahora que conocemos los entretelones del tipo `Rational`, problemas algunas cosa
 ```
 
 
+<br>
+ <div style="text-align: left">
+<a href="https://iojea.github.io/curso-julia/clase-3/clase-3-1">  Volver a la primera parte</a> 
+</div> <div style="text-align: right">
+<a href="https://iojea.github.io/curso-julia/clase-4/clase-4-1">  Ir a la clase 4</a> 
+</div>
