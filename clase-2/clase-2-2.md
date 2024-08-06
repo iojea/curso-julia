@@ -146,7 +146,7 @@ La arquitectura del método de `sort` para `AbstractVector` es bastante más com
 <div class="notebox">
 <span class="notetit">Nota:</span>
 
-Cuando hablamos de `using`  e `import` mencionamos que en `Julia` suele usarse `using`, porque es poco probable que un paquete _pise_ el nombre de una función definido en otro paquete. La razón es que en realidad _pisar_ un nombre no es un pobrema, si se lo hace declarando adecuadamente el tipo de dato: esto sólo crea un **nuevo método** para la misma función. De modo que muchos paquetes pueden volver a definir la misma función, incluso aunque esa función esté definida en el núcleo de `Julia`. Más adelante veremos que la posibilidad de agregar métodos a funciones definidas en otras librerías o en el núcleo de `Julia` es un instrumento **muy** poderoso. 
+Cuando hablamos de <code>using</code>  e <code>import</code> mencionamos que en <code>Julia</code> suele usarse <code>using</code>, porque es poco probable que un paquete <i>pise</i> el nombre de una función definido en otro paquete. La razón es que en realidad <i>pisar</i> un nombre no es un pobrema, si se lo hace declarando adecuadamente el tipo de dato: esto sólo crea un <b>nuevo método</b> para la misma función. De modo que muchos paquetes pueden volver a definir la misma función, incluso aunque esa función esté definida en el núcleo de <code>Julia</code>. Más adelante veremos que la posibilidad de agregar métodos a funciones definidas en otras librerías o en el núcleo de <code>Julia</code> es un instrumento <b>muy</b> poderoso. 
 </div>
 
 
