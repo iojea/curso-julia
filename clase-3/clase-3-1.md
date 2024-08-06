@@ -32,6 +32,25 @@ Probar los siguientes comandos:
 
 Sacar conclusiones. 
 
+```julia
+  julia> function cambiouno!(A)
+             A[1,1] = 1
+         end
+  julia> B = rand(5,5)
+  julia> cambiouno!(B)
+  julia> B
+  julia> cambiouno!(B[2:4,3:5])
+  julia> B
+  julia> vista = view(B,2:4,3:5)
+  julia> cambiouno!(vista)
+  julia> B
+```
+
++ Cuando le pasamos a una función un fragmento de matriz (por ejemplo `B[2:4,3:5]`), `Julia` realiza una copia de ese fragmento. Por lo tanto, si la función cambia lo que recibe, igualmente la matriz original sigue intacta. 
++ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original.
+
+
+
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
@@ -105,26 +124,11 @@ La instalación básica de `Julia` incluye la librería `LinearAlgebra`, que tie
  julia> I(5)
 ```
 
-```julia
-  julia> function cambiouno!(A)
-             A[1,1] = 1
-         end
-  julia> B = rand(5,5)
-  julia> cambiouno!(B)
-  julia> B
-  julia> cambiouno!(B[2:4,3:5])
-  julia> B
-  julia> vista = view(B,2:4,3:5)
-  julia> cambiouno!(vista)
-  julia> B
-```
 
 Hasta aquí lo esperable. Tenemos funciones para todas las operaciones básicas sobre matrices. Cabe resaltar: 
 + El operador `\cdot` es el producto escalar (`b⋅c` es lo mismo que `b'*c`).
 + El operador `\` resuelve el sistema `Ax=b` 
 + `Julia` tiene la amabilidad de permitirnos usar el símbolo `I` para representar la identidad. Si usamos `I` entre otras matrices (`A+I`), `Julia` deduce su tamaño. En caso contrario `I(n)` devolverá la identidad de tamaño `n`.
-+ Cuando le pasamos a una función un fragmento de matriz (por ejemplo `B[2:4,3:5]`), `Julia` realiza una copia de ese fragmento. Por lo tanto, si la función cambia lo que recibe, igualmente la matriz original sigue intacta. 
-+ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original.
 
 Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos muestra la matriz poniendo puntos en donde irían los ceros. Esto es un indicador de que **no** se está almacenando toda la matriz. En particular, no se almacenan los ceros. Podemos constatar que `I(5)` ocupa mucho menos lugar que una matriz llena del mismo tamaño.
 
