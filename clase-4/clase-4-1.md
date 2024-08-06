@@ -71,4 +71,49 @@ El operador _splat_ `...` cumple sirve en este caso para representar un número 
   julia> Polinomio(3,0,0)
 ```
 
-Vemos que aún perdura algún pequeño inconveniente para la buena definición de un polinomio: nuestro constructor admite ceros 
+Vemos que aún perdura algún pequeño inconveniente para la buena definición de un polinomio: nuestro constructor admite ceros en los coeficientes más grandes. Para evitar este problema necesitamos _pulir_ nuestro constructor _interno_ (es decir, el que se ejecuta por defecto). Eso lo podemos hacer definiendo un constructor especial dentro de la definición de la estructura: 
+
+```julia
+struct Polinomio{T<:Number}
+    coef::Vector{T}
+    function Polinomio(v)
+        while v[end] == 0 && length(v)>1
+          pop!(v)
+        end
+        new{eltype(v)}(v)
+    end
+end
+```
+
+La función `Polinomio` definida dentro de la estructura es un _constructor interno_. Dado que  puede ser problemática llamar a la función `Polinomio` dentro de la definición de `Polinomio`, para esta situación especial existe la función `new`. `new` debe usarse poniendo entre llaves los tipos de dato que definen la estructura (en este caso `T`) y pasándole como variables los valores que deben asignarse a los campos definidos internamente. En este caso, extraemos de `v` todos los ceros del final y recién después creamos el nuevo `Polinomio`. Pedimos que `length(v)>1` para admitir la construcción del polinomio nulo. 
+
+Nuevamente tenemos que reinciar la consola, dado que alteramos un tipo de dato. 
+
+Al recargar nuestro archivo podemos crear polinomios tanto con vectores como con tiras de coeficientes. Si quisiéramos algún otro mecanismo cómodo para crear un polinomio (e.g.: dándole una `Tuple` de coeficientes), podemos definir un constructor específico. 
+
+Hagamos algo más divertido: al crear un polinomio obtenemos algo del estilo: 
+```julia
+Polinomio{Int64}([1,2,3])
+```
+Sería mejor ver el polinomio como lo escribimos matemáticamente. Para esto tenemos que definir un nuevo método para la función `show`.
+
+```julia
+function Base.show(io::IO,p::Polinomio)
+    c = p.coef
+    print(c[1])
+    for i in 2:length(c)
+        if c[i] != 0
+            print(" + ",c[i],"x^",i-1)
+        end
+    end
+end
+```
+
++ La definición de la función es `Base.show` porque debemos indicar que estamos definiendo un nuevo método de la función `show` que está definida en la instación básica de `Julia` (y no una nueva función `show` en un entorno diferenciado).
++ `Base.show` debe recibir un objeto de tipo `IO` (input-output) y el dato que querramos mostrar. No hace falta usar `io` para nada. Por defecto, `io` será la consola. 
++ Imprimimos el primer coeficiente y luego imprimimos los siguientes siempre que sean no nulos. cada coeficiente va acompañado de `x^` y la potencia correspondiente.  
+
+Ahora empieza la diversión: 
+
+**Ejercicio:** Implementar una función que se llame `_completar` que reciba dos vectores `v` y `w`. Si tienen la misma longitud, los debe devolver tal como los recibió. Si hay uno más corto que el otro (digamos `v` es más corto que `w`), debe crear una copia del más corto (`v2 = copy(v)`) y agregarle ceros hasta que tenga la misma longitud que `w` y devolver `v2` y `w`. 
+
