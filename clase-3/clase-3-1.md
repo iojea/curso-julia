@@ -9,6 +9,7 @@ title: "Clase 3 - Primera parte - Jugando a Cálculo Numérico"
 `Julia` tiene algunas lindas funciones para explorar el sistema de punto flotante. 
 
 **Ejercicio 1:** Mirar el `help` de las funciones `eps`, `nextfloat` y `prevfloat`. 
+
 **Ejercicio 2:** Graficar la función `eps`.
 
 # Matrices
