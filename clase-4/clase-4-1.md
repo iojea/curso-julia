@@ -65,9 +65,10 @@ Polinomio(x...) = Polinomio([x...])
 ```
 El operador _splat_ `...` cumple sirve en este caso para representar un número indefinido de parámetros. Es decir que `x...` juega el papel de `x1,x2,x3,...`. La definición indica que si `Polinomio` recibe un número indefinido de variables sueltas, debe encapsularlas en un vector y ejecutar el constructor por defecto. Es decir, creamos un nuevo método para el constructor que llama al método original. Cargar esta función en el archivo, recargarlo (ahora no hace falta reiniciar) y volver a probar: 
 ```julia
-  julia> Polinomio(3,5,1)
+  julia> p = Polinomio(3,5,1)
+  julia> q = Polinomio([3,5,1])
+  julia> p === q
+  julia> Polinomio(3,0,0)
 ```
 
-
-
-
+Vemos que aún perdura algún pequeño inconveniente para la buena definición de un polinomio: nuestro constructor admite ceros 
