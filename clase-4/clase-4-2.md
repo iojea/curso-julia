@@ -45,6 +45,9 @@ Si bien `Plots.jl` es la librería estándar para dibujar, hay varios paquetes q
 + `AbstractAlgebra.jl` es una derivación y ampliación de `Nemo.jl`, incluye herramientas para trabajar en teoría de números, cuerpos finitos, grupos finitos, etc. 
 + `AlgebraicJulia` es un proyecto que incluye varios paquetes incluyendo `Catlab.jl`, para aplicar teoría de categorías. 
 
+## Geometría Algebraica
++ Hay varias librerías desarrolladas dentro del proyecto [AROMATH](https://team.inria.fr/aromath/software/): `TensorDec.jl`, `AlgebraicSolvers.jl`, `SemiAlgebraicTypes.jl`, `GSplines.jl` y `Axl.jl`.
+
 ## Notebooks
 + `IJulia.jl` permite correr `Julia` en una `jupyter-notebook`. Una vez instalado el paquete, al abrir `jupyter` aparece la posibilidad de crear una notebook con `Julia`.
 + `Pluto.jl` es un sistema de notebooks desarrollado específicamente para `Julia`. Tiene la pecualiaridad de que en `Pluto` la notebook tiene un estado global que no puede romperse. Esto quiere decir que si en una celda definimos una variable `n` y en otra celda calculamos `sum(1:n)`. Al cambiar el valor de `n` en la primera celda, _automáticamente_ se correrá la siguiente y recalculará la suma. Esto vale para _todas_ las celdas que dependan del valor de `n`. Para algunas aplicaciones, esto es excelente. Sin embargo, tiene sus costos: 
@@ -53,9 +56,11 @@ Si bien `Plots.jl` es la librería estándar para dibujar, hay varios paquetes q
 + `PlutoUI.jl` permite agregar botones, deslizadores, cajas de selección, y otros chiches a una notebook de `Pluto`. La sintaxis es extraordinariamente simple. 
 
 
-## Adicionales
+## Debug y control de código. 
++ `Debugger.jl`: un debugger para `Julia`.
++ `DispatchDoctor.jl` permite encontrar problemas en el momento del _dispatch_. Por ejemplo: cambios de tipos que le generan conflictos al compilador y, por lo tanto, producen un deterioro en la performance. 
++ `ProfileView.jl` permite testear código y obtener un gráfico que nos muestra el tiempo dedicado a cada tarea, marcando posibles cuellos de botella, exceso de _allocations_, etc. 
 
-Además, hay librerías específicas para funcionalidades puntuales. Por ejemplo: hay varios paquetes que proveen 
 
 
 # Paralelización
