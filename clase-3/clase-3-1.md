@@ -250,5 +250,5 @@ Implementar una segunda función que reciba como input `x` y `u` y realice una p
  <div style="text-align: left">
 <a href="https://iojea.github.io/curso-julia/clase-2/clase-2-1"> Volver a la primera parte</a> 
 </div> <div style="text-align: right">
-<a href="https://iojea.github.io/curso-julia/clase-3/clase-3-1"> Ir a la clase 3</a> 
+<a href="https://iojea.github.io/curso-julia/clase-3/clase-3-2"> Ir a la clase 3</a> 
 </div>
