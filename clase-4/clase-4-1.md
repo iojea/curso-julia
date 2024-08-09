@@ -108,16 +108,11 @@ end
 + Imprimimos el primer coeficiente y luego imprimimos los siguientes siempre que sean no nulos. cada coeficiente va acompañado de `x^` y la potencia correspondiente.  
 
 
-Por último, suele ser útil crear funciones que permitan extraer la información de nuestra estructura. En nuestro caso, estaría bueno tener la función: 
-```julia
-coeficientes(p::Polinomio) = p.coef
-```
-De este modo el usuario no necesita saber cómo se llama el _campo_ interno que define los coeficientes del polinomio. 
-
 Ahora empieza la diversión: 
 
-**Ejercicio:** Implementar una función que se llame `_completar` que reciba dos vectores `v` y `w`. Si tienen la misma longitud, los debe devolver tal como los recibió. Si hay uno más corto que el otro (digamos `v` es más corto que `w`), debe crear una copia del más corto (`v2 = copy(v)`) y agregarle ceros hasta que tenga la misma longitud que `w` y devolver `v2` y `w`. 
+**Ejercicio:** Implementar la función `coeficientes`, que devuelva un vector con  los coeficientes del polinomio. 
 
+**Ejercicio:** Implementar la función `grado` que devuelva el grado del polinomio.
 
 **Ejercicio:** Queremos sumar polinomios. Para ello, necesitamos implementar un método para la función suma. Para que esto funcione bien necesitamos importar la función `+` de `Base`. En la primera linea del archivo, agregar: 
 ```julia
