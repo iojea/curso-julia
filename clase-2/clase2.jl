@@ -7,6 +7,9 @@ function fibonacci(n)
     end
     fib
 end
+import Plots 
+@inbounds for i in 1:2
+end
 
 function comparar(x,y)
     if x<y
@@ -17,3 +20,11 @@ function comparar(x,y)
         println("$x y $y son iguales")
     end
 end      
+
+plot(-1:0.1:1,t->t^2,color=:red)
+# this is a comment
+x::Float64 = 3
+
+
+
+
