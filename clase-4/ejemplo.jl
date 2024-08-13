@@ -3,11 +3,17 @@ import Plots.plot
 
 struct Polinomio{T<:Number}
     coef::Vector{T}
+    function Polinomio(v)
+        while v[end]==0 && length(v)>1
+            pop!(v)
+        end
+        new{eltype(v)}(v)
+    end
 end
 
 Polinomio(v...) = Polinomio([v...])
 coeficientes(p::Polinomio) = p.coef
-grado(p::Polinomio) = length(coeficientes(p))
+grado(p::Polinomio) = length(coeficientes(p))-1
 
 function show(io::IO,mime::MIME"text/plain",p::Polinomio)
     c = coeficientes(p)
@@ -30,26 +36,16 @@ function _eval(p::Polinomio,x)
     s
 end
 
-function _completar(v,w)
-    if length(v)>length(w)
-        a = v
-        b = copy(w)
-    elseif length(v)<length(w)
-        a = w
-        b = copy(v)
-    else 
-        a = v
-        b = w
-    end
-    for i in 1:length(a)-length(b)
-        push!(b,0)
-    end
-    return a,b
-end
 
 function +(p::Polinomio,q::Polinomio)
-    c1,c2 = _completar(coeficientes(p),coeficientes(q))
-    Polinomio(c1.+c2)
+    corto,largo = grado(p)≤grado(q) ? p,q : q,p
+    suma = zeros(length(largo))
+    for i in eachindex(corto)
+        suma[i] = corto[i] + largo[i]
+    end
+    for i in length(corto):length(largo)
+        suma[i] = largo[i]
+    end
 end
 
 -(p::Polinomio) = Polinomio(-coeficientes(p))
