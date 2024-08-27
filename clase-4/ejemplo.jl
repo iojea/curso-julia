@@ -53,5 +53,6 @@ end
 
 (p::Polinomio)(x) = _eval(p,x)
 
+
 plot(x,p::Polinomio) = plot(x,p.(x))
 plot(p::Polinomio) = plot(-5:0.01:5,p)
