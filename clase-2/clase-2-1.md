@@ -8,7 +8,19 @@ title: "Clase 2 - Primera parte - Empezando a programar"
 
 Para escribir código propio la consola no alcanza. Necesitamos un archivo de texto que luego podemos correr desde la consola. 
 
-No existe un entorno de desarrollo especializada para `Julia` como pueden ser `Spyder` para `Python`, `R Studio` para `R` o `Matlab` en sí mismo. Para escribir código `Julia` más extenso es necesario utilizar un editor de texto plano externo: `VSCode`, `Sublime`, `Atom`, `Kate`, `GEdit`, `Zed`, etc., etc., etc. Cualquiera de ellos es capaz de reconocer la sintaxis de `Julia` (eventualmente vía plug-ins). Los esfuerzos de la comunidad de `Julia` han estado focalizados en el desarrollo del plug-in para `VSCode`, de modo que si no hay preferencias previas lo más sencillo es usar `VSCode` (o `VS-Codium` si se prefiere una versión de código abierto y des-microsofteada). A quienes gusten de editores que corren en la terminal, les recomiendo [Helix](https://helix-editor.com/). 
+No existe un entorno de desarrollo especializada para `Julia` como pueden ser `Spyder` para `Python`, `R Studio` para `R` o `Matlab` en sí mismo. Para escribir código `Julia` más extenso es necesario utilizar un editor de texto plano externo: `VSCode`, `Sublime`, `Atom`, `Kate`, `GEdit`, `Zed`, etc., etc., etc. Cualquiera de ellos es capaz de reconocer la sintaxis de `Julia` (eventualmente vía plug-ins). Los esfuerzos de la comunidad de `Julia` han estado focalizados en el desarrollo del plug-in para [`VSCode`](https://code.visualstudio.com/), de modo que si no hay preferencias previas lo más sencillo es usar `VSCode` (o `VS-Codium` si se prefiere una versión de código abierto y des-microsofteada). A quienes gusten de editores que corren en la terminal, les recomiendo [`Helix`](https://helix-editor.com/). 
+
+
+Una vez instalado `VSCode` instalar también el plug-in de `Julia`. 
+
+Por otro lado, en una consola de `Julia` instalar el paquete `LanguageServer`. Para ello, tipear `]`  para ingresar en el gestor de paquetes y luego: 
+
+```julia
+  pkg> add LanguageServer
+```
+
+El `LanguageServer` es un paquetito que contiene la descripción de la sintaxis de `Julia`. `VSCode` (y otros editores) ejecutan este paquete para poder reconocer el código `Julia` y ofrecer distintas herramientas (ayudas para autocompletar, firmas de funciones, etc.).
+
 
 # Archivos `.jl`
 
@@ -29,7 +41,7 @@ end
 
 Se trata de una función muy sencilla que recibe un parámetro `n` y devuelve un vector con los primeros `n` términos de la sucesión de Fibonacci. 
 
-Guardamos el archivo, por ejemplo como `clase1.jl` (identificar en qué directorio queda guardado). 
+Guardamos el archivo, por ejemplo como `clase2.jl` (identificar en qué directorio queda guardado). 
 
 Luego podemos ejecutarlo desde una consola `Julia` (en `VSCode` y otras IDEs puede abrirse una terminal interna, dentro del propio programa). 
 
@@ -50,14 +62,14 @@ Continuando con el ejemplo, vale la pena notar:
 La indentación no es obligatoria. Sin embargo, las recomendaciones de estilo indican que deben usarse 4 espacios.
 </div>
 
-Al ejecutar el archivo desde una sesión de `Julia` obtenemos: 
+Para ejecutar el archivo desde una sesión de `Julia` usamos la función `include()`. Esto equivale a copiar el código del archivo dentro de la consola.   
 
 ```julia
-  julia> include("clase1.jl")
+  julia> include("clase2.jl")
   fibonacci (generic function with 1 method)
 ```
 
-Recordar que para que esto funcione la consola debe estar posicionada en el directorio del archivo. Si no, es posible incluir el archivo poniendo toda la ruta en lugar de sólo el nombre. El texto `fibonacci (generic function with 1 method)` aparece porque la sesión interactiva siempre muestra el resultado de la última expresión ejecutada. En este caso, la única expresión ha sido la definición de la función. Se puede suprimir este mensaje poniendo `;`. 
+Recordar que para que esto funcione la consola debe estar posicionada en el directorio del archivo. Si no, es posible incluir el archivo poniendo toda la ruta en lugar de sólo el nombre. El texto `fibonacci (generic function with 1 method)` aparece porque la sesión interactiva siempre muestra el resultado de la última expresión ejecutada. En este caso, la única expresión ha sido la definición de la función. Se puede suprimir este mensaje poniendo `;`: `include("clase.jl");`.
 
 Hasta aquí sólo hemos generado la función dentro de la sesión interactiva. Podemos correrla, por ejemplo: 
  
@@ -78,8 +90,9 @@ fib = zeros(Int,n)
 Recargar el archivo y probar la función. 
 
 
-Como última observación, la primera línea de la función podría usar _broadcasting_: `fib[1:2] .= 1`. El `.` antecede al operador de asignación e indica que la asignación debe ser casillero a casillero sobre subvector formado por los dos primeros lugares de `fib`. Notar que al llamar a una función el `.` se coloca luego del nombre de la función (`f.(x)`), pero se pone _antes_ de los operadores (`.=`).
-Y ya que estamos hablando de _broadcasting_, ¿Qué esperaría al correr el siguiente código?
+Como última observación, la segunda línea de la función podría usar _broadcasting_: `fib[1:2] .= 1`. El `.` antecede al operador de asignación e indica que la asignación debe ser casillero a casillero sobre el subvector formado por los dos primeros lugares de `fib`. Notar que al llamar a una función el `.` se coloca luego del nombre de la función (`f.(x)`), pero se pone _antes_ de los operadores (`.=`).
+
+Y ya que estamos hablando de _broadcasting_, ¿Qué cabe esperar si corremos el siguiente código?
 ```julia
   julia> fibonacci.([2,4,7])
 ```
@@ -90,7 +103,7 @@ Y ya que estamos hablando de _broadcasting_, ¿Qué esperaría al correr el sigu
 
 # If
 
-Agreguemos la siguiente función a nuestro archivo,  volvamos a correrlo en la consola y probemos la función: 
+Agreguemos la siguiente función a nuestro archivo:
 
 ```julia
 function comparar(x,y)
@@ -104,7 +117,7 @@ function comparar(x,y)
 end      
 ```
 
-Volver a cargar el archivo en la consola y correr el código: 
+Luego de recargar el archivo en la consola, correr el código:
 
 ```julia
   julia> w = comparar(5,4)
@@ -117,7 +130,7 @@ Volver a cargar el archivo en la consola y correr el código:
 - `if` evalúa una operación lógica (que debe devolver un booleano, `true` o `false`). Como siempre, debe cerrarse con `end`. 
 - `elseif` permite agregar nuevas condiciones para ser evaluadas. Pueden incluirse todas las cláusulas `elseif` necesarias.
 - `else` recoge los casos no considerados por las cláusulas anteriores, y no lleva condición. 
-- `elseif` y `else` pueden omitirse. 
+- Las cláusulas `elseif` y `else` no son obligarias. Es decir: un sentencia `if condicion; codigo; end` funciona perfectamente y ejecuta el código sólo si la condición se cumple. 
 - La notación `$x` permite interpolar el valor de la variable `x` en una `String`. 
 - Otros lenguajes tienen el valor `NULL` o el valor `None`. En `Julia`, `nothing` cumple un papel similar. `nothing` es un valor único de tipo `Nothing`. Al mostrar el valor de una variable que tiene asignado `nothing`, la consola muestra... nada. 
 
@@ -191,7 +204,7 @@ En cambio, al correr:
 ```julia
   julia> isodd(2) && println("es impar")
 ```
-La primera constantación es `isodd(2)` que devuelve `false`. Dado que las expresiones están conectadas con un `&&` y que  primera expresión es `false`, `Julia` ya sabe que el resultado es `false` y no se toma la molestia de evaluar la expresión derecha y por lo tanto el mensaje no se imprime. 
+La primera constantación es `isodd(2)` que devuelve `false`. Dado que las expresiones están conectadas con un `&&` y que la primera expresión es `false`, `Julia` ya sabe que el resultado es `false` y no se toma la molestia de evaluar la expresión derecha y por lo tanto el mensaje no se imprime. 
 La misma lógica aplica al operador `||`: si la primera expresión es `true`, no se evalúa la segunda. 
 Es decir que que `&&` y `||` **sirven para escribir expresiones cortas que ejecutan condicionalmente una sentencia**.
 ```julia
@@ -242,8 +255,9 @@ Probar el siguiente código:
 
 Pasemos en limpio:
 
-+ El operador ternario `?:` es una forma compacta de escribir un `if - else - end`. La sintaxis es: 
-La sintaxis es: `condicion ? respuesta si true : respuesta si false`. Son importantes los espacios antes y después de `?` y de `:`. 
++ El operador ternario `?:` es una forma compacta de escribir un `if - else - end`. La sintaxis es:  
+    `condicion ? respuesta si true : respuesta si false`. 
+  Son importantes los espacios antes y después de `?` y de `:`. 
 + Más interesante aún: el operador ternario _devuelve_ el valor de salida, por lo cual puede usarse para realizar asignaciones condicionales. La funcion `esparbin` valdrá `1` si el número recibido es par y `0` en caso contrario. 
 + La función `rand`:
   - `rand()` (sin parámetros) devuelve un número aleatorio entre 0 y 1. 
@@ -258,7 +272,7 @@ La sintaxis es: `condicion ? respuesta si true : respuesta si false`. Son import
 + A los fines de sumar, la función `esparbit` es superflua, dado que puede usarse directamente `iseven`.
 
 
-**Ejercicio:** Escribir la función partida que recibe un natural `n` y devuelve `n÷2` si `n` es par y `3n+1` si es impar.Escribir dos versiones: una extensa, usando `function` con un `if - else - end` y una compacta, en una línea, usando el operador ternario. 
+**Ejercicio:** Escribir la función partida que recibe un natural `n` y devuelve `n÷2` si `n` es par y `3n+1` si es impar. Escribir dos versiones: una extensa, usando `function` con un `if - else - end` y una compacta, en una línea, usando el operador ternario. 
 
 # While
 
@@ -273,7 +287,7 @@ La sintaxis del `while` sigue la misma lógica que el if:
 ```julia
 function verif_collatz(n)
 ```
-que reciba un valor `n` y aplique reiteradamente la función anterior hasta hasta que se alcance el valor `1`. La función debe devolver la cantidad de iteraciones que fueron necesarias para llegar a `1`.
+que reciba un valor `n` y aplique reiteradamente la función anterior hasta que se alcance el valor `1`. La función debe devolver la cantidad de iteraciones que fueron necesarias para llegar a `1`.
 
 **Ejercicio:** Si la conjetura fuera falsa, podríamos encontrar un `n` para el cual la aplicación reiterada de la función no concluya nunca. Para evitar eso podemos imponer un tope al número de iteraciones a realizar. Para ello, el encabezado de nuestra función podría ser 
 ```julia

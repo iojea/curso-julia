@@ -8,24 +8,24 @@ La propuesta es mayormente _experimental_. Es decir: se plantean fragmentos de c
   
 Procuraremos dedicar la mayor parte del tiempo a los aspectos que distinguen a `Julia`: su expresividad para escribir matemática, y las herramientas que le permiten ser realmente rápido (si se lo usa correctamente): _Just in time compilation_ y, sobre todo, _multiple dispatch_.
 
-## Clase 1 (Viernes 2/8 - 9 a 11 hs - labo 1111)
+## Clase 1
 
 + [Primera parte](https://iojea.github.io/curso-julia/clase-1/clase-1-1): Instalación, familizarización con la consola y exploración inicial.
 + [Segunda parte](https://iojea.github.io/curso-julia/clase-1/clase-1-2): Breve (y parcial) encuadre del lenguaje. Un ejemplo para testear performance. 
 
-## Clase 2 (Lunes 5/8 - 9 a 11 hs - labo 1111)
+## Clase 2
 
 + [Primera parte](https://iojea.github.io/curso-julia/clase-2/clase-2-1): Archivos `.jl`. Funciones, `if`, `for` y `while`.
 + [Segunda parte](https://iojea.github.io/curso-julia/clase-2/clase-2-2): Multiple Dispatch.
 
 
-## Clase 3 (Martes 6/8) - 9 a 11 hs - Labo 1110)
+## Clase 3
 
 + [Primera parte](https://iojea.github.io/curso-julia/clase-3/clase-3-1): Bajamos un cambio. Jugamos un ratito con comandos que podríamos usar en Cálculo Numérico. 
 + [Segunda parte](https://iojea.github.io/curso-julia/clase-3/clase-3-2): Exploramos el sistema de tipos de `Julia`.
 
 
-## Clase 4 (Viernes 9/8) - 9 a 11 hs - Labo 1110)
+## Clase 4
 
 + [Primera parte](https://iojea.github.io/curso-julia/clase-4/clase-4-1): Implementamos nuestro propio tipo de dato: polinomios y le agregamos algunas funciones. 
 + [Segunda parte](https://iojea.github.io/curso-julia/clase-4/clase-4-2): Fin del curso. Comentamos algo de todo lo que dejamos afuera.

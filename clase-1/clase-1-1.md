@@ -17,7 +17,7 @@ Esto instala `juliaup` que es una aplicación para mantener y actualizar `Julia`
  $ juliaup update
 ```
 
-La segunda alternativa es bajar un instalador o un binario específico para el sistema operativo en el que se quiera instalar (más abajo, en la misma página). Esto sólo instala `Julia`.
+La segunda alternativa es bajar un instalador o un binario específico para el sistema operativo en el que se quiera instalar (más abajo, en la misma página). Esto sólo instala `Julia`. Es posible que esta sea la mejor opción para Windows. 
 
 En cualquiera de los casos se obtendrá una instalación del núcleo de `Julia` (lo que se llama `Julia Base`) más algunas librerías consideradas básicas (`Statistics`, `LinearAlgebra`, etc.) que se incluyen en el paquete básico pero deben importarse en caso de querer usarlas. Existen muchísimos otros paquetes, que pueden instalarse aparte (desde `Julia`). 
 
@@ -57,13 +57,13 @@ Para actualizar los paquetes instalados:
 ```julia
   pkg> update
 ```
-Cada paquete (módulo) de `Julia` identifica mediante un archivo muy sencillo sus dependencias, de modo que el gestor de paquetes las instala automáticamente.
+Cada paquete (módulo) de `Julia` identifica sus dependencias mediante un archivo muy sencillo, de modo que el gestor de paquetes las instala automáticamente.
 - Para salir de cualquiera de los modos basta tipear `backspace` (borrar).
 
 
 # Primeros pasos
 
-Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr las siguientes líneas y observar el resultado. 
+Para empezar a familiarizarse con la consola y con el lenguaje, corramos las siguientes líneas y observemos el resultado. 
 
 ```julia
   julia> 1 + 2  
@@ -103,7 +103,7 @@ Para empezar a familiarizarse con la consola y con el lenguaje, sugiero correr l
 
 ```julia
   julia> a = [1,2,3]
-  julia>  typeof(a)
+  julia> typeof(a)
   julia> length(a)
   julia> size(a)
   julia> a[2] = 8
@@ -121,22 +121,22 @@ Hasta aquí todo muy sencillo, pero vale la pena remarcar algunos detalles.
 
 - Podemos ejecutar funciones matemáticas básicas y obtener el resultado. 
 - Notar que `2/2` da como resultado `1.0`. Es decir: la división `/` devuelve siempre un flotante, incluso si se trata de una división exacta entre enteros. 
-- El `;` sirve para que la consola no muestre el resultado de la operación. Esto es así sólo en la sesión interactiva. En los archivos `.jl` no es necesario utilizar `;`. 
-- En `Julia` la multiplicación por un escalar se escribe `*`, pero el símbolo puede omitirse cuando no haya peligro de ambigüedad (nice :smile:)
+- El `;` al final de una sentencia sirve para que la consola no muestre el resultado. Esto es así sólo en la sesión interactiva. En los archivos `.jl` no es necesario utilizar `;`. 
+- En `Julia` la multiplicación por un escalar se escribe `*`, pero el símbolo puede omitirse cuando no haya peligro de ambigüedad.
 - `Julia` tiene variables de tipo booleano (`true` o `false`). Los operadores `==` (igual), `!=`(distinto), `>`, `<` y varios otros que veremos permiten hacer comparaciones y devuelven un booleano.
 - Las comillas dobles `"` permiten definir `Strings`.
 - Las `Strings` y los vectores (y muchas otras colecciones) son indexables, pero la indexación comienza en `1` (como en `Matlab` y `Fortran` y al contrario de `C` y `Python`, que empiezan en `0`).
 - Se puede indexar usando rangos: `3:8` devolverá todos los casilleros desde el tercero hasta el octavo _inclusive_. 
 - Para indexar se usan corchetes `[ ]`, como en `Python` (y no paréntesis como en `Matlab`). 
-- No es necesario indicar el tipo de dato de una variable. `Julia` lo infiere (como `Matlab`, `Python` o `R`). La función `typeof()` nos permite conocer el tipo de una cierta variable. En el caso de una colección (como un vector), nos indica el tipo de la colección en sí pero también el tipo de los elementos: `Vector{Int64}`.
-- Los `Strings` son inmutables: no podemos modificar un caracter. 
+- No es necesario indicar el tipo de dato de una variable. `Julia` lo infiere (como `Matlab`, `Python` o `R`). La función `typeof()` nos permite conocer el tipo de una cierta variable. En el caso de una colección (como un vector), nos indica el tipo de la colección en sí pero también el tipo de los elementos, e.g.: `Vector{Int64}`.
+- Los `Strings` son inmutables: no podemos modificarlos.
 - Los vectores son mutables: podemos modificarlos parcial o totalmente. 
-- Sin embargo, `Julia` hace lo posible por _respetar_ el tipo de dato con el que la colección fue definida. En este caso, no nos deja cambiar el tipo de dato del vector `a`. Si queremos hacer esto debemos forzar la conversión de `a` a `Vector{Float64}` o algo similar.
+- Sin embargo, `Julia` hace lo posible por _respetar_ el tipo de dato con el que la colección fue definida. En el ejemplo, no nos deja cambiar el tipo de dato del vector `a`. Si queremos hacer esto debemos forzar la conversión de `a` a `Vector{Float64}` o realizar alguna otra operación similar.
 - Si desde el momento de su creación un vector contiene datos heterogéneos, `Julia` considerará que el tipo de los elementos es el más general (en algún sentido que precisaremos más adelante).
 
 # Segundos pasos
 
-Una de las preocupaciones de `Julia` es la expresividad. La idea es que la matemática se exprese en el código de la manera más sencilla posible. Un pequeño truquito para facilitar esa expresividad es la admisión de caracteres unicode. Por ejemplo, en `Julia` podemos tener una variable llamada `α`. Para escribirla, basta tipear `\alpha` y luego `tab`. 
+Una de las preocupaciones de `Julia` es la expresividad. La idea es que la matemática se exprese en el código de la manera más sencilla posible. Un pequeño truquito para facilitar esa expresividad es la admisión de caracteres unicode. Por ejemplo, en `Julia` podemos tener una variable llamada `α`. Para escribirla, basta tipear `\alpha` y luego presionar la tecla `tab`. 
 
 Probar las siguientes sentencias:
 
@@ -169,8 +169,8 @@ Probar las siguientes sentencias:
   julia> collect(x)
   julia> z = collect(y)
   julia> typeof(z) 
-  julia> sizeof(z)
-  julia> sizeof(y)
+  julia> Base.summarysize(z)
+  julia> Base.summarysize(y)
 ```
 
 ```julia
@@ -206,24 +206,27 @@ Probar las siguientes sentencias:
 
 ## Pasando en limpio
 
-- `Julia` incorpora caracteres unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente del entorno, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
-- `Julia` tiene números racionales, mediante `//`.
+- `Julia` incorpora caracteres unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente de los demás, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
+- `Julia` tiene números racionales, creados mediante `//`.
 - Los números complejos se escriben indicando la unidad imaginaria como `im`.
 - `n:m` indica el _rango_ de enteros: `n,n+1,...,m`. Si se intercala otro número, es el paso: `inicio:paso:fin`. En este caso, los números pueden ser flotantes, por ejemplo: `0:0.1:1`. 
-- `collect()` convierte el _rango_ (y casi cualquier otra cosa) en un vector.
+- `collect()` convierte el _rango_ (y casi cualquier otra colección) en un vector.
+- La función `sizeof()` devuelve el tamaño en bytes que ocupa una variable. Sin embargo, esto encierra una pequeña trampa: un objeto compuesto como un vector tiene una estructura externa (_vector de 10 casilleros_), los elementos que lo componen y eventualmente algunas cosas más (como relaciones entre los elementos, por ejemplo para indexar). La función `sizeof()` sólo devuelve el tamaño de la estructura externa. En cambio `Base.summarysize()` calcula recursivamente el tamaño de toda la estructura. 
 - Los _rangos_ se almacenan de manera _lazy_: se guarda la instrucción para construir el rango, pero no los números que lo forman. Por eso ocupa mucho menos espacio que el vector correspondiente.
 - Las funciones `push!()` y `pop!()` permiten poner y sacar elementos de un vector (al final). También existen funciones `pushfirst!()` y `popfirst!()`. En este sentido, los vectores puede funcionar como las listas en `Python`. Sin embargo, para otros usos son _vectores_ en el sentido matemático del término. 
 
 <div class="notebox">
 <span style="font-weight:bold;color:#0A9090;">Nota:</span>
 
- El <code>!</code> en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de <code>Julia</code>. Indica que la función modifica su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones.
+ El <code>!</code> en el nombre de la función no tiene valor sintáctico. Es sólo una (buena) convención de <code>Julia</code>. Las funciones cuyo nombre termina en <code>!</code> modifican su argumento. Es bueno tenerlo en cuenta y respetar la convención cuando uno escribe sus propias funciones. 
+
+Muchas funciones admiten variantes con y sin <code>!</code>. Por ejemplo: <code>sort</code> recibe un vector y devuelve una copia ordenada, preservando el original. En cambio <code>sort!</code> recibe el vector y lo altera de modo que quede ordenado.
 </div>
 
-- Las tuplas se crean con paréntesis, son indexables e **inmutables**. El tipo de una tupla está determinado por los tipos de sus elementos. 
+- En `Julia` hay tuplas, como en `Python`. Se crean con paréntesis, son indexables e **inmutables**. El tipo de una tupla está determinado por los tipos de sus elementos. 
 - Hay funciones que devuelven varias cosas. En tal caso, se empaquetan en una tupla. 
 - Una tupla puede descomponerse en variables individuales haciendo: `a,b = tupla` o `(a,b)=tupla`. 
-- De manera similar se pueden hacer asignaciones simultáneas vía: `a,b = c,d`: el miembro derecho se interpreta como una tupla que se descompone en `a` y `b`. En particular esto puede usarse para cruzar variables sin necesidad de una variable intermedia.
+- De manera similar se pueden hacer asignaciones simultáneas vía: `a,b = c,d`: el miembro derecho se interpreta como una tupla que se descompone en `a` y `b`. En particular esto puede usarse para intercambiar el valor de dos variables sin necesidad de crear una variable auxiliar intermedia.
 
 # Terceros pasos 
 
@@ -236,8 +239,8 @@ Probemos un poco más de código:
               x*y
             end
   julia> z
-  julia> z = (x=2;y=3;x+y)
-  julia> z
+  julia> w = (x=5;y=1;x+y)
+  julia> w
 ```
 
 `begin` - `end` define un bloque de código. En `Julia` los bloques devuelven el valor de su última expresión. Por eso se asigna a `z` el valor de `x*y`. Lo mismo puede hacerse más compacto separando las expresiones con `;`.
@@ -257,9 +260,11 @@ Probemos un poco más de código:
   julia> f(v)  
 ```
 
-Vemos que no se puede evaluar `f` en un vector. El problema es que `^` no está definida para vectores. `+ ` tampoco está definida entre vectores y escalares.
+Definir funciones matemáticas en `Julia` es **muy fácil**. Se puede ver que el código es casi idéntico a lo que escribiríamos en papel. Al evaluar la función, `Julia` se encarga de manejar los tipos de dato adecuadamente. 
 
-Intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estándar para gráficos (hay otros). Para ello corremos: 
+Sin embargo, vemos que no se puede evaluar `f` en un vector. A diferencia de lo que ocurre en `Python` o `Matlab`, ninguna operación está definida por defecto para operar casillero a casillero. Es decir que en el ejmplo tenemos problemas por culpa de la operación `^` pero también por culpa de la suma: `+ `. Como veremos en breve, esto es intencional, porque `Julia` tiene una sintaxis muy poderosa para hacer operaciones casillero a casillero. 
+
+Antes de investigar la evaluación casillero a casillero, intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estándar para gráficos (hay otros). Para ello corremos: 
 
 ```
   julia> using Plots
@@ -277,7 +282,7 @@ El primer dibujo simplón se puede hacer simplemente con:
   julia> plot(f)
 ```
 
-Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente, necesitamos valores para `x` sobre los que queremos evaluar la función:
+Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente, necesitamos dar los valores de `x` sobre los que queremos evaluar la función:
 
 ```
   julia> plot(-1:0.1:1,f)
@@ -285,7 +290,7 @@ Esto grafica en un dominio asumido por defecto. Si queremos un dominio diferente
 
 Notar que en general en otros lenguajes una función como `plot()` requiere dos secuencias de datos: una con valores de `x` y otra con valores de `y`. Aquí le estamos pasando un _rango_ (una forma de vector, digamos) y una _**función**_. 
 
-También funciona en el formato usual. Para ello tendríamos que generar un vector de evaluaciones de `f`. En lugar de hacerlo con `f`, probemos con otra función. 
+También funciona en el formato usual. Para ello tendríamos que generar un vector de evaluaciones de `f`. Podríamos hacer esto con un `for`:
 
 ```
   julia> x = -1:0.1:1
@@ -296,7 +301,7 @@ También funciona en el formato usual. Para ello tendríamos que generar un vect
   julia> plot(x,y)              
 ```
 
-De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código se cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de `x`. Una alternativa piola es:
+En `Julia` todos los bloques de código se cierran con `end` (como en `Matlab`). `i in 1:length(x)` indica que el índice `i` debe moverse dentro del rango de índices de `x`. Una alternativa piola es:
 
 ```
   julia> for i in eachindex(x)
@@ -306,7 +311,7 @@ De yapa, apareció la sentencia `for`. En `Julia` todos los bloques de código s
 La función `eachindex()` devuelve la secuencia de índices de `x` esto tiene varios sentidos: 
 - No necesitamos conocer previamente la longitud de `x`. 
 - Si bien el estándar es indexar desde 1, `Julia` admite _offset arrays_ (indexados arbitrariamente). `eachindex()` es automáticamente compatible con estos arrays.
-- Al recorrer un array se realiza una verificaación de que los índices son admisibles. `eachindex()` permite saltearse ese proceso, dado que por definición se correrán índices válidos (de `x`).
+- Al recorrer un array se realiza una verificación de que los índices son admisibles. `eachindex()` permite saltearse ese proceso, dado que por definición se correrán índices válidos (de `x`).
 - Para codificar caracteres unicode `Julia` usa el estandar `UTF-8` que es un sistema de longitud variable: los caracteres pueden ocupar entre 1 y 4 bytes. Los índices de un `String` cuentan bytes:
 ```julia
   julia> a = "αβ∀x"
@@ -316,6 +321,7 @@ La función `eachindex()` devuelve la secuencia de índices de `x` esto tiene va
              println(k)
          end
 ```
+Si en este último ejemplo usáramos `for i in 1:4`, habría un error, pues el índice `2` no existe.
 
 
 También hay una alternativa más compacta: 
@@ -325,17 +331,17 @@ También hay una alternativa más compacta:
   julia> plot(x,y)              
 ```
 
-Es decir: `Julia` admite definiciones por comprensión.
+Es decir: `Julia` admite definiciones por comprensión, como `Python`. 
 
 ## Broadcasting
 
-Sin embargo, el mecanismo más natural para evaluar una función sobre un vector casillero a casillero no es ninguna de las anteriores, sino lo que se llama _broadcasting_: 
+Sin embargo, el mecanismo más natural para evaluar una función sobre un vector casillero a casillero no es ninguna de las anteriores, sino lo que se llama **broadcasting**: 
 
 ```
-  julia> y = cos.(x)
+  julia> y = f.(x)
 ```
 
-El `.` indica que la función debe aplicarse lugar a lugar. Esto luce similar a `Matlab`, pero en realidad es considerablemente más poderoso, como iremos viendo a lo largo del curso. Por ahora observemos que en `Matlab` el `.` debe aplicarse sobre cada operación problemática: `y = x.^2+x.^3`. En `Julia` la sintaxis es general y se aplica a todo el lenguaje. En particular, en este caso lo podemos aplicar directamente a cualquier función: 
+El `.` indica que la función debe aplicarse lugar a lugar. Esto luce similar a `Matlab`, pero en realidad es **considerablemente más poderoso**, como iremos viendo a lo largo del curso. Por ahora observemos que en `Matlab` el `.` debe aplicarse sobre cada operación problemática: `y = x.^2+x.^3`. En `Julia` la sintaxis es general y se aplica a todo el lenguaje. En particular, en este caso lo podemos aplicar directamente a cualquier función: 
 
 ```julia
   julia> g(x) = cos(x^2)-exp(x+1)
@@ -351,7 +357,7 @@ Por último, ¿Cómo hacemos dos gráficos juntos?
   julia> plot!(x,g.(x))
 ```
 
-Hay dos versiones de `plot`: `plot` y `plot!` (hay muchos casos similares). La segunda _modifica_ el gráfico existente y por lo tanto hace el segundo gráfico sobre el primero. 
+Hay dos versiones de `plot`: `plot` y `plot!`. La segunda _modifica_ el gráfico existente y por lo tanto hace el segundo gráfico sobre el primero. 
 
 # JIT
 
@@ -364,7 +370,7 @@ Pongamos esto a prueba. Cerremos la sesión (`exit()`) y abramos una nueva. Lueg
   julia> @time plot(x,y)  
 ```
 
-`@time` nos permite calcular el tiempo (y algunas cosas más) que demora la ejecución de una función. Se observa que el gráfico demora una fracción de segundo bastante perceptible, pero `@time` nos indica que la mayor parte de ese tiempo fue `compilation time`. 
+`@time` nos permite calcular el tiempo que demora la ejecución de una función (y algunas cosas más). Se observa que el gráfico demora una fracción de segundo bastante perceptible, pero `@time` nos indica que la mayor parte de ese tiempo fue `compilation time`. 
 
 Corramos ahora: 
 
@@ -377,7 +383,7 @@ Se observa que la ejecución es mucho más veloz y `@time` ya no reporta tiempo 
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
-La <code>JIT compilation</code> le permite a <code>Julia</code> alcanzar velocidades cercanas (¡o mayores!) a las de lenguajes compilados <i>ahead of time</i> como <code>C</code> o <code>Fortran</code>. Sin embargo, tiene el pequeño costo de que la <i>primera</i> ejecución de una función incluye el proceso de compilación. A esto se lo conoce como <i>problema del primer plot</i> justamente porque los <i>plots</i> suelen ser costosos y es una de las operaciones <i>simples</i> en las que el fenómeno resulta más notorio. Este problema puede eludirse haciendo compilación <i>ahead of time</i> (hay un paquete para eso). Pero además es algo que mejora con cada nueva versión de <code>Julia</code>. Por último: veremos más adelante que uno puede hacer algunas cosas al programar para minimizar el impacto de este problema. 
+La <code>JIT compilation</code> le permite a <code>Julia</code> alcanzar velocidades cercanas (¡o mayores!) a las de lenguajes compilados <i>ahead of time</i> como <code>C</code> o <code>Fortran</code>. Sin embargo, tiene el pequeño costo de que la <i>primera</i> ejecución de una función incluye el proceso de compilación. A esto se lo conoce como <i>problema del primer plot</i> justamente porque los <i>plots</i> suelen ser costosos y es una de las operaciones <i>simples</i> en las que el fenómeno resulta más notorio. Este problema puede eludirse haciendo compilación <i>ahead of time</i> (hay un paquete para eso). Los paquetes también tienen instrucciones de <i>precompilación</i>, es decir que cuando uno los importa usando `using` ya compilan algunas de sus funciones para tipos de datos usuales, acelerando el tiempo incluso de la primera corrida. Pero además cada nueva versión de <code>Julia</code> mejora el compilador y por lo tanto achica los tiempos de espera de las primeras corridas. Por último: veremos más adelante que uno puede hacer algunas cosas al programar para minimizar el impacto de este problema. 
   </div>
 
 <br>
