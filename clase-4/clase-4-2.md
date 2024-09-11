@@ -31,7 +31,7 @@ Si bien `Plots.jl` es la librería estándar para dibujar, hay varios paquetes q
 
 ## Imágenes
 + `Colors.jl` define los colores y da la posibilidad de operar con las distintas representaciones de color. 
-+ `Images.jl`: Manipulación básica de imágenes. Una imagen es una matriz que contiene colores \:smile:
++ `Images.jl`: Manipulación básica de imágenes. Una imagen es una matriz que contiene colores :).
 + `JuliaImages` no es una librería, sino un proyecto que incluye varios paquetes para procesamiento de imágenes: filtrado, transformación, etc.
 
 ## Procesamiento de señales
@@ -50,7 +50,7 @@ Si bien `Plots.jl` es la librería estándar para dibujar, hay varios paquetes q
 
 ## Notebooks
 + `IJulia.jl` permite correr `Julia` en una `jupyter-notebook`. Una vez instalado el paquete, al abrir `jupyter` aparece la posibilidad de crear una notebook con `Julia`.
-+ `Pluto.jl` es un sistema de notebooks desarrollado específicamente para `Julia`. Tiene la pecualiaridad de que en `Pluto` la notebook tiene un estado global que no puede romperse. Esto quiere decir que si en una celda definimos una variable `n` y en otra celda calculamos `sum(1:n)`. Al cambiar el valor de `n` en la primera celda, _automáticamente_ se correrá la siguiente y recalculará la suma. Esto vale para _todas_ las celdas que dependan del valor de `n`. Para algunas aplicaciones, esto es excelente. Sin embargo, tiene sus costos: 
++ `Pluto.jl` es un sistema de notebooks desarrollado específicamente para `Julia`. Tiene la pecualiaridad de que en `Pluto` la notebook tiene un estado global que no puede romperse. Esto quiere decir que si en una celda definimos una variable `n` y en otra celda calculamos `sum(1:n)`, al cambiar el valor de `n` en la primera celda, _automáticamente_ se correrá la siguiente y recalculará la suma. Esto vale para _todas_ las celdas que dependan del valor de `n`. Para algunas aplicaciones, esto es excelente. Sin embargo, tiene sus costos: 
   - Actualizar una celda puede tener efectos en cascada inesperados (por ejemplo: largo tiempo de cómputo).
   - No es posible reutilizar el nombre de una variable. Es decir: no puede haber dos celdas que definan `n`, porque `Pluto` no sabría cuál valor utilizar. 
 + `PlutoUI.jl` permite agregar botones, deslizadores, cajas de selección, y otros chiches a una notebook de `Pluto`. La sintaxis es extraordinariamente simple. 
@@ -136,7 +136,7 @@ Ya observamos que los `macros` agregan gran funcionalidad permitiendo ejecutar p
 
 # Performance
 
-Ya vimos que `Julia` es realmente rápido. Sin embargo, la velocidad intrínseca puede entorpocerse con una mal código. Si se quiere código veloz, es importante tener en mente los [Consejos de Performance](https://docs.julialang.org/en/v1/manual/performance-tips/). En particular, hay dos puntos muy importantes: 
+Ya vimos que `Julia` es realmente rápido. Sin embargo, la velocidad intrínseca puede empeorar con una mal código. Si se quiere código veloz, es importante tener en mente los [Consejos de Performance](https://docs.julialang.org/en/v1/manual/performance-tips/). En particular, hay dos puntos muy importantes: 
 + Probar el código con `@time` y prestarle atención a `allocations`. En muchos casos escribimos (innecesariamente) código que obliga a la máquina a guardar en memoria más información de la necesaria. Esto además de memoria cuesta tiempo. Si notamos `allocations` excesivas, conviene revisar por qué ocurren.
 + Escribir funciones que sean estables en el tipo. No hace falta introducir anotaciones de tipo. De hecho: en general es mejor evitarlas salvo para hacer uso del _multiple dispatch_. Pero sí es importante que si una función va a devolver un vector, devuelva siempre un vector. Si a veces devuelve un vector y otras una tupla y otras otra cosa, el compilador no tiene más remedio que asumir que la función devuelve cosas de tipo `Any` y no puede generar código optimizado para nuestra función. 
 

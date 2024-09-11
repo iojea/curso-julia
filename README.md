@@ -33,3 +33,7 @@ Procuraremos dedicar la mayor parte del tiempo a los aspectos que distinguen a `
 ## Bibliografía
 
 + [Algunas referencias](https://iojea.github.io/curso-julia/biblio)
+
+## Consultas, correcciones o sugerencias
+
+Escribir a `iojea@dm.uba.ar`

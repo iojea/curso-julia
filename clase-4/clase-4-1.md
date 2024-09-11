@@ -41,7 +41,7 @@ struct Polinomio{T<:Number}
 end
 ```
 
-`Julia` **no** nos permite recargar el archivo. Esto es porque crear una nueva `struct` altera el árbol de tipos. Hay que cerrar y reabrir la sesión. 
+`Julia` **no** nos permite recargar el archivo. Esto es porque crear una nueva `struct` altera el árbol de tipos y esta alteración no es reversible dentro de la sesión. Hay que cerrar y reabrir la sesión de la consola para poder cargar el archivo nuevamente.
 
 Probemos ahora: 
 ```julia
@@ -58,7 +58,7 @@ Vemos que `Julia` infiere el valor del parámetro `T` en función de los datos c
 ```julia
 Polinomio(x...) = Polinomio([x...])
 ```
-El operador _splat_ `...` cumple sirve en este caso para representar un número indefinido de parámetros. Es decir que `x...` juega el papel de `x1,x2,x3,...`. La definición indica que si `Polinomio` recibe un número indefinido de variables sueltas, debe encapsularlas en un vector y ejecutar el constructor por defecto. Es decir, creamos un nuevo método para el constructor que llama al método original. Cargar esta función en el archivo, recargarlo (ahora no hace falta reiniciar) y volver a probar: 
+El operador _splat_ `...`  sirve en este caso para representar un número indefinido de parámetros. Es decir que `x...` juega el papel de `x1,x2,x3,...`. La definición indica que si `Polinomio` recibe un número indefinido de variables sueltas, debe encapsularlas en un vector y ejecutar el constructor por defecto. Es decir, creamos un nuevo método para el constructor que llama al método original. Cargar esta función en el archivo, recargarlo (ahora no hace falta reiniciar) y volver a probar: 
 ```julia
   julia> p = Polinomio(3,5,1)
   julia> q = Polinomio([3,5,1])
@@ -80,7 +80,7 @@ struct Polinomio{T<:Number}
 end
 ```
 
-La función `Polinomio` definida dentro de la estructura es un _constructor interno_. Dado que  puede ser problemática llamar a la función `Polinomio` dentro de la definición de `Polinomio`, para esta situación especial existe la función `new`. `new` debe usarse poniendo entre llaves los tipos de dato que definen la estructura (en este caso `T`) y pasándole como variables los valores que deben asignarse a los campos definidos internamente. En este caso, extraemos de `v` todos los ceros del final y recién después creamos el nuevo `Polinomio`. Pedimos que `length(v)>1` para admitir la construcción del polinomio nulo. 
+La función `Polinomio` definida dentro de la estructura es un _constructor interno_. Dado que  puede ser problemática llamar a la función `Polinomio` dentro de la definición de `Polinomio`, para esta situación especial existe la función `new`. `new` debe usarse poniendo entre llaves los tipos de dato que definen la estructura (en este caso `T`) y pasándole como variables los valores que deben asignarse a los campos definidos internamente. En este caso, extraemos de `v` todos los ceros del final y recién después creamos el nuevo `Polinomio`. La condición `length(v)>1` hace que al finalizar el `while` `v` tenga al menos longitud `1`. De esta manera admitimos la construcción del polinomio nulo. 
 
 Nuevamente tenemos que reinciar la consola, dado que alteramos un tipo de dato. 
 
@@ -90,9 +90,12 @@ Hagamos algo más divertido: al crear un polinomio obtenemos algo del estilo:
 ```julia
 Polinomio{Int64}([1,2,3])
 ```
-Sería mejor ver el polinomio como lo escribimos matemáticamente. Para esto tenemos que definir un nuevo método para la función `show`.
+Sería mejor ver el polinomio como lo escribimos matemáticamente. Para mostrar una variable la consola ejecuta la función `show` que está definida en `Base` (la instalación base de `Julia`). Para definir nosotros cómo queremos mostrar un polinomio debemos agregar un nuevo método a la función `show`. Además, necesitamos indicar que cuando hablamos de `show` no estamos definiendo una función nueva sino un nuevo método para `Base.show`. Esto se hace así: 
+
 
 ```julia
+import Base: show
+
 function show(io::IO,mime::MIME"text/plain",p::Polinomio)
     c = p.coef
     print(c[1])
@@ -103,25 +106,36 @@ function show(io::IO,mime::MIME"text/plain",p::Polinomio)
     end
 end
 ```
-
-+ `show` debe recibir un objeto de tipo `IO` (input-output) y otro de tipo `MIME"text/plain"` y  el dato que querramos mostrar. No hace falta usar `io` ni `mime` para nada. En el uso normal, esto estará definido por la consola.
++ El `import` conviene ponerlo en la primera línea del archivo, para que todos lo que se importe quede claro desde el arranque y no se pierda en el medio del código. 
++ `show` debe recibir un objeto de tipo `IO` (input-output) y otro de tipo `MIME"text/plain"` y  el dato que querramos mostrar. No hace falta usar `io` ni `mime` para nada. En el uso normal, estos parámetros estarán definidos por la consola.
 + Imprimimos el primer coeficiente y luego imprimimos los siguientes siempre que sean no nulos. cada coeficiente va acompañado de `x^` y la potencia correspondiente.  
+
+Una vez implementada esta función, podemos volver a cargar el archivo y crear un nuevo polinomio. Lindo, ¿no? Por supuesto, la función se puede pulir un poquito más, por ejemplo: para que no escriba el coeficiente si es un `1`. 
 
 
 Ahora empieza la diversión: 
 
-**Ejercicio:** Implementar la función `coeficientes`, que devuelva un vector con  los coeficientes del polinomio. 
+**Ejercicio:** Implementar la función `coeficientes`, que devuelva un vector con los coeficientes del polinomio. 
 
 **Ejercicio:** Implementar la función `grado` que devuelva el grado del polinomio.
 
-**Ejercicio:** Queremos sumar polinomios. Para ello, necesitamos implementar un método para la función suma. Para que esto funcione bien necesitamos importar la función `+` de `Base`. En la primera linea del archivo, agregar: 
+**Ejercicio:** Queremos sumar polinomios. Para ello, necesitamos implementar un método para la función suma. Como en el caso de `show`, lo que queremos es implementar un nuevo método para `Base.+`. En la primera línea del archivo podemos poner: 
 ```julia
-import Base.:+
+import Base: +
 ```
-Hecho esto, podemos implementar la función `+(p::Polinomio,q::Polinomio)`. Esta función debe tomar los coeficientes de `p` y `q`, usar la función `_completar` para obtener dos vectores de igual longitud
- y crear y devolver un nuevo polinomio creado a partir de la suma de los coeficientes. 
+También podemos combinar todos estos imports en una sola línea: 
+```julia
+import Base: +,show
+```
 
-**Ejercicio:** Implementar la función que permite evaluar un polinomio: `(p::P)(x::Number)`. 
+Hecho esto, podemos implementar la función `+(p::Polinomio,q::Polinomio)`. Esta función debe tomar los coeficientes de `p` y `q`, crear un nuevo vector `r` para los coeficientes del resultado (tan largo como el más largo entre `p` y `q`), rellenar este vector con la suma coeficiente a coeficiente de `p` y `q`  y devolver un nuevo polinomio creado a partir de `r`.
+
+**Ejercicio:** Un polinomio es una función. Nos gustaría poder evaluarla. Para ello, implementar la función correspondiente. La sintaxis del encabezado debe ser:
+```julia
+function (p::Polinomio)(x::Number)`
+```
+
+**Observación:** Por el momento, nos conformamos con evaluar el polinomio de la manera _ingenua_. En la práctica se usa el método de Horner, que es un algoritmo optimizado para evaluar un polinomio minimizando el número de productos y sumas a realizar.  
 
 **Ejercicio:** Si las funciones anteriores están bien, las siguientes siguientes pruebas deberían funcionar según lo esperado
 
@@ -141,30 +155,42 @@ Hecho esto, podemos implementar la función `+(p::Polinomio,q::Polinomio)`. Esta
   julia> plot(x,p.(x))
 ```
 
-Aquí graficamos aprovechando que podemos evaluar `p`. Si queremos tener métodos más directos que reciban un rango o vector y un polinomio o sólo un polinomio, sólo tenemos que agregar métodos a la función `plot`. Para ello agregamos al archivo la linea: 
+Aquí graficamos aprovechando que podemos evaluar `p`.  Antes vimos que podíamos graficar una función haciendo simplemente `plot(f)`. Si queremos hacer reproducir este comportamiento con los polinomios, tenemos dos opciones:
+
++ Implementar métodos especializados para la función `plot`:
 ```julia
 import Plots.plot
-  ```
-y agregamos al archivo las funciones:
 ```julia
 plot(x,p::Polinomio) = plot(x,p.(x))
 plot(p::Polinomio) = plot(-5:0.01:5,p) 
 ```
-El primer método indica que si recibo un `x`, debemos evaluar el polinomio en `x` para graficar. El segundo fija un intervalo por default en el caso en que `plot` se llame directamente sobre `p`. Cargando nuevamente el archivo podemos correr: 
+El primer método indica que si recibo un `x`, debemos evaluar el polinomio en `x` para graficar. El segundo fija un intervalo por default en el caso en que `plot` se llame directamente sobre `p`. 
++ También podemos definir `Polinomio` como subtipo de `Function`. Es decir, modificar la definición de nuestra estructura por:
+```julia
+  struct Polinomio{T<:Number} <: Function
+```
+De este modo, aún sin haber dado definiciones especiales para `plot`, cuando se ejecute `plot(p)` o `plot(x,p)`, `Julia` no encontrará un método especial para ejecutar `plot` sobre un `Polinomio`, y entonces buscará el método para el supertipo de `Polinomio`, es decir `Function`. Encontrará tal método y lo ejecutará. Muy posiblemente, esta segunda variante nos permitirá heredar automáticamente otros comportamientos que estén definidos para `Function`. En general, cualquier método que exista para `Function` y que sólo requiera evaluar la función será **automáticamente** válido para nuestros polinomios. 
+
+
+Cargando nuevamente el archivo podemos correr: 
 
 ```julia
   julia> plot(p)
 ```
+y funcionará, cualquiera sea la alternativa que hayamos usado. 
+
 
 Para agregar la resta de polinomios debemos definir un método para `-`. Agregamos: 
 ```julia
-import Base.:-
+import Base:-
 ```
-`-` cumple dos funciones: es la resta (aplicada a dos cosas), pero también es el negativo. Podemos definir ambas: 
+`-` cumple dos funciones: es la resta (operador binario, aplicado a dos cosas), pero también es el negativo (operador unario, aplicado a una sola cosa). Podemos definir ambas: 
 ```julia
 -(p::Polinomio) = Polinomio(-coeficientes(p))
 -(p::Polinomio,q::Polinomio) = p + (-q)
 ```
+
+Cabe remarcar la elegancia de estas definiciones que semejan las correspondientes definiciones matemáticas y nos permiten **no** escribir un algorimo completo para la resta, sino sólo ejecutar el que ya escribimos para la suma. 
 
 Con esto queda bien definida la resta de polinomios, pero también la expresión:
 ```julia
@@ -183,7 +209,7 @@ Algunos ejercicios extra para entretenerse:
 
 **Ejercicio:** Implementar una función `integrar(p::Polinomio,a,b)` que integre el polinomio `p` en el intervalor `[a,b]`.
 
-**Ejercicio:** Implementar un método para la función `divrem(p::Polinomio,q::Polinomio)` que calcule la división y el resto de `p` dividido `q`. 
+**Ejercicio:** Implementar un método para la función `divrem(p::Polinomio,q::Polinomio)` que calcule la división y el resto de `p` dividido `q`. (Hay que agregar: `import Base: divrem`).
 
 Hay muchísimas más cosas que podrían implementarse (algoritmos especializados para buscar raíces, expansiones en bases de polinomios conocidas, etc. etc.). 
 

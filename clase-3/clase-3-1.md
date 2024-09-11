@@ -47,20 +47,20 @@ Sacar conclusiones.
 ```
 
 + Cuando le pasamos a una función un fragmento de matriz (por ejemplo `B[2:4,3:5]`), `Julia` realiza una copia de ese fragmento. Por lo tanto, si la función cambia lo que recibe, igualmente la matriz original sigue intacta. 
-+ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original.
++ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original. Las _vistas_ son muy útiles cuando uno realiza operaciones con framentos de una matriz grande: permiten tomar cada fragmento sin realizar una copia, con el consecuente ahorro de memoria.
 
 
 
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
-En <code>Julia</code> las matrices se almacenan <i>por columna</i> (al revés que en <code>Python</code>). Esto puede observarse al ejecutar <code>A[:]</code> que <i>lee</i> todos los casilleros de <code>A</code>. Por lo tanto es más eficiente operar por columnas y cuando se recorre una matriz es más eficiente leer por columnas.
+En <code>Julia</code> las matrices se almacenan <i>por columna</i> (al revés que en <code>Python</code>). Esto puede observarse al ejecutar <code>A[:]</code> que <i>lee</i> todos los casilleros de <code>A</code>. Por lo tanto es más eficiente operar por columnas y cuando se recorre una matriz es más eficiente leerla por columnas.
 </div>
 
 
 # Resolviendo ecuaciones
 
-El primer método de un paso para resolver ecuaciones en derivadas parciales es el método de Euler. Dada la ecuación `ẋ = f(x,t)` con condición de contorno `x(t₀) = x₀`, la iteración de Euler construye la sucesión: `xₙ₊₁ = xₙ + f(xₙ,tₙ)`, donde `tₙ = t₀ + nh` para algún paso `h`. 
+El primer método de un paso para resolver ecuaciones en derivadas parciales es el método de Euler. Dada la ecuación `ẋ = f(x,t)` con condición de contorno `x(t₀) = x₀`, la iteración de Euler construye la sucesión: `xₙ₊₁ = xₙ + hf(xₙ,tₙ)`, donde `tₙ = t₀ + nh` para algún paso `h`. 
 Una implementación posible del método de Euler es la siguiente: 
 
 ```julia
@@ -77,11 +77,11 @@ function euler(f,x₀,tspan,N)
 end
 ```
 
-Esta función recibe la función que define la ecuación diferencial, el dato inicial, un vector o una tupla de dos casilleros con el tiempo inicial  y el final y el número de puntos que se desea calcular. `r` es un rango de valores que comienza en `t0`, termina en `tf` y tiene en total `N` casilleros. El valor de `h` se infiere de este rango. 
+Esta función recibe la función que define la ecuación diferencial, el dato inicial, un vector o una tupla de dos casilleros con el tiempo inicial  y el final y el número de puntos que se desea calcular. `t` es un rango de valores que comienza en `t0`, termina en `tf` y tiene en total `N` casilleros. El valor de `h` se infiere de este rango. 
 
 **Ejercicio 3:** Crear un archivo con esta función. Crear algún set de datos `f` y `x₀` y usar `euler` para resolver la ecuación. Graficar el resultado.
 
-El código anterior funciona sólo para ecuaciones escalares, pero no para sistemas. En un sistema `x` es un vector y `f` es un campo vectorial. En principio esto no depende directamente de la función `euler`, sino del usuario que debe generar datos `f` y `x₀`adecuados. El problema del código es que para un sistema la variable `x` debería ser una matriz en donde cada columna o cada fila represente el vector solución en un tiempo dado. 
+El código anterior funciona sólo para ecuaciones escalares, pero no para sistemas. En un sistema `x` es un vector y `f` es un campo vectorial. En principio esto no depende directamente de la función `euler`, sino del usuario que debe generar datos `f` y `x₀` adecuados. El problema del código es que para un sistema la variable `x` debería ser una matriz en donde cada columna o cada fila (en `Julia` conviene que sea cada columna) represente el vector solución en un tiempo dado. 
 
 **Ejercicio 4:** Modificar la función `euler` de modo que sirva también para sistemas. La función debe: deducir la dimensión `d` del problema del dato inicial y llenar una matriz `x` de `d×N` en donde cada columna corresponde a la solución en un instante. Probar la función resolviendo las ecuaciones de Lotka-Volterra: `ẋ=ax-bxy, ẏ=-cy+dxy`, tomando `a=2/3`, `b=4/3`, `c=d=1`. Si `t` es el vector de tiempos y `x` es la matriz solución, ejecutar el siguiente código: 
 ```julia
@@ -89,6 +89,9 @@ El código anterior funciona sólo para ecuaciones escalares, pero no para siste
   julia> p2 = plot(x[1,:],x[2,:],title="Diagrama de fases")
   julia> plot(p1,p2,layout=(2,1))
 ```
+
+Notar que las funcionalidades de `plot` son aún más extensas de lo que habíamos visto. El mismo comando permite diagramar una figura con varios plots. 
+
 
 **Ejercicio 5:** Hagamos algo un poquito más divertido. Tomemos las poblaciones obtenidas en el ejercicio anterior (las filas de la matriz `x`), y hagamos una película mostrando la evolución de una respecto de la otra. Para ello queremos hacer una sucesión de plots con graficos parciales y cada vez más completos. Hecho esto, generar una animación usando `Plots` es trivial:
 ```julia
@@ -100,6 +103,7 @@ El código anterior funciona sólo para ecuaciones escalares, pero no para siste
 Además de la función `mp4` también hay una función `gif` que genera un `.gif`. A estas funciones se les puede pasar un argumento `fps` para indicar el número de cuadros por segundo. (por ejemplo `mp4(anim,"pred_presa.mp4",fps=24)`). 
 
 Realizar una animación que muestre la evolución de ambas poblaciones variando a lo largo del tiempo. 
+
 
 # Un poco de Álgebra Lineal
 
@@ -164,8 +168,8 @@ Al ejecutar `I(5)` obtenemos `5×5 Diagonal{Bool,Vector{Bool}}` y `Julia` nos mu
 
 Pasando en limpio: 
 
-+ `diag(A)` extrae la diagonal principal de una matriz y devuelve un vector. `diag(A,k)`, devuelve la `k`-ésima diagonal, donde las superiores se numeran positivamente y las inferiores con negativos. 
-+ `diagm(v)` crea una matriz con `v` en la diagonal. En general, permite crear matrices _por_diagonales. La sintaxes `diagm(0=>2ones(3),1=>-ones(2),-1=>ones(2))` crea la matriz que tiene `2` en la diagonal principal, `-1` en la superior y `1` en la inferior. Notar que `diagm` produce matrices _llenas_ (no como `I(5)`), que de hecho son de tipo `Matrix`. 
++ `diag(A)` extrae la diagonal principal de una matriz y devuelve un vector. `diag(A,k)`, devuelve la `k`-ésima diagonal, donde las superiores se numeran positivamente y las inferiores con enteros negativos. 
++ `diagm(v)` crea una matriz con `v` en la diagonal. En general, permite crear matrices _por_diagonales_. La sintaxis `diagm(0=>2ones(3),1=>-ones(2),-1=>ones(2))` crea la matriz que tiene `2` en la diagonal principal, `-1` en la superior y `1` en la inferior. Notar que `diagm` produce matrices _llenas_ (no como `I(5)`), que de hecho son de tipo `Matrix`. 
 + `Diagonal` permite crear matrices diagonales (sólo tienen números en la diagonal principal). Puede aplicarse a un vector o a una matriz. Notar que `D` es de tipo `Diagonal`, como ocurre con `I(5)`. 
 + `Tridiagonal` crea matrices tridiagonales. Recibe tres vectores: la digonal inferior, la principal y la superior. También puede aplicarse a una matriz preexistente. 
 + `SymTridiagonal` crea matrices que son tridiagonales y simétricas. Recibe primero la diagonal principal y luego la otra. Puede funcionar sobre una matriz, pero sólo si ésta es simétrica.

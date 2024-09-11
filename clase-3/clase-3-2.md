@@ -54,7 +54,7 @@ Continuemos investigando hacia arriba:
          end  
 ```
 
-Vemos una secuencia de que llega a `Any` y se estanca allí. Es decir: `Any` se tiene por _supratipo_ a sí mismo. Con esto en mente podemos hacer una función que haga lo que hicimos recién:
+Vemos una secuencia de tipos que llega a `Any` y se estanca allí. Es decir: `Any` se tiene por _supratipo_ a sí mismo. Con esto en mente podemos hacer una función que haga lo que hicimos recién:
 
 ```julia
 function supertipos(T)
@@ -91,7 +91,7 @@ end
 Acabamos de implementar nuestra primera función recursiva. `subtipos` se llama a sí misma para calcular los subtipos de los subtipos, etc. El parámetro opcional `nivel` nos sirve para indicar la cantidad de espacios que usamos y nos permite mostrar la información de manera que se vea quién es subtipo de quién. 
 </div>
 
-Probemos nuestra función calculando los subtipos del misterioso `Number`. Vemos que de `Number` se desprenden `Complex` y `Real` y de `Real` derivan distintas variantes de flotantes  y enteros y enteros, los racionales y ... los irracionales. A modo de ejemplo, probar: 
+Probemos nuestra función calculando los subtipos del misterioso `Number`. Vemos que de `Number` se desprenden `Complex` y `Real` y de `Real` derivan distintas variantes de flotantes  y enteros, los racionales y ... los irracionales. A modo de ejemplo, probar: 
 
 ```julia
   julia> sqrt(2)
@@ -121,6 +121,14 @@ Las relaciones entre los tipos pueden constatarse con una sintaxis muy elegante:
   julia> Integer <: Number
 ```
 
+<div class="notebox">
+<span class="notetit">Programación genérica: </span>
+
+Esta estructura del sistema de tipos permite escribir programas muy genéricos. Por ejemplo, supongamos que implementamos una función que recibe un número decimal y realiza ciertas operaciones. Es conveniente implementarla indicando que el parámetro es de tipo `AbstractFloat`. Esto permitirá que el compilador optimice el código en cada caso, según el usuario use la función con `Float64`, `Float32` u otra variante de `AbstractFloat`. Pero no sólo eso. `Julia` tiene la librería `Decimals.jl` que implementa un arquitectura para decimales arbitrarios. Allí, el tipo `Decimal` se define como suptipo de `AbstractFloat`. Es decir que nuestra función correrá **automáticamente** y sin que nosotros hagamos nada si el usuario la corre sobre un dato de tipo `Decimal`. 
+
+Esto vale para cualquier tipo de dato. Las distintas librerías de `Julia` suelen interactuar perfectamente entre sí sin que haya que hacer nada específico para combinarlas. Incluso cuando los desarrolladores de una librería ignoraban por completa la existencia de la otra y viceversa. </div>
+
+
 # Tipos paramétricos
 
 Considerar lo siguiente: 
@@ -140,7 +148,7 @@ Considerar lo siguiente:
 
 Estos ejemplos nos muestran que `Rational` y `Complex` **no son** _tipos concretos_ en el sentido de tener una representación de máquina predeterminada. El tipo de racional que definimos depende del tipo de enteros que usamos para el numerador y el denominador. Algo similar ocurre con la parte real y compleja de los complejos. 
 
-Por ejemplo, un racional definido de manera estandar (`2//3`) es de tipo `Rational{Int64}`. Es decir que tenemos un _tipo paramétrico_. Si usamos `@edit` o `@less` para ver cómo se define un racional vemos lo siguiente: 
+Por ejemplo, un racional definido de manera estandar (`2//3`) es de tipo `Rational{Int64}`. Es decir que tenemos un _tipo paramétrico_. Exploremos esto: si usamos `@edit` o `@less` para ver cómo se define un racional vemos lo siguiente: 
 
 ```julia
 struct Rational{T<:Integer} <:Real
@@ -161,7 +169,7 @@ end
 De esto podemos inferir algunas conclusiones iniciales: 
 + Sólo podremos construir un `Rational` si le pasamos dos enteros. Pueden ser cualquier clase de enteros, pero no pueden ser otra cosa. 
 + `num` y `den` serán siempre del mismo tipo. Es decir que, por ejemplo, no podremos construir racionales cuyo denominador sea `Int64` y cuyo numerador sea `UInt8`.
-+ En realidad `Rational` no es **un** tipo, sino una **familia** de tipos. `Rational{Int64}`, `Rational{Int32}` o, dicho más apropiadamente: 
++ En realidad `Rational` no es **un** tipo, sino una **familia** de tipos. `Rational{Int64}`, `Rational{Int32}`, etc. Esto se puede expresar en `Julia` usando la palabra clave `where` que tiene el mismo sentido que en matemática: 
 ```julia
 Rational{T} where T<:Integer
 ```
@@ -178,7 +186,7 @@ Consideremos lo siguiente:
 
 Es decir: `Rational{T}` para cualquier tipo `T` es un subtipo de `Rational`. Pero `Rational{Int64}` **no es** un subtipo de `Rational{Signed}` pese a que `Int64` es un subtipo de `Signed`. Es decir: las relaciones de parentesco no se anidan. 
 
-`Rational` es lo que se llama un tipo `UnionAll`. Es decir función como la unión de `Rational{T}` para todo `T`. 
+`Rational` es lo que se llama un tipo `UnionAll`. Es decir funciona como la unión de `Rational{T}` para todo `T`. 
 
 
 # Unión de tipos
@@ -195,9 +203,10 @@ Es decir que `MiDato` es un contenedor que tiene un numero y ese número puede s
 
 El sistema de _multiple dispatch_ es muy eficiente y maneja bien uniones, siempre que sean de pocos tipos. 
 
+
 # Explorando tipos compuestos
 
-Ahora que conocemos los entretelones del tipo `Rational`, problemas algunas cosas: 
+Ahora que conocemos los entretelones del tipo `Rational`, probemos algunas cosas: 
 
 ```julia
   julia> r = 2//3
@@ -217,7 +226,7 @@ Ahora que conocemos los entretelones del tipo `Rational`, problemas algunas cosa
 ```julia
   numerator(r::Rational) = r.num
 ```
-
+La ventaja de la función `numerator` es que el usuario puede inferir fácilmente su existencia o encontrarla mediante el `help`. El nombre específico que uso el programador al implementar el tipo `Rational` (en este caso `num`) no tiene por qué ser conocido por el usuario. 
 
 <br>
  <div style="text-align: left">
