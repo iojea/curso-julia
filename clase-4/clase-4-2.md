@@ -148,5 +148,5 @@ Además, la conversión de nuestro código a lenguaje de máquina se realiza en 
 
 <br>
  <div style="text-align: left">
-<a href="https://iojea.github.io/curso-julia/clase-3/clase-4-1"> << Volver a la primera parte</a> 
+<a href="https://iojea.github.io/curso-julia/clase-4/clase-4-1"> << Volver a la primera parte</a> 
 </div> 
