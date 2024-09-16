@@ -47,7 +47,7 @@ Sacar conclusiones.
 ```
 
 + Cuando le pasamos a una función un fragmento de matriz (por ejemplo `B[2:4,3:5]`), `Julia` realiza una copia de ese fragmento. Por lo tanto, si la función cambia lo que recibe, igualmente la matriz original sigue intacta. 
-+ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original. Las _vistas_ son muy útiles cuando uno realiza operaciones con framentos de una matriz grande: permiten tomar cada fragmento sin realizar una copia, con el consecuente ahorro de memoria.
++ Podemos tomar una `view` de un fragmento de matriz. Esto _mira_ directamente el fragmento tal como está almacenado **en** la matriz. Por lo tanto si le pasamos esta _vista_ a una función que modifica su argumento, se modifica la matriz original. Las _vistas_ son muy útiles cuando uno realiza operaciones con fragmentos de una matriz grande: permiten tomar cada fragmento sin realizar una copia, con el consecuente ahorro de memoria.
 
 
 
@@ -175,10 +175,10 @@ Pasando en limpio:
 + `SymTridiagonal` crea matrices que son tridiagonales y simétricas. Recibe primero la diagonal principal y luego la otra. Puede funcionar sobre una matriz, pero sólo si ésta es simétrica.
 + `Symmetric` crea matrices simétricas. Se aplica sobre una matriz. Por defecto _simetriza_ respetando la parte superior. Poniendo en el segundo parámetro `:L` se respeta la parte inferior (_lower_). 
 
-<div class="notebox>">
-<span class="notetit">Símbolox: </span>
+<div class="notebox">
+<span class="notetit">Símbolos: </span>
 
-Todo nombre precedido de `:` (como `:L`) es un _símbolo_ (de tipo `Symbol`). Para crear un símbolo, basta con escribir una palabra precedida por `:`. Los símbolos suelen servir como reemplazo de las cadenas de caracteres. En otros lenguajes para identificar si uno quiere tomar la _parte inferior_ habría que usar un código (-1, por ejemplo) o un `String`, por ejemplo `"lower"`. Los símbolos sirven de atajo para este tipo de usos. 
+Todo nombre precedido de <code>:</code> (como <code>:L</code>) es un <i>símbolo</i> (de tipo <code>Symbol</code>). Para crear un símbolo, basta con escribir una palabra precedida por <code>:</code>. Los símbolos suelen servir como reemplazo de las cadenas de caracteres. En otros lenguajes para identificar si uno quiere tomar la <i>parte inferior</i> habría que usar un código (-1, por ejemplo) o un <code>String</code>, por ejemplo <code>"lower"</code>. Los símbolos sirven de atajo para este tipo de usos. 
 </div>
 
 <div class="notebox">
