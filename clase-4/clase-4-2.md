@@ -50,7 +50,7 @@ Si bien `Plots.jl` es la librería estándar para dibujar, hay varios paquetes q
 
 ## Notebooks
 + `IJulia.jl` permite correr `Julia` en una `jupyter-notebook`. Una vez instalado el paquete, al abrir `jupyter` aparece la posibilidad de crear una notebook con `Julia`.
-+ `Pluto.jl` es un sistema de notebooks desarrollado específicamente para `Julia`. Tiene la pecualiaridad de que en `Pluto` la notebook tiene un estado global que no puede romperse. Esto quiere decir que si en una celda definimos una variable `n` y en otra celda calculamos `sum(1:n)`, al cambiar el valor de `n` en la primera celda, _automáticamente_ se correrá la siguiente y recalculará la suma. Esto vale para _todas_ las celdas que dependan del valor de `n`. Para algunas aplicaciones, esto es excelente. Sin embargo, tiene sus costos: 
++ `Pluto.jl` es un sistema de notebooks desarrollado específicamente para `Julia`. Tiene la peculiaridad de que en `Pluto` la notebook tiene un estado global que no puede romperse. Esto quiere decir que si en una celda definimos una variable `n` y en otra celda calculamos `sum(1:n)`, al cambiar el valor de `n` en la primera celda, _automáticamente_ se correrá la siguiente y recalculará la suma. Esto vale para _todas_ las celdas que dependan del valor de `n`. Para algunas aplicaciones, esto es excelente. Sin embargo, tiene sus costos: 
   - Actualizar una celda puede tener efectos en cascada inesperados (por ejemplo: largo tiempo de cómputo).
   - No es posible reutilizar el nombre de una variable. Es decir: no puede haber dos celdas que definan `n`, porque `Pluto` no sabría cuál valor utilizar. 
 + `PlutoUI.jl` permite agregar botones, deslizadores, cajas de selección, y otros chiches a una notebook de `Pluto`. La sintaxis es extraordinariamente simple. 
@@ -75,7 +75,7 @@ Iniciando `Julia` con el comando `julia --threads 4`, si inicia una sesión de l
 
 ## GPU
 `JuliaGPU` es un proyecto que incluye los cuatro grandes paquetes que permiten paralelizar usando GPUs. Hay un paquete especializado para cada una de las tecnologías disponibles: 
-+ `CUDA.jl` para el `CUDA` de `NVIdia`,
++ `CUDA.jl` para el `CUDA` de `NVIDIA`,
 + `AMDGPU.jl` para el sistema `ROCm` de `AMD`,
 + `oneAPI.jl` para gráficos integrados de `Intel` y
 + `Metal.jl` para gráficos integrados de los nuevos chips de `Apple`.

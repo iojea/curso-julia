@@ -6,7 +6,7 @@ title: "Clase 4 - Primera parte - Definiendo tipos propios"
 
 # Implementado tipos propios:
 
-La idea de esta clase va a ser implemtentar un tipo de dato propio y agregarle algunas funcionalidades. Como ejemplo, vamos a implementar polinomios.
+La idea de esta clase va a ser implementar un tipo de dato propio y agregarle algunas funcionalidades. Como ejemplo, vamos a implementar polinomios.
 
 ## Polinomios
 
@@ -33,7 +33,7 @@ Hasta aquí vamos bien. Pero...
   julia> Polinomio(["este","es","un","polinomio"])
 ```
 
-Esta operación es perfectamente legítima, porque nuestro constructor de polinomios sólo requiere un vector. Aquí le dimos un vector de `String`s, cosa que tiene sentido para el código, pero no matemáticamente. Si queremos impedir este comportamiento, tenemos que ser más precisos con nuestro código. Reformulamos la defición del siguiente modo: 
+Esta operación es perfectamente legítima, porque nuestro constructor de polinomios sólo requiere un vector. Aquí le dimos un vector de `String`s, cosa que tiene sentido para el código, pero no matemáticamente. Si queremos impedir este comportamiento, tenemos que ser más precisos con nuestro código. Reformulamos la definición del siguiente modo: 
 
 ```julia
 struct Polinomio{T<:Number}
@@ -137,7 +137,7 @@ function (p::Polinomio)(x::Number)`
 
 **Observación:** Por el momento, nos conformamos con evaluar el polinomio de la manera _ingenua_. En la práctica se usa el método de Horner, que es un algoritmo optimizado para evaluar un polinomio minimizando el número de productos y sumas a realizar.  
 
-**Ejercicio:** Si las funciones anteriores están bien, las siguientes siguientes pruebas deberían funcionar según lo esperado
+**Ejercicio:** Si las funciones anteriores están bien, las siguientes pruebas deberían funcionar según lo esperado
 
 ```julia
   julia> p = Polinomio(2,3,1)
@@ -190,7 +190,7 @@ import Base:-
 -(p::Polinomio,q::Polinomio) = p + (-q)
 ```
 
-Cabe remarcar la elegancia de estas definiciones que semejan las correspondientes definiciones matemáticas y nos permiten **no** escribir un algorimo completo para la resta, sino sólo ejecutar el que ya escribimos para la suma. 
+Cabe remarcar la elegancia de estas definiciones que semejan las correspondientes definiciones matemáticas y nos permiten **no** escribir un algoritmo completo para la resta, sino sólo ejecutar el que ya escribimos para la suma. 
 
 Con esto queda bien definida la resta de polinomios, pero también la expresión:
 ```julia
@@ -203,7 +203,7 @@ Algunos ejercicios extra para entretenerse:
 
 **Ejercicio:** Implementar el producto entre dos polinomios. 
 
-**Ejercicio:** Implementar una función `desderaices` que reciba las raíces del polinomio y construya el polinomio. 
+**Ejercicio:** Implementar una función `desdeRaices` que reciba las raíces del polinomio y construya el polinomio. 
 
 **Ejercicio:** Implementar una función `derivar(p::Polinomio)` que devuelva un polinomio con los coeficientes correspondientes al derivado de `p`. Tener en cuenta que en general el polinomio derivado tendrá un coeficiente menos que el original, salvo en el caso en que `p` sea constante. En esta situación queremos obtener el polinomio nulo (con un coeficiente, igual a `0`). 
 
@@ -211,7 +211,7 @@ Algunos ejercicios extra para entretenerse:
 
 **Ejercicio:** Implementar un método para la función `divrem(p::Polinomio,q::Polinomio)` que calcule la división y el resto de `p` dividido `q`. (Hay que agregar: `import Base: divrem`).
 
-Hay muchísimas más cosas que podrían implementarse (algoritmos especializados para buscar raíces, expansiones en bases de polinomios conocidas, etc. etc.). 
+Hay muchísimas más cosas que podrían implementarse (algoritmos especializados para buscar raíces, expansiones en bases de polinomios conocidas, etc..). 
 
 Por supuesto, todo esto ya existe, en la librería `Polynomials`. 
 
