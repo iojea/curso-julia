@@ -68,7 +68,7 @@ function supertipos(T)
     end
 end
 ```
-El operador `^` aplicado a un `String` lo reitera tantas veces como indica la potencia. Es decir que `" "^(length(sup)-1)` pone una cantidad espacios delante del tipo (empezando por ninguno y agregando uno en cada iteración). 
+El operador `^` aplicado a un `String` lo reitera tantas veces como indica la potencia. Es decir que `" "^(length(sup)-1)` pone una cantidad de espacios delante del tipo (empezando por ninguno y agregando uno en cada iteración). 
 
 Usar esta función para explorar la cadena de tipos que conduce a alguno de los tipos conocidos: `Float64`, `Bool`, `Int64`, `UInt64`, `String`. 
 
@@ -88,7 +88,7 @@ end
 <div class="notebox">
 <span class="notetit">Recursividad: </span>
 
-Acabamos de implementar nuestra primera función recursiva. `subtipos` se llama a sí misma para calcular los subtipos de los subtipos, etc. El parámetro opcional `nivel` nos sirve para indicar la cantidad de espacios que usamos y nos permite mostrar la información de manera que se vea quién es subtipo de quién. 
+Acabamos de implementar nuestra primera función recursiva. <code>subtipos</code> se llama a sí misma para calcular los subtipos de los subtipos, etc. El parámetro opcional <code>nivel</code> nos sirve para indicar la cantidad de espacios que usamos y nos permite mostrar la información de manera que se vea quién es subtipo de quién. 
 </div>
 
 Probemos nuestra función calculando los subtipos del misterioso `Number`. Vemos que de `Number` se desprenden `Complex` y `Real` y de `Real` derivan distintas variantes de flotantes  y enteros, los racionales y ... los irracionales. A modo de ejemplo, probar: 
@@ -124,9 +124,9 @@ Las relaciones entre los tipos pueden constatarse con una sintaxis muy elegante:
 <div class="notebox">
 <span class="notetit">Programación genérica: </span>
 
-Esta estructura del sistema de tipos permite escribir programas muy genéricos. Por ejemplo, supongamos que implementamos una función que recibe un número decimal y realiza ciertas operaciones. Es conveniente implementarla indicando que el parámetro es de tipo `AbstractFloat`. Esto permitirá que el compilador optimice el código en cada caso, según el usuario use la función con `Float64`, `Float32` u otra variante de `AbstractFloat`. Pero no sólo eso. `Julia` tiene la librería `Decimals.jl` que implementa un arquitectura para decimales arbitrarios. Allí, el tipo `Decimal` se define como suptipo de `AbstractFloat`. Es decir que nuestra función correrá **automáticamente** y sin que nosotros hagamos nada si el usuario la corre sobre un dato de tipo `Decimal`. 
+Esta estructura del sistema de tipos permite escribir programas muy genéricos. Por ejemplo, supongamos que implementamos una función que recibe un número decimal y realiza ciertas operaciones. Es conveniente implementarla indicando que el parámetro es de tipo <code>AbstractFloat</code>. Esto permitirá que el compilador optimice el código en cada caso, según el usuario use la función con <code>Float64</code>, <code>Float32</code> u otra variante de <code>AbstractFloat</code>. Pero no sólo eso. <code>Julia</code> tiene la librería <code>Decimals.jl</code> que implementa un arquitectura para decimales arbitrarios. Allí, el tipo <code>Decimal</code> se define como suptipo de <code>AbstractFloat</code>. Es decir que nuestra función correrá <b>automáticamente</b> y sin que nosotros hagamos nada si el usuario la corre sobre un dato de tipo <code>Decimal</code>. 
 
-Esto vale para cualquier tipo de dato. Las distintas librerías de `Julia` suelen interactuar perfectamente entre sí sin que haya que hacer nada específico para combinarlas. Incluso cuando los desarrolladores de una librería ignoraban por completa la existencia de la otra y viceversa. </div>
+Esto vale para cualquier tipo de dato. Las distintas librerías de <code>Julia</code> suelen interactuar perfectamente entre sí sin que haya que hacer nada específico para combinarlas. Incluso cuando los desarrolladores de una librería ignoraban por completa la existencia de la otra y viceversa. </div>
 
 
 # Tipos paramétricos
@@ -148,7 +148,7 @@ Considerar lo siguiente:
 
 Estos ejemplos nos muestran que `Rational` y `Complex` **no son** _tipos concretos_ en el sentido de tener una representación de máquina predeterminada. El tipo de racional que definimos depende del tipo de enteros que usamos para el numerador y el denominador. Algo similar ocurre con la parte real y compleja de los complejos. 
 
-Por ejemplo, un racional definido de manera estandar (`2//3`) es de tipo `Rational{Int64}`. Es decir que tenemos un _tipo paramétrico_. Exploremos esto: si usamos `@edit` o `@less` para ver cómo se define un racional vemos lo siguiente: 
+Por ejemplo, un racional definido de manera estándar (`2//3`) es de tipo `Rational{Int64}`. Es decir que tenemos un _tipo paramétrico_. Exploremos esto: si usamos `@edit` o `@less` para ver cómo se define un racional vemos lo siguiente: 
 
 ```julia
 struct Rational{T<:Integer} <:Real
@@ -191,7 +191,7 @@ Es decir: `Rational{T}` para cualquier tipo `T` es un subtipo de `Rational`. Per
 
 # Unión de tipos
 
-En algunos casos puede resultar útil admitir tipos de datos disímiles. Por ejemplo, supongamos que queremos generar una estructura de datos que adentro tendrá un flotante, pero queremos dejar la posibilidad de que ese valor quede sin inicializar. En tal caso, le asignaríamos el valor `nothing`, cuyo tipo es `Nothing` (que desciende directametne de `Any`). Esto lo podemos lograr haciendo: 
+En algunos casos puede resultar útil admitir tipos de datos disímiles. Por ejemplo, supongamos que queremos generar una estructura de datos que adentro tendrá un flotante, pero queremos dejar la posibilidad de que ese valor quede sin inicializar. En tal caso, le asignaríamos el valor `nothing`, cuyo tipo es `Nothing` (que desciende directamente de `Any`). Esto lo podemos lograr haciendo: 
 
 ```julia
 struct MiDato{T<:Union{AbstractFloat,Nothing}}
