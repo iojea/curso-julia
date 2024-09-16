@@ -128,7 +128,7 @@ y = sumar(1.2,3.4)
 <div class="importantbox">
 <span class="importantit">Importante:</span>
 
-Esto da lugar a uno de los _defectos_ de <code>Julia</code>: lo que se llama _problema del primer plot_: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la _compilación_ junto con la _ejecución_. 
+Esto da lugar a uno de los <i>defectos</i> de <code>Julia</code>: lo que se llama <i>problema del primer plot</i>: la primera vez que se ejecuta una función, el tiempo de ejecución será relativamente largo, porque se estará haciendo la <i>compilación</i> junto con la <i>ejecución</i>. 
 </div>
 
 <br>
