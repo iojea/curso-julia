@@ -206,7 +206,7 @@ En cambio, al correr:
 ```
 La primera constatación es `isodd(2)` que devuelve `false`. Dado que las expresiones están conectadas con un `&&` y que la primera expresión es `false`, `Julia` ya sabe que el resultado es `false` y no se toma la molestia de evaluar la expresión derecha y por lo tanto el mensaje no se imprime. 
 La misma lógica aplica al operador `||`: si la primera expresión es `true`, no se evalúa la segunda. 
-Es decir que que `&&` y `||` **sirven para escribir expresiones cortas que ejecutan condicionalmente una sentencia**.
+Es decir que  `&&` y `||` **sirven para escribir expresiones cortas que ejecutan condicionalmente una sentencia**.
 ```julia
 iseven(2) && println("es par")
 ```
@@ -293,13 +293,13 @@ que reciba un valor `n` y aplique reiteradamente la función anterior hasta que 
 ```julia
 function verif_collatz(n,max_iter)
 ```
-donde `max_iter` será el tope que impogamos al número de evaluaciones, agregando al `while` la condición `i < max_iter` (donde `i` es el contador de iteraciones). Esto no es del todo feliz, porque normalmente no nos interesa el valor de `max_iter`, sino sólo el de `n`. Una forma de evitar el problema es asignarle a `max_iter` un valor por defecto. Esto se logra cambiando la firma de la función por:
+donde `max_iter` será el tope que impongamos al número de evaluaciones, agregando al `while` la condición `i < max_iter` (donde `i` es el contador de iteraciones). Esto no es del todo feliz, porque normalmente no nos interesa el valor de `max_iter`, sino sólo el de `n`. Una forma de evitar el problema es asignarle a `max_iter` un valor por defecto. Esto se logra cambiando la firma de la función por:
 ```julia
 function verif_collatz(n,max_iter=1000)
 ```
 De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`), o sólo uno (`n`), en cuyo caso `max_iter` tomará el valor por defecto `1000`. Implementar este cambio en la función. 
 
-**Ejercicio:** Escribir una función que reciba un parámetro `N` y genere (y devuelva) el vector de longitud `N` conteniendo la logitud de la sucesión de Collatz para cada `n` menor o igual que `N`. Calcular el vector para `N=1_000_000` y decidir cuál es `n` que genera la sucesión más larga (se puede usar la función `argmax`).
+**Ejercicio:** Escribir una función que reciba un parámetro `N` y genere (y devuelva) el vector de longitud `N` conteniendo la logitud de la sucesión de Collatz para cada `n` menor o igual que `N`. Calcular el vector para `N=1_000_000` y decidir cuál es el valor de `n` que genera la sucesión más larga (se puede usar la función `argmax`).
 
 <br>
  <div style="text-align: left">
