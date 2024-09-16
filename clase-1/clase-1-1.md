@@ -23,7 +23,7 @@ En cualquiera de los casos se obtendrá una instalación del núcleo de `Julia` 
 
 # La (o el?) REPL
 
-Una vez realizada la instalación lo más común (y recomendable) es usar `Julia` a través de la REPL (Read, Eval, Print Loop), a la que llamaremos simplemente "consola". En Windows probablmente se genere un ícono de `Julia`, que permitirá abrir la consola. En Linux y MacOS debería bastar correr el comando `julia` en una terminal.
+Una vez realizada la instalación lo más común (y recomendable) es usar `Julia` a través de la REPL (Read, Eval, Print Loop), a la que llamaremos simplemente "consola". En Windows probablemente se genere un ícono de `Julia`, que permitirá abrir la consola. En Linux y MacOS debería bastar correr el comando `julia` en una terminal.
 
 La REPL es una consola interactiva que nos permite escribir código (en pocas líneas) y ejecutarlo, correr archivos `.jl`, importar módulos, instalar módulos, acceder a un help y algunas cosas más. Un archivo con código `Julia` puede también ejecutarse de manera directa, sin consola interactiva. También puede usarse `Julia` en una `jupyter-notebook` (incluido Colab, aunque tiene sus vueltas). Y `Julia` cuenta también con su propio sistema de notebooks (`Pluto`) que es un poco distinto de `jupyter`. Por ahora nos concentraremos en la consola. 
 
@@ -33,7 +33,7 @@ La consola nos muestra inicialmente un banner que nos da algo de información so
   julia>
 ```
 
-Allí podemos escribir código y ejecutarlo (apretando enter). Para salir de la consola de `Julia` basta con correr la función: 
+Allí podemos escribir código y ejecutarlo (apretando Enter). Para salir de la consola de `Julia` basta con correr la función: 
 
 ```julia
   julia> exit()
@@ -136,7 +136,7 @@ Hasta aquí todo muy sencillo, pero vale la pena remarcar algunos detalles.
 
 # Segundos pasos
 
-Una de las preocupaciones de `Julia` es la expresividad. La idea es que la matemática se exprese en el código de la manera más sencilla posible. Un pequeño truquito para facilitar esa expresividad es la admisión de caracteres unicode. Por ejemplo, en `Julia` podemos tener una variable llamada `α`. Para escribirla, basta tipear `\alpha` y luego presionar la tecla `tab`. 
+Una de las preocupaciones de `Julia` es la expresividad. La idea es que la matemática se exprese en el código de la manera más sencilla posible. Un pequeño truquito para facilitar esa expresividad es la admisión de caracteres Unicode. Por ejemplo, en `Julia` podemos tener una variable llamada `α`. Para escribirla, basta tipear `\alpha` y luego presionar la tecla `tab`. 
 
 Probar las siguientes sentencias:
 
@@ -206,7 +206,7 @@ Probar las siguientes sentencias:
 
 ## Pasando en limpio
 
-- `Julia` incorpora caracteres unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente de los demás, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
+- `Julia` incorpora caracteres Unicode que suelen tipearse con una sintaxis similar a la de `Latex` (y luego `tab`). Hay que tener en cuenta que cada caracter es independiente de los demás, por lo tanto un subíndice puede escribirse por ejemplo: `\_0`+`tab`. 
 - `Julia` tiene números racionales, creados mediante `//`.
 - Los números complejos se escriben indicando la unidad imaginaria como `im`.
 - `n:m` indica el _rango_ de enteros: `n,n+1,...,m`. Si se intercala otro número, es el paso: `inicio:paso:fin`. En este caso, los números pueden ser flotantes, por ejemplo: `0:0.1:1`. 
@@ -243,7 +243,7 @@ Probemos un poco más de código:
   julia> w
 ```
 
-`begin` - `end` define un bloque de código. En `Julia` los bloques devuelven el valor de su última expresión. Por eso se asigna a `z` el valor de `x*y`. Lo mismo puede hacerse más compacto separando las expresiones con `;`.
+`begin ... end` define un bloque de código. En `Julia` los bloques devuelven el valor de su última expresión. Por eso se asigna a `z` el valor de `x*y`. Lo mismo puede hacerse más compacto separando las expresiones con `;`.
 
 
 
@@ -262,7 +262,7 @@ Probemos un poco más de código:
 
 Definir funciones matemáticas en `Julia` es **muy fácil**. Se puede ver que el código es casi idéntico a lo que escribiríamos en papel. Al evaluar la función, `Julia` se encarga de manejar los tipos de dato adecuadamente. 
 
-Sin embargo, vemos que no se puede evaluar `f` en un vector. A diferencia de lo que ocurre en `Python` o `Matlab`, ninguna operación está definida por defecto para operar casillero a casillero. Es decir que en el ejmplo tenemos problemas por culpa de la operación `^` pero también por culpa de la suma: `+ `. Como veremos en breve, esto es intencional, porque `Julia` tiene una sintaxis muy poderosa para hacer operaciones casillero a casillero. 
+Sin embargo, vemos que no se puede evaluar `f` en un vector. A diferencia de lo que ocurre en `Python` o `Matlab`, ninguna operación está definida por defecto para operar casillero a casillero. Es decir que en el ejemplo tenemos problemas por culpa de la operación `^` pero también por culpa de la suma: `+ `. Como veremos en breve, esto es intencional, porque `Julia` tiene una sintaxis muy poderosa para hacer operaciones casillero a casillero. 
 
 Antes de investigar la evaluación casillero a casillero, intentemos graficar `f`. Para ello, usamos el paquete `Plots` que es el estándar para gráficos (hay otros). Para ello corremos: 
 
@@ -312,7 +312,7 @@ La función `eachindex()` devuelve la secuencia de índices de `x` esto tiene va
 - No necesitamos conocer previamente la longitud de `x`. 
 - Si bien el estándar es indexar desde 1, `Julia` admite _offset arrays_ (indexados arbitrariamente). `eachindex()` es automáticamente compatible con estos arrays.
 - Al recorrer un array se realiza una verificación de que los índices son admisibles. `eachindex()` permite saltearse ese proceso, dado que por definición se correrán índices válidos (de `x`).
-- Para codificar caracteres unicode `Julia` usa el estandar `UTF-8` que es un sistema de longitud variable: los caracteres pueden ocupar entre 1 y 4 bytes. Los índices de un `String` cuentan bytes:
+- Para codificar caracteres Unicode `Julia` usa el estandar `UTF-8` que es un sistema de longitud variable: los caracteres pueden ocupar entre 1 y 4 bytes. Los índices de un `String` cuentan bytes:
 ```julia
   julia> a = "αβ∀x"
   julia> length(a)
