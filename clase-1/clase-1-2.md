@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Clase 2 - Segunda parte - Un poco de teoría"
+title: "Clase 1- Segunda parte - Un poco de teoría"
 #permalink: https://iojea.github.io/curso-julia/clase-1/clase-1-2
 ---
   
