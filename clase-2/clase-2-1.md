@@ -182,7 +182,7 @@ Probar las siguientes secuencias de código
   julia> iseven(2) && println("es par")
   julia> iseven(3) && println("es par")
   julia> iseven(2) || println("es impar")
-  julia> iseven(3) || prinln("es impar")
+  julia> iseven(3) || println("es impar")
 ```
 
 En el ejemplo anterior, los operadores `&&` y `||` ¿están realmente haciendo una comparación de valores booleanos?
@@ -204,9 +204,9 @@ En cambio, al correr:
 ```julia
   julia> isodd(2) && println("es impar")
 ```
-La primera constantación es `isodd(2)` que devuelve `false`. Dado que las expresiones están conectadas con un `&&` y que la primera expresión es `false`, `Julia` ya sabe que el resultado es `false` y no se toma la molestia de evaluar la expresión derecha y por lo tanto el mensaje no se imprime. 
+La primera constatación es `isodd(2)` que devuelve `false`. Dado que las expresiones están conectadas con un `&&` y que la primera expresión es `false`, `Julia` ya sabe que el resultado es `false` y no se toma la molestia de evaluar la expresión derecha y por lo tanto el mensaje no se imprime. 
 La misma lógica aplica al operador `||`: si la primera expresión es `true`, no se evalúa la segunda. 
-Es decir que que `&&` y `||` **sirven para escribir expresiones cortas que ejecutan condicionalmente una sentencia**.
+Es decir que  `&&` y `||` **sirven para escribir expresiones cortas que ejecutan condicionalmente una sentencia**.
 ```julia
 iseven(2) && println("es par")
 ```
@@ -238,7 +238,7 @@ Probar el siguiente código:
 ```julia
   julia> isodd(3) ? println("es impar") : println("es par")
   julia> isodd(2) ? println("es impar") : println("es par")
-  julia> esimpar(x) = isodd(x) ? prinln("es impar") : println("es par")
+  julia> esimpar(x) = isodd(x) ? println("es impar") : println("es par")
   julia> esimpar(4)
   julia> esimpar(7)
   julia> esparbit(x) = iseven(x) ? 1 : 0
@@ -258,16 +258,16 @@ Pasemos en limpio:
 + El operador ternario `?:` es una forma compacta de escribir un `if - else - end`. La sintaxis es:  
     `condicion ? respuesta si true : respuesta si false`. 
   Son importantes los espacios antes y después de `?` y de `:`. 
-+ Más interesante aún: el operador ternario _devuelve_ el valor de salida, por lo cual puede usarse para realizar asignaciones condicionales. La funcion `esparbin` valdrá `1` si el número recibido es par y `0` en caso contrario. 
++ Más interesante aún: el operador ternario _devuelve_ el valor de salida, por lo cual puede usarse para realizar asignaciones condicionales. La funcion `esparbit` valdrá `1` si el número recibido es par y `0` en caso contrario. 
 + La función `rand`:
   - `rand()` (sin parámetros) devuelve un número aleatorio entre 0 y 1. 
   - `rand(n)` con `n` entero devuelve un vector de longitud `n` con números aleatorios entre 0 y 1. 
   - `rand(v)` donde `v` es un vector o un rango devuelve un número aleatorio dentro de ese vector o rango. 
-  - `rand(v,n)` con `v` vector o rango y `n` entero devuelve un vector de longitud `n` con valore elegidos al azar dentro de `v`. 
+  - `rand(v,n)` con `v` vector o rango y `n` entero devuelve un vector de longitud `n` con valores elegidos al azar dentro de `v`. 
 + Para contar la cantidad de números pares en un vector `x` podemos hacer: `sum(esparbit.(x))`. Esto aplica `esparbit` casillero a casillero y luego suma.
 + Alternativamente tenemos la sintaxis tipo _pipeline_ usando el operador `|>` que permite hacer que una variable _pase a lo largo_ de una secuencia de funciones. La sintaxis: `x .|> esparbit |> sum` toma `x` lo pasa por la función `esparbit` (casillero a casillero porque se usó `.|>`) y el resultado se lo pasa a la función `sum`. 
 + Otra alternativa es usar directamente `sum(esparbit,x)`. Es decir:
-  - `sum(v)` donde `v` es un vector o un rago, suma todos los elementos.
+  - `sum(v)` donde `v` es un vector o un rango, suma todos los elementos.
   - `sum(f,v)`  donde `f` es una función y `v` un vector o un rango primero aplica la función a cada elemento y luego suma. 
 + A los fines de sumar, la función `esparbit` es superflua, dado que puede usarse directamente `iseven`.
 
@@ -293,13 +293,13 @@ que reciba un valor `n` y aplique reiteradamente la función anterior hasta que 
 ```julia
 function verif_collatz(n,max_iter)
 ```
-donde `max_iter` será el tope que impogamos al número de evaluaciones, agregando al `while` la condición `i < max_iter` (donde `i` es el contador de iteraciones). Esto no es del todo feliz, porque normalmente no nos interesa el valor de `max_iter`, sino sólo el de `n`. Una forma de evitar el problema es asignarle a `max_iter` un valor por defecto. Esto se logra cambiando la firma de la función por:
+donde `max_iter` será el tope que impongamos al número de evaluaciones, agregando al `while` la condición `i < max_iter` (donde `i` es el contador de iteraciones). Esto no es del todo feliz, porque normalmente no nos interesa el valor de `max_iter`, sino sólo el de `n`. Una forma de evitar el problema es asignarle a `max_iter` un valor por defecto. Esto se logra cambiando la firma de la función por:
 ```julia
 function verif_collatz(n,max_iter=1000)
 ```
 De este modo la función puede ejecutarse con dos parámetros (`n` y `max_iter`), o sólo uno (`n`), en cuyo caso `max_iter` tomará el valor por defecto `1000`. Implementar este cambio en la función. 
 
-**Ejercicio:** Escribir una función que reciba un parámetro `N` y genere (y devuelva) el vector de longitud `N` conteniendo la logitud de la sucesión de Collatz para cada `n` menor o igual que `N`. Calcular el vector para `N=1_000_000` y decidir cuál es `n` que genera la sucesión más larga (se puede usar la función `argmax`).
+**Ejercicio:** Escribir una función que reciba un parámetro `N` y genere (y devuelva) el vector de longitud `N` conteniendo la logitud de la sucesión de Collatz para cada `n` menor o igual que `N`. Calcular el vector para `N=1_000_000` y decidir cuál es el valor de `n` que genera la sucesión más larga (se puede usar la función `argmax`).
 
 <br>
  <div style="text-align: left">
